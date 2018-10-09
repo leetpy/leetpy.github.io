@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在 python 中我们常用 for in 来遍历 list, set, dict, str 等。for in 的本质就干了两件事：  调用 __iter__() 获取迭代器; 调用 next() 直到 StopIteration 异常; (python3 中是 __next__())">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 迭代器和生成器">
+<meta property="og:url" content="http://yoursite.com/2018/04/23/iterator/index.html">
+<meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:description" content="在 python 中我们常用 for in 来遍历 list, set, dict, str 等。for in 的本质就干了两件事：  调用 __iter__() 获取迭代器; 调用 next() 直到 StopIteration 异常; (python3 中是 __next__())">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-28T06:28:42.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python 迭代器和生成器">
+<meta name="twitter:description" content="在 python 中我们常用 for in 来遍历 list, set, dict, str 等。for in 的本质就干了两件事：  调用 __iter__() 获取迭代器; 调用 next() 直到 StopIteration 异常; (python3 中是 __next__())">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leesea's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/23/iterator/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>python 迭代器和生成器 | leesea's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leesea's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/iterator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python 迭代器和生成器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-04-23 12:08:45" itemprop="dateCreated datePublished" datetime="2018-04-23T12:08:45+08:00">2018-04-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/coding/" itemprop="url" rel="index"><span itemprop="name">coding</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在 python 中我们常用 <strong>for in</strong> 来遍历 list, set, dict, str 等。<br><strong>for in</strong> 的本质就干了两件事：</p>
+<ol>
+<li>调用 __iter__() 获取迭代器;</li>
+<li>调用 next() 直到 StopIteration 异常; (python3 中是 __next__())</li>
+</ol>
+<a id="more"></a>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>我们先了解几个概念：</p>
+<ul>
+<li>Iterable: 可迭代对象</li>
+<li>Iterator: 迭代器</li>
+</ul>
+<p>我们先看看 Iterable 的实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterable</span><br><span class="line"></span><br><span class="line">help(Iterable)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterable</span><span class="params">(__builtin__.object)</span></span></span><br><span class="line"><span class="class"> |  <span class="title">Methods</span> <span class="title">defined</span> <span class="title">here</span>:</span></span><br><span class="line"> |</span><br><span class="line"> |  __iter__(self)</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Class methods defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __subclasshook__(cls, C) <span class="keyword">from</span> abc.ABCMeta</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data descriptors defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __dict__</span><br><span class="line"> |      dictionary <span class="keyword">for</span> instance variables (<span class="keyword">if</span> defined)</span><br><span class="line"> |</span><br><span class="line"> |  __weakref__</span><br><span class="line"> |      list of weak references to the object (<span class="keyword">if</span> defined)</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data <span class="keyword">and</span> other attributes defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __abstractmethods__ = frozenset([<span class="string">'__iter__'</span>])</span><br><span class="line"> |</span><br><span class="line"> |  __metaclass__ = &lt;<span class="class"><span class="keyword">class</span> '<span class="title">abc</span>.<span class="title">ABCMeta</span>'&gt;</span></span><br><span class="line"><span class="class"> |      <span class="title">Metaclass</span> <span class="title">for</span> <span class="title">defining</span> <span class="title">Abstract</span> <span class="title">Base</span> <span class="title">Classes</span> <span class="params">(ABCs)</span>.</span></span><br><span class="line"><span class="class"> |</span></span><br><span class="line"><span class="class"> |      <span class="title">Use</span> <span class="title">this</span> <span class="title">metaclass</span> <span class="title">to</span> <span class="title">create</span> <span class="title">an</span> <span class="title">ABC</span>.  <span class="title">An</span> <span class="title">ABC</span> <span class="title">can</span> <span class="title">be</span> <span class="title">subclassed</span></span></span><br><span class="line"> |      directly, and then acts as a mix-in class.  You can also register</span><br><span class="line"> |      unrelated concrete classes (even built-<span class="keyword">in</span> classes) <span class="keyword">and</span> unrelated</span><br><span class="line"> |      ABCs <span class="keyword">as</span> <span class="string">'virtual subclasses'</span> -- these <span class="keyword">and</span> their descendants will</span><br></pre></td></tr></table></figure></p>
+<p>再看看 Iterator 的实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterator</span><br><span class="line"></span><br><span class="line">help(Iterator)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span><span class="params">(Iterable)</span></span></span><br><span class="line"><span class="class"> |  <span class="title">Method</span> <span class="title">resolution</span> <span class="title">order</span>:</span></span><br><span class="line"> |      Iterator</span><br><span class="line"> |      Iterable</span><br><span class="line"> |      __builtin__.object</span><br><span class="line"> |</span><br><span class="line"> |  Methods defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __iter__(self)</span><br><span class="line"> |</span><br><span class="line"> |  next(self)</span><br><span class="line"> |      Return the next item <span class="keyword">from</span> the iterator. When exhausted, <span class="keyword">raise</span> StopIteration</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Class methods defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __subclasshook__(cls, C) <span class="keyword">from</span> abc.ABCMeta</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data <span class="keyword">and</span> other attributes defined here:</span><br><span class="line"> |</span><br><span class="line"> |  __abstractmethods__ = frozenset([<span class="string">'next'</span>])</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data descriptors inherited <span class="keyword">from</span> Iterable:</span><br><span class="line"> |</span><br><span class="line"> |  __dict__</span><br><span class="line"> |      dictionary <span class="keyword">for</span> instance variables (<span class="keyword">if</span> defined)</span><br><span class="line"> |</span><br><span class="line"> |  __weakref__</span><br><span class="line"> |      list of weak references to the object (<span class="keyword">if</span> defined)</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data <span class="keyword">and</span> other attributes inherited <span class="keyword">from</span> Iterable:</span><br><span class="line"> |</span><br><span class="line"> |  __metaclass__ = &lt;<span class="class"><span class="keyword">class</span> '<span class="title">abc</span>.<span class="title">ABCMeta</span>'&gt;</span></span><br><span class="line"><span class="class"> |      <span class="title">Metaclass</span> <span class="title">for</span> <span class="title">defining</span> <span class="title">Abstract</span> <span class="title">Base</span> <span class="title">Classes</span> <span class="params">(ABCs)</span>.</span></span><br><span class="line"><span class="class"> |</span></span><br><span class="line"><span class="class"> |      <span class="title">Use</span> <span class="title">this</span> <span class="title">metaclass</span> <span class="title">to</span> <span class="title">create</span> <span class="title">an</span> <span class="title">ABC</span>.  <span class="title">An</span> <span class="title">ABC</span> <span class="title">can</span> <span class="title">be</span> <span class="title">subclassed</span></span></span><br><span class="line"> |      directly, and then acts as a mix-in class.  You can also register</span><br><span class="line"> |      unrelated concrete classes (even built-<span class="keyword">in</span> classes) <span class="keyword">and</span> unrelated</span><br><span class="line"> |      ABCs <span class="keyword">as</span> <span class="string">'virtual subclasses'</span> -- these <span class="keyword">and</span> their descendants will</span><br><span class="line"> |      be considered subclasses of the registering ABC by the built-<span class="keyword">in</span></span><br><span class="line"> |      issubclass() function, but the registering ABC won<span class="string">'t show up in</span></span><br><span class="line"><span class="string"> |      their MRO (Method Resolution Order) nor will method</span></span><br><span class="line"><span class="string"> |      implementations defined by the registering ABC be callable (not</span></span><br><span class="line"><span class="string"> |      even via super()).</span></span><br></pre></td></tr></table></figure></p>
+<p>从继承关系来看，所有的 Iterator(迭代器)都是 Iterable(可迭代对象)，<br>从实现角度看 Iterator 新增了 next() 方法。</p>
+<h3 id="判断是-Iterator-还是-Iterable"><a href="#判断是-Iterator-还是-Iterable" class="headerlink" title="判断是 Iterator 还是 Iterable"></a>判断是 Iterator 还是 Iterable</h3><ul>
+<li>凡是可以 for 循环的，都是 Iterable;</li>
+<li>凡是可以 next() 的，都是 Iterator;</li>
+<li>list, tuple, dict, str, set 都不是 Iterator，但是可以通过 __iter__() 返回一个 Iterator 对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterator, Iterable</span><br><span class="line"></span><br><span class="line">isinstance([<span class="number">1</span>,], Iterator)    // <span class="keyword">False</span></span><br><span class="line">isinstance((<span class="number">1</span>,), Iterator)    // <span class="keyword">False</span></span><br><span class="line">isinstance(&#123;&#125;, Iterator)      // <span class="keyword">False</span></span><br><span class="line">isinstance(<span class="string">"abc"</span>, Iterator)   // <span class="keyword">False</span></span><br><span class="line">isinstance(set([]), Iterator) // <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">isinstance([<span class="number">1</span>,], Iterable)    // <span class="keyword">True</span></span><br><span class="line">isinstance((<span class="number">1</span>,), Iterable)    // <span class="keyword">True</span></span><br><span class="line">isinstance(&#123;&#125;, Iterable)      // <span class="keyword">True</span></span><br><span class="line">isinstance(<span class="string">"abc"</span>, Iterable)   // <span class="keyword">True</span></span><br><span class="line">isinstance(set([]), Iterable) // <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">dir([])                       // 没有 next() 方法</span><br><span class="line">dir([].__iter__())            // 有 next() 方法</span><br></pre></td></tr></table></figure>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>讲完了迭代器，我们再说说生成器，这里引用廖雪峰博客里的介绍:</p>
+<p>通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。<br>而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，<br>如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。</p>
+<p>所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元素呢？<br>这样就不必创建完整的list，从而节省大量的空间。在Python中，这种一边循环一边计算的机制，<br>称为生成器（Generator）。</p>
+<p>生成器的创建很简单，可以通过推导列表创建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))  // 使用 [] 返回的是 list, () 返回的是 generator</span><br></pre></td></tr></table></figure>
+<p>还有一种方式是通过 <strong>yield</strong> 关键字生成。</p>
+<p>先看看生成器的实现:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;genexpr&gt; = <span class="class"><span class="keyword">class</span> <span class="title">generator</span><span class="params">(object)</span></span></span><br><span class="line"><span class="class"> |  <span class="title">Methods</span> <span class="title">defined</span> <span class="title">here</span>:</span></span><br><span class="line"> |</span><br><span class="line"> |  __getattribute__(...)</span><br><span class="line"> |      x.__getattribute__('name') &lt;==&gt; x.name</span><br><span class="line"> |</span><br><span class="line"> |  __iter__(...)</span><br><span class="line"> |      x.__iter__() &lt;==&gt; iter(x)</span><br><span class="line"> |</span><br><span class="line"> |  __repr__(...)</span><br><span class="line"> |      x.__repr__() &lt;==&gt; repr(x)</span><br><span class="line"> |</span><br><span class="line"> |  close(...)</span><br><span class="line"> |      close() -&gt; raise GeneratorExit inside generator.</span><br><span class="line"> |</span><br><span class="line"> |  next(...)</span><br><span class="line"> |      x.next() -&gt; the next value, or raise StopIteration</span><br><span class="line"> |</span><br><span class="line"> |  send(...)</span><br><span class="line"> |      send(arg) -&gt; send 'arg' into generator,</span><br><span class="line"> |      <span class="keyword">return</span> next yielded value <span class="keyword">or</span> <span class="keyword">raise</span> StopIteration.</span><br><span class="line"> |</span><br><span class="line"> |  throw(...)</span><br><span class="line"> |      throw(typ[,val[,tb]]) -&gt; raise exception in generator,</span><br><span class="line"> |      <span class="keyword">return</span> next yielded value <span class="keyword">or</span> <span class="keyword">raise</span> StopIteration.</span><br><span class="line"> |</span><br><span class="line"> |  ----------------------------------------------------------------------</span><br><span class="line"> |  Data descriptors defined here:</span><br><span class="line"> |</span><br><span class="line"> |  gi_code</span><br><span class="line"> |</span><br><span class="line"> |  gi_frame</span><br><span class="line"> |</span><br><span class="line"> |  gi_running</span><br></pre></td></tr></table></figure>
+<p>可以发现生成器较迭代器多了 <strong>send</strong>, <strong>throw</strong> 等方法。</p>
+<h3 id="send"><a href="#send" class="headerlink" title="send"></a>send</h3><p>这里重点介绍下 <strong>send</strong> 方法，我们知道在使用迭代器时，遇到 <strong>yield</strong> 关键字<br>会退出来，下一迭代时会继续执行。先看个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MyGenerator</span><span class="params">()</span>:</span></span><br><span class="line">    value = <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    value = <span class="keyword">yield</span> value</span><br><span class="line"></span><br><span class="line">gen = MyGenerator()</span><br><span class="line"><span class="keyword">print</span> gen.next()         // <span class="keyword">print</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> gen.next()         // <span class="keyword">print</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<p>我们看看具体执行过程：</p>
+<ul>
+<li>调用 next() 方法，走到 <strong>yield 1</strong> 退出，注意这个时候还没有走到 value 的 赋值操作(即: value = yield 1 只执行了右侧部分)</li>
+<li>调用 next() 方法，继续上次的代码执行(即：value = yield 1 只执行了右侧的赋值部分)</li>
+<li>由于 yield 并没有返回值，所以 value = None</li>
+<li>返回 None, 并打印</li>
+</ul>
+<p>修改下上面的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MyGenerator</span><span class="params">()</span>:</span></span><br><span class="line">    value = <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    value = <span class="keyword">yield</span> value</span><br><span class="line"></span><br><span class="line">gen = MyGenerator()</span><br><span class="line"><span class="keyword">print</span> gen.next()         // <span class="keyword">print</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> gen.send(<span class="number">2</span>)        // <span class="keyword">print</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>send 方法是指定的是上一次被挂起的yield语句的返回值，这么说有点抽象，我们看执行过程：</p>
+<ul>
+<li>调用 next() 方法，走到 <strong>yield 1</strong> 退出，注意这个时候还没有走到 value 的 赋值操作(即: value = yield 1 只执行了右侧部分)</li>
+<li>调用 send(2) 方法，继续上次的代码执行(即：value = yield 1 只执行了右侧的赋值部分)</li>
+<li>value 使用 send 传的值，即： value = 2</li>
+<li>返回 2, 并打印</li>
+</ul>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><p>协程就是利用 <strong>yield</strong> 和生成器的 <strong>send()</strong> 方法实现的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/20/go-http/" rel="next" title="go_http">
+                <i class="fa fa-chevron-left"></i> go_http
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/28/nose/" rel="prev" title="nose 使用">
+                nose 使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">leesea</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">1.</span> <span class="nav-text">迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断是-Iterator-还是-Iterable"><span class="nav-number">1.1.</span> <span class="nav-text">判断是 Iterator 还是 Iterable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">2.</span> <span class="nav-text">生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#send"><span class="nav-number">2.1.</span> <span class="nav-text">send</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">3.</span> <span class="nav-text">协程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leesea</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在我们写文档的时候常常需要插入一些图片来辅助说明，文档可以用 git 来管理，换个人很容易修改，但是图片如果没有原图很难修改。这里我们介绍几款代码画图工具，可以很方便的用 git 管理。">
+<meta name="keywords" content="diagram">
+<meta property="og:type" content="article">
+<meta property="og:title" content="画图工具介绍">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/diagram/index.html">
+<meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:description" content="在我们写文档的时候常常需要插入一些图片来辅助说明，文档可以用 git 来管理，换个人很容易修改，但是图片如果没有原图很难修改。这里我们介绍几款代码画图工具，可以很方便的用 git 管理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/TSx13O0W38NXErDqWIvWZ057S0F49f9WKIZxIyIJmVFxykVfB3P9EO8omJi2d62Ewm2co4uitbdnaM6Xgr0MLJV0QXxSKVcCd4bzOnohIs3xqOP7nARjdtxZcdYhXsy0">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/JOyz3iCm24PtJi45EZH_GuSgKqxG2n3RGoGN99iClNr374SUFnvw7ynPAUd-ZK1E9U4YyeHLTlQKVfOwSCAQ95he8R1kUe81F2cjb8EbyLYBCJZTXBCD9Z0LFjwd15_u4QpU5lK5NIKj6GefZIqO2wZrBPggxRu5O0xiZmV_">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/JOz13eCm30JlUSL-W0zmGBItFiCGGoAC8oLftr-77C3oORNUqSfpgPJhznJtahZoCBtJWX61HPBJL1d2MnrHGoom9MmnbufsSix2mtI1ngIZ0pdkuKcO6JW_YTxn0PqjfKVK_UvoiA4URt8b1Kb9M1YUjwZiBpyf2lyuaq3CB8xLTsesPH_z0G00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/NL0n3i8m3DppYXCJ7UZ0s0710s01DXRJ6XgKEbKJ4C_7IIgGa2BdV3wVusn3f2a-1sUQFLd1hXkiDA1Ga5cU0oFs31f7PrkArakLogbG6QDnmcg3vJ7vL7EUY5BFBahy6F6HCTbx7-5lPGeQd7eRe8S4_APXT5p_Iqi_i4FcMvMI2rwPAyCB0hzu8WTdXODXwR9kTbda0HdgtNeHRYDt5ud-s-Yl3oL3lKZx7TPctWbrdRB3Ee7oYAswwvzz0000">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZ1KiAdHrLM0S8oWWiOAMd0n4wYOgK8-NCmCAcQkeAS75RA02bagm5GP6d0vfEQb0Aq20000">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZHKiAdHqrE0S8oWWiOAkhfsK34Jg9YfWfuUJCmCAcOE5Ak12Lf01IqLR7HrjI22HWPS3gbvAK3h0000">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZ9KKDRLLO2mZQ1YnWeLS34Jg9YfGYrSp0mgPgwW3HUpW8fPAiJ1n8mDk1nIyrA0TW40">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuU9opaaiBZOmL50oL5BGqjLLKCfDpAjKKe086obOAIJdvvKaPkOLmvGQA-G3bK7O9a3vnFJqejJqn9BC_3oO4bC5NLqxi8aGlXaNbqDgNWhGFW00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuU9ApaaiBbPmAStDhLIevbBGJSjCpKanv59G1ZECk1JgSbDBCl9J33KqkHIq8MmZ8BiM0000">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/NOun3i8m34Ltdy9ZEy880pq45uZ0eH69NTdkmErn2aixVKjFxtzFvabzRHLWkm1Ang6jrSkYyY0pqTk8FXFZy24R0J6BlYCGBtUbv8tOyNJz0qolLFY8pnqJFtykLQCO4PQ-qIkFJNirn981fiZuz0i0">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/RL5DQy904BtlhtXuB8WQmOC7KMXxA4N47As7wMPGOPD0PbOFudztatGrmPvcUHypysQNebIfpvqHIuun6uznEMLwD6RtjiTmWLH9UMBQWc544ioHUckPCywwR6sRO_LRLXg9v6cRljgIVsnI4z5nDK0B35RM-jox-lrHbFvmn3if_HJVPN5evLXJpWEGm0Li4gnD3Rs_l2W8og81RTA5kNtL0mdwDL-QxZroKvMMHMeyI3exc9lvMxUNzPDEBWQTTe8-Re0HKZepjYpUwQimNWHcoKKMFkeE">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuSfFoafDBb7m1rC6XcXy8pI-CHhV18rlYiOtG-ERe_4jkBXWDYlOrEZg8ko5MQYWXH0rWOcQAkG3HPLCb13sm2nGqDE36wvWfL2Sdvkga9EOb9fJpEMGcfS2z380">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/FP1B4eGm24JtVGgEubKmGSio1WV9mjiFyRTv_Gho8HaEP_Es5N1oDRe8dgKwNKIqbodAz0f6RJMpdVGA4bkc3gIYBRGJIRTTQp_fiwXLDotq938xZtm8lO9OjVX9Ts1QYb079YrPZEx0PBn5enDBTR6OJ8W-HTKir86TqnfFeIVnQzA4BY9UdrQw29FaNEUuxxFeg_MzJw8TalgqJsAGckFp_W00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuUBAoqz9LG0HXWYc4O9fZ62Q89YcOAQXWgukadf31Jqz93s62dLrIFeC5MnjeNgv75BpKe2M0m00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/NP1F2y8m3CNl-HHXro5CnOi7ASMB82AJqlF-12biApITVdspMITw2tbvlvT4SQn27FiEWgz7ZfWTBpSiYNtte91XnIYDHRHKemx-oKcp6Xe_D8xfhPb5C02g06lGCPxQZi3gfPmYFZMeV5tCWwk3u72FfZmddwrSTCCzMQ_1DyGyDSIqcKpwRqeGmbRvhX1EEcBcfPGK_4lQVeLv8qL3Amzv0G00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/HP3B2i8m44Nt-OfPA-BULLNKbGfs8uX2Q4OJc6GaYHPi_NUdraSWcHlct9j7aRAEEMdAgXcgPW1BHmWjB8pBKag-nQhRx_2igymHr5-siC5QrkqLmzStaZadJlYhKo9ugcOCAmmODKbZUIDALKInjJ13g-_k7LUA29UELY2ZwPETrnS45oP2d4elruKr6pm9rr67_H5ApvnjJoQehRWUp1xDZvXpEBleFs462RFZqBT10YpNO9qnt_CIgASwl5zm55LWCDqdlG00">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/fLLDRzim3BthLmZPC6m3dDsBrAZdhes1fJNcmQTSM9j9j5cI8Sdj0kp7J_9NdC0ruFKIXEHxJoH5YpVQW38LBmZHfM86wVkdMCaCjQQ_G5s1oWwCWy4lJvLcmhgziWdtU4XGFRCCB_1GbWNBm30fFDqWJfHGyb8A56Q2b7KOGde0VVUrJOCkrY3o0cbM0ECBIa7JTKXNgyiyVN-S7a9fAeKq4ZkfU7raen96CrGUf66xurO4USwS11GqCV0R3xB8KUc54tm8aXcAAHGijxwQciuWHk8PjM7xZZkdZ1YEDISUvn3RsSzUBb-4Pzipj6njGpCT6cV0c13RM4-n_S5ulbyJNMDEdfIa0oiYGtHyDWD177-Fmk1dzFX05qa6GZ2nh_FNhM7B69c_y-hFLC9A6ybHKSYvODgeTY2iPjQ6WfopKsZ-2MvEzPX-7NYRUgoOCAxksKGuSlSPlieZVKkzglHyT_slD6G06AkeYRfhdmYdKy68TDasjXsAlkwEVk6Oc9jRcLLER2is862FpV_ag0to-bvkDyb5L_eNQUAQxr6WWc8hmX-RCpbh_uVSsZQQVg312zX79fQMMpysm-xKwkiW3jugVyS4Y8ovvCTEk9iyWRXsBQjo-TVllyAXhxiOulhG-iO7YTIrT92HSI1rAfrkCnA45BX7aTC2TuPy-mEyjBjXfoIdve1q4RW6w4hP0ktA08rKcogtZzx7nnB5lP9L-Mb94aHAhg_9gb-2FhtgtaFQBRuQq6qz2w23dj1krJMWVi-ri1FkjDtGhJ6NEo4tzjVkudy0">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/NOun3i8m34Ltdy9ZEy880pq45uZ0eH69NTdkmErn2aixVKjFxtzFvabzRHLWkm1Ang6jrSkYyY0pqTk8FXFZy24R0J6BlYCGBtUbv8tOyNJz0qolLFY8pnqJFtykLQCO4PQ-qIkFJNirn981fiZuz0i0">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/SoWkIImgISaiIKpaqjQ50cq51GLj93Q2mrMZ00NQO3cmHX3RJW4cKmDI4v9QKQ805a8nfoObCp6zA34NgCObFxaqDpMl1AIcHZ4tCJqpMH5i18evG52TKbk3B8og1kmC0cu6yQmKS84uBcGJVV9BYXNoqnJAyukoONOWcuO9jBaSKlDIm0410000">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/TL2xRiCm3Dpr5RTrb5KuQBCP7P8rGvR0o23OHAnMa0oIHf2_Z-FMHLst6t6y5rc9UjQBJwgcv_nEZMA21DeHdWltQelI5biZNWTk_GsU2KtCGgsH8Vr2FWKRMpW4MOAbTI_G_EtfjZyezO6pPhtrX9OaND8PqSlOmfKO8yJKHn95FxFczN_RhnkyOkty9A3qP-IZJuwPgKL8s0rD9y7RNM1wuz1yO9spLEoPA9qendorqmnJZL7JU-y0">
+<meta property="og:image" content="https://www.plantuml.com/plantuml/svg/JO_H3e8W58RlUGekOSoXrbMPyn6wwDB9S62u8JIa3JFVFSbgtPtpVVl_dLEDdZj_7pGu50FtgkoDPscJTIXW4GhwPiUl34rE9fQH1yloPhV_QMEzXAw_AWykRe9SZnPi2K55Y5qdtGyCgQHCCLfted0ICQRgKm8ApRqCvHbDppgIjfl3Wc4zj3RCq3gum0xz6LBBszXhQmgw9O4q0iPBGBLEwqil">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/blockdiag-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/blockdiag-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/blockdiag-03.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/seqdiag-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/seqdiag-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/seqdiag-03.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/actdiag-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/nwdiag-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/nwdiag-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/nwdiag-03.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/nwdiag-04.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/rackdiag-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/rackdiag-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/diagram/packetdiag-01.png">
+<meta property="og:updated_time" content="2018-09-28T06:28:42.054Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="画图工具介绍">
+<meta name="twitter:description" content="在我们写文档的时候常常需要插入一些图片来辅助说明，文档可以用 git 来管理，换个人很容易修改，但是图片如果没有原图很难修改。这里我们介绍几款代码画图工具，可以很方便的用 git 管理。">
+<meta name="twitter:image" content="https://www.plantuml.com/plantuml/svg/TSx13O0W38NXErDqWIvWZ057S0F49f9WKIZxIyIJmVFxykVfB3P9EO8omJi2d62Ewm2co4uitbdnaM6Xgr0MLJV0QXxSKVcCd4bzOnohIs3xqOP7nARjdtxZcdYhXsy0">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leesea's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/diagram/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>画图工具介绍 | leesea's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leesea's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/diagram/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">画图工具介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-19 23:11:15" itemprop="dateCreated datePublished" datetime="2018-06-19T23:11:15+08:00">2018-06-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在我们写文档的时候常常需要插入一些图片来辅助说明，文档可以用 git 来管理，换个人很容易修改，但是图片如果没有原图很难修改。这里我们介绍几款代码画图工具，可以很方便的用 git 管理。</p>
+<a id="more"></a>
+<h2 id="plantuml"><a href="#plantuml" class="headerlink" title="plantuml"></a>plantuml</h2><p>看名字就知道这个工具是用来画 uml 图的。 plantuml 在国外使用比较广泛，很多 web 工具都支持 plantuml.</p>
+<p>plantuml 支持以下几种类型的 uml 图：</p>
+<ul>
+<li>Sequence diagram</li>
+<li>Usecase diagram</li>
+<li>Class diagram</li>
+<li>Activity diagram</li>
+<li>Component diagram</li>
+<li>State diagram</li>
+<li>Object diagram</li>
+<li>Deployment diagram</li>
+<li>Timing diagram</li>
+</ul>
+<p>plantuml 也支持几种非 uml 的图，具体如下：</p>
+<ul>
+<li>Wireframe graphical interface</li>
+<li>Archimate diagram</li>
+<li>Specification and Description Language (SDL)</li>
+<li>Ditaa diagram</li>
+<li>Gantt diagram</li>
+<li>Mathematic with AsciiMath or JLaTeXMath notation</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="Sequence-diagram"><a href="#Sequence-diagram" class="headerlink" title="Sequence diagram"></a>Sequence diagram</h4><p>基本用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">Alice -&gt; Bob: Authentication Request</span><br><span class="line">Bob --&gt; Alice: Authentication Response</span><br><span class="line"></span><br><span class="line">Alice -&gt; Bob: Another authentication Request</span><br><span class="line">Alice &lt;-- Bob: another authentication Response</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p>声明参与者</p>
+<p><img src="https://www.plantuml.com/plantuml/svg/TSx13O0W38NXErDqWIvWZ057S0F49f9WKIZxIyIJmVFxykVfB3P9EO8omJi2d62Ewm2co4uitbdnaM6Xgr0MLJV0QXxSKVcCd4bzOnohIs3xqOP7nARjdtxZcdYhXsy0"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">actor Foo1</span><br><span class="line">boundary Foo2</span><br><span class="line">control Foo3</span><br><span class="line">entity Foo4</span><br><span class="line">database Foo5</span><br><span class="line">collections Foo6</span><br><span class="line">Foo1 -&gt; Foo2 : To boundary</span><br><span class="line">Foo1 -&gt; Foo3 : To control</span><br><span class="line">Foo1 -&gt; Foo4 : To entity</span><br><span class="line">Foo1 -&gt; Foo5 : To database</span><br><span class="line">Foo1 -&gt; Foo6 : To collections</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/JOyz3iCm24PtJi45EZH_GuSgKqxG2n3RGoGN99iClNr374SUFnvw7ynPAUd-ZK1E9U4YyeHLTlQKVfOwSCAQ95he8R1kUe81F2cjb8EbyLYBCJZTXBCD9Z0LFjwd15_u4QpU5lK5NIKj6GefZIqO2wZrBPggxRu5O0xiZmV_"></p>
+<p>添加注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">Alice-&gt;Bob : hello</span><br><span class="line">note left: this is a first note</span><br><span class="line"></span><br><span class="line">Bob-&gt;Alice : ok</span><br><span class="line">note right: this is another note</span><br><span class="line"></span><br><span class="line">Bob-&gt;Bob : I am thinking</span><br><span class="line">note left</span><br><span class="line">    a note</span><br><span class="line">    can also be defined</span><br><span class="line">    on several lines</span><br><span class="line">end note</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/JOz13eCm30JlUSL-W0zmGBItFiCGGoAC8oLftr-77C3oORNUqSfpgPJhznJtahZoCBtJWX61HPBJL1d2MnrHGoom9MmnbufsSix2mtI1ngIZ0pdkuKcO6JW_YTxn0PqjfKVK_UvoiA4URt8b1Kb9M1YUjwZiBpyf2lyuaq3CB8xLTsesPH_z0G00"></p>
+<h4 id="Usecase-diagram"><a href="#Usecase-diagram" class="headerlink" title="Usecase diagram"></a>Usecase diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">:Main Admin: as Admin</span><br><span class="line">(Use the application) as (Use)</span><br><span class="line"></span><br><span class="line">User -&gt; (Start)</span><br><span class="line">User --&gt; (Use)</span><br><span class="line"></span><br><span class="line">Admin ---&gt; (Use)</span><br><span class="line"></span><br><span class="line">note right of Admin : This is an example.</span><br><span class="line"></span><br><span class="line">note right of (Use)</span><br><span class="line">  A note can also</span><br><span class="line">  be on several lines</span><br><span class="line">end note</span><br><span class="line"></span><br><span class="line">note &quot;This note is connected\nto several objects.&quot; as N2</span><br><span class="line">(Start) .. N2</span><br><span class="line">N2 .. (Use)</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/NL0n3i8m3DppYXCJ7UZ0s0710s01DXRJ6XgKEbKJ4C_7IIgGa2BdV3wVusn3f2a-1sUQFLd1hXkiDA1Ga5cU0oFs31f7PrkArakLogbG6QDnmcg3vJ7vL7EUY5BFBahy6F6HCTbx7-5lPGeQd7eRe8S4_APXT5p_Iqi_i4FcMvMI2rwPAyCB0hzu8WTdXODXwR9kTbda0HdgtNeHRYDt5ud-s-Yl3oL3lKZx7TPctWbrdRB3Ee7oYAswwvzz0000"></p>
+<h4 id="Class-diagram"><a href="#Class-diagram" class="headerlink" title="Class diagram"></a>Class diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">Class01 &lt;|-- Class02</span><br><span class="line">Class03 *-- Class04</span><br><span class="line">Class05 o-- Class06</span><br><span class="line">Class07 .. Class08</span><br><span class="line">Class09 -- Class10</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZ1KiAdHrLM0S8oWWiOAMd0n4wYOgK8-NCmCAcQkeAS75RA02bagm5GP6d0vfEQb0Aq20000"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">Class11 &lt;|.. Class12</span><br><span class="line">Class13 --&gt; Class14</span><br><span class="line">Class15 ..&gt; Class16</span><br><span class="line">Class17 ..|&gt; Class18</span><br><span class="line">Class19 &lt;--* Class20</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZHKiAdHqrE0S8oWWiOAkhfsK34Jg9YfWfuUJCmCAcOE5Ak12Lf01IqLR7HrjI22HWPS3gbvAK3h0000"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">Class21 #-- Class22</span><br><span class="line">Class23 x-- Class24</span><br><span class="line">Class25 &#125;-- Class26</span><br><span class="line">Class27 +-- Class28</span><br><span class="line">Class29 ^-- Class30</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBEIImkDZ9KKDRLLO2mZQ1YnWeLS34Jg9YfGYrSp0mgPgwW3HUpW8fPAiJ1n8mDk1nIyrA0TW40"></p>
+<p>指定关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">Class01 &quot;1&quot; *-- &quot;many&quot; Class02 : contains</span><br><span class="line"></span><br><span class="line">Class03 o-- Class04 : aggregation</span><br><span class="line"></span><br><span class="line">Class05 --&gt; &quot;1&quot; Class06</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuU9opaaiBZOmL50oL5BGqjLLKCfDpAjKKe086obOAIJdvvKaPkOLmvGQA-G3bK7O9a3vnFJqejJqn9BC_3oO4bC5NLqxi8aGlXaNbqDgNWhGFW00"></p>
+<p>属性类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">class Dummy &#123;</span><br><span class="line"> -field1</span><br><span class="line"> #field2</span><br><span class="line"> ~method1()</span><br><span class="line"> +method2()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuU9ApaaiBbPmAStDhLIevbBGJSjCpKanv59G1ZECk1JgSbDBCl9J33KqkHIq8MmZ8BiM0000"></p>
+<h4 id="Activity-diagram"><a href="#Activity-diagram" class="headerlink" title="Activity diagram"></a>Activity diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">start</span><br><span class="line"></span><br><span class="line">if (multiprocessor?) then (yes)</span><br><span class="line">  fork</span><br><span class="line">    :Treatment 1;</span><br><span class="line">  fork again</span><br><span class="line">    :Treatment 2;</span><br><span class="line">  end fork</span><br><span class="line">else (monoproc)</span><br><span class="line">  :Treatment 1;</span><br><span class="line">  :Treatment 2;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/NOun3i8m34Ltdy9ZEy880pq45uZ0eH69NTdkmErn2aixVKjFxtzFvabzRHLWkm1Ang6jrSkYyY0pqTk8FXFZy24R0J6BlYCGBtUbv8tOyNJz0qolLFY8pnqJFtykLQCO4PQ-qIkFJNirn981fiZuz0i0"></p>
+<h4 id="State-diagram"><a href="#State-diagram" class="headerlink" title="State diagram"></a>State diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">scale 600 width</span><br><span class="line"></span><br><span class="line">[*] -&gt; State1</span><br><span class="line">State1 --&gt; State2 : Succeeded</span><br><span class="line">State1 --&gt; [*] : Aborted</span><br><span class="line">State2 --&gt; State3 : Succeeded</span><br><span class="line">State2 --&gt; [*] : Aborted</span><br><span class="line">state State3 &#123;</span><br><span class="line">  state &quot;Accumulate Enough Data\nLong State Name&quot; as long1</span><br><span class="line">  long1 : Just a test</span><br><span class="line">  [*] --&gt; long1</span><br><span class="line">  long1 --&gt; long1 : New Data</span><br><span class="line">  long1 --&gt; ProcessData : Enough Data</span><br><span class="line">&#125;</span><br><span class="line">State3 --&gt; State3 : Failed</span><br><span class="line">State3 --&gt; [*] : Succeeded / Save Result</span><br><span class="line">State3 --&gt; [*] : Aborted</span><br><span class="line"> </span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/RL5DQy904BtlhtXuB8WQmOC7KMXxA4N47As7wMPGOPD0PbOFudztatGrmPvcUHypysQNebIfpvqHIuun6uznEMLwD6RtjiTmWLH9UMBQWc544ioHUckPCywwR6sRO_LRLXg9v6cRljgIVsnI4z5nDK0B35RM-jox-lrHbFvmn3if_HJVPN5evLXJpWEGm0Li4gnD3Rs_l2W8og81RTA5kNtL0mdwDL-QxZroKvMMHMeyI3exc9lvMxUNzPDEBWQTTe8-Re0HKZepjYpUwQimNWHcoKKMFkeE"></p>
+<h4 id="Object-diagram"><a href="#Object-diagram" class="headerlink" title="Object diagram"></a>Object diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">object Object01</span><br><span class="line">object Object02</span><br><span class="line">object Object03</span><br><span class="line">object Object04</span><br><span class="line">object Object05</span><br><span class="line">object Object06</span><br><span class="line">object Object07</span><br><span class="line">object Object08</span><br><span class="line"></span><br><span class="line">Object01 &lt;|-- Object02</span><br><span class="line">Object03 *-- Object04</span><br><span class="line">Object05 o-- &quot;4&quot; Object06</span><br><span class="line">Object07 .. Object08 : some labels</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuSfFoafDBb7m1rC6XcXy8pI-CHhV18rlYiOtG-ERe_4jkBXWDYlOrEZg8ko5MQYWXH0rWOcQAkG3HPLCb13sm2nGqDE36wvWfL2Sdvkga9EOb9fJpEMGcfS2z380"></p>
+<h4 id="Deployment-diagram"><a href="#Deployment-diagram" class="headerlink" title="Deployment diagram"></a>Deployment diagram</h4><p>支持类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">actor actor</span><br><span class="line">agent agent</span><br><span class="line">artifact artifact</span><br><span class="line">boundary boundary</span><br><span class="line">card card</span><br><span class="line">cloud cloud</span><br><span class="line">component component</span><br><span class="line">control control</span><br><span class="line">database database</span><br><span class="line">entity entity</span><br><span class="line">file file</span><br><span class="line">folder folder</span><br><span class="line">frame frame</span><br><span class="line">interface  interface</span><br><span class="line">node node</span><br><span class="line">package package</span><br><span class="line">queue queue</span><br><span class="line">stack stack</span><br><span class="line">rectangle rectangle</span><br><span class="line">storage storage</span><br><span class="line">usecase usecase</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/FP1B4eGm24JtVGgEubKmGSio1WV9mjiFyRTv_Gho8HaEP_Es5N1oDRe8dgKwNKIqbodAz0f6RJMpdVGA4bkc3gIYBRGJIRTTQp_fiwXLDotq938xZtm8lO9OjVX9Ts1QYb079YrPZEx0PBn5enDBTR6OJ8W-HTKir86TqnfFeIVnQzA4BY9UdrQw29FaNEUuxxFeg_MzJw8TalgqJsAGckFp_W00"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">node node1</span><br><span class="line">node node2</span><br><span class="line">node node3</span><br><span class="line">node node4</span><br><span class="line">node node5</span><br><span class="line">node1 -- node2</span><br><span class="line">node1 .. node3</span><br><span class="line">node1 ~~ node4</span><br><span class="line">node1 == node5</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuUBAoqz9LG0HXWYc4O9fZ62Q89YcOAQXWgukadf31Jqz93s62dLrIFeC5MnjeNgv75BpKe2M0m00"></p>
+<h4 id="Timing-diagram"><a href="#Timing-diagram" class="headerlink" title="Timing diagram"></a>Timing diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">robust &quot;DNS Resolver&quot; as DNS</span><br><span class="line">robust &quot;Web Browser&quot; as WB</span><br><span class="line">concise &quot;Web User&quot; as WU</span><br><span class="line"></span><br><span class="line">@0</span><br><span class="line">WU is Idle</span><br><span class="line">WB is Idle</span><br><span class="line">DNS is Idle</span><br><span class="line"></span><br><span class="line">@+100</span><br><span class="line">WU -&gt; WB : URL</span><br><span class="line">WU is Waiting</span><br><span class="line">WB is Processing</span><br><span class="line"></span><br><span class="line">@+200</span><br><span class="line">WB is Waiting</span><br><span class="line">WB -&gt; DNS@+50 : Resolve URL</span><br><span class="line"></span><br><span class="line">@+100</span><br><span class="line">DNS is Processing</span><br><span class="line"></span><br><span class="line">@+300</span><br><span class="line">DNS is Idle</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/NP1F2y8m3CNl-HHXro5CnOi7ASMB82AJqlF-12biApITVdspMITw2tbvlvT4SQn27FiEWgz7ZfWTBpSiYNtte91XnIYDHRHKemx-oKcp6Xe_D8xfhPb5C02g06lGCPxQZi3gfPmYFZMeV5tCWwk3u72FfZmddwrSTCCzMQ_1DyGyDSIqcKpwRqeGmbRvhX1EEcBcfPGK_4lQVeLv8qL3Amzv0G00"></p>
+<h4 id="Wireframe-graphical-interface"><a href="#Wireframe-graphical-interface" class="headerlink" title="Wireframe graphical interface"></a>Wireframe graphical interface</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@startsalt</span><br><span class="line">&#123;+</span><br><span class="line">&#123;* File | Edit | Source | Refactor </span><br><span class="line"> Refactor | New | Open File | - | Close | Close All &#125;</span><br><span class="line">&#123;/ General | Fullscreen | Behavior | Saving &#125;</span><br><span class="line">&#123;</span><br><span class="line">    &#123; Open image in: | ^Smart Mode^ &#125;</span><br><span class="line">    [X] Smooth images when zoomed</span><br><span class="line">    [X] Confirm image deletion</span><br><span class="line">    [ ] Show hidden images </span><br><span class="line">&#125;</span><br><span class="line">[Close]</span><br><span class="line">&#125;</span><br><span class="line">@endsalt</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/HP3B2i8m44Nt-OfPA-BULLNKbGfs8uX2Q4OJc6GaYHPi_NUdraSWcHlct9j7aRAEEMdAgXcgPW1BHmWjB8pBKag-nQhRx_2igymHr5-siC5QrkqLmzStaZadJlYhKo9ugcOCAmmODKbZUIDALKInjJ13g-_k7LUA29UELY2ZwPETrnS45oP2d4elruKr6pm9rr67_H5ApvnjJoQehRWUp1xDZvXpEBleFs462RFZqBT10YpNO9qnt_CIgASwl5zm55LWCDqdlG00"></p>
+<h4 id="Archimate-diagram"><a href="#Archimate-diagram" class="headerlink" title="Archimate diagram"></a>Archimate diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">sprite $bProcess jar:archimate/business-process</span><br><span class="line">sprite $aService jar:archimate/application-service</span><br><span class="line">sprite $aComponent jar:archimate/application-component</span><br><span class="line"></span><br><span class="line">archimate #Business &quot;Handle claim&quot;  as HC &lt;&lt;business-process&gt;&gt;</span><br><span class="line">archimate #Business &quot;Capture Information&quot;  as CI &lt;&lt;business-process&gt;&gt;</span><br><span class="line">archimate #Business &quot;Notify\nAdditional Stakeholders&quot; as NAS &lt;&lt;business-process&gt;&gt;</span><br><span class="line">archimate #Business &quot;Validate&quot; as V &lt;&lt;business-process&gt;&gt;</span><br><span class="line">archimate #Business &quot;Investigate&quot; as I &lt;&lt;business-process&gt;&gt;</span><br><span class="line">archimate #Business &quot;Pay&quot; as P &lt;&lt;business-process&gt;&gt;</span><br><span class="line"></span><br><span class="line">HC *-down- CI</span><br><span class="line">HC *-down- NAS</span><br><span class="line">HC *-down- V</span><br><span class="line">HC *-down- I</span><br><span class="line">HC *-down- P</span><br><span class="line"></span><br><span class="line">CI -right-&gt;&gt; NAS</span><br><span class="line">NAS -right-&gt;&gt; V</span><br><span class="line">V -right-&gt;&gt; I</span><br><span class="line">I -right-&gt;&gt; P</span><br><span class="line"></span><br><span class="line">archimate #APPLICATION &quot;Scanning&quot; as scanning &lt;&lt;application-service&gt;&gt;</span><br><span class="line">archimate #APPLICATION &quot;Customer admnistration&quot; as customerAdministration &lt;&lt;application-service&gt;&gt;</span><br><span class="line">archimate #APPLICATION &quot;Claims admnistration&quot; as claimsAdministration &lt;&lt;application-service&gt;&gt;</span><br><span class="line">archimate #APPLICATION Printing  &lt;&lt;application-service&gt;&gt;</span><br><span class="line">archimate #APPLICATION Payment  &lt;&lt;application-service&gt;&gt;</span><br><span class="line"></span><br><span class="line">scanning -up-&gt; CI</span><br><span class="line">customerAdministration  -up-&gt; CI</span><br><span class="line">claimsAdministration -up-&gt; NAS</span><br><span class="line">claimsAdministration -up-&gt; V</span><br><span class="line">claimsAdministration -up-&gt; I</span><br><span class="line">Payment -up-&gt; P</span><br><span class="line"></span><br><span class="line">Printing -up-&gt; V</span><br><span class="line">Printing -up-&gt; P</span><br><span class="line"></span><br><span class="line">archimate #APPLICATION &quot;Document\nManagement\nSystem&quot; as DMS &lt;&lt;application-component&gt;&gt;</span><br><span class="line">archimate #APPLICATION &quot;General\nCRM\nSystem&quot; as CRM &lt;&lt;application-component&gt;&gt;</span><br><span class="line">archimate #APPLICATION &quot;Home &amp; Away\nPolicy\nAdministration&quot; as HAPA &lt;&lt;application-component&gt;&gt;</span><br><span class="line">archimate #APPLICATION &quot;Home &amp; Away\nFinancial\nAdministration&quot; as HFPA &lt;&lt;application-component&gt;&gt;</span><br><span class="line"></span><br><span class="line">DMS .up.|&gt; scanning</span><br><span class="line">DMS .up.|&gt; Printing</span><br><span class="line">CRM .up.|&gt; customerAdministration</span><br><span class="line">HAPA .up.|&gt; claimsAdministration</span><br><span class="line">HFPA .up.|&gt; Payment</span><br><span class="line"></span><br><span class="line">legend left</span><br><span class="line">Example from the &quot;Archisurance case study&quot; (OpenGroup).</span><br><span class="line">See </span><br><span class="line">==</span><br><span class="line">&lt;$bProcess&gt; :business process</span><br><span class="line">==</span><br><span class="line">&lt;$aService&gt; : application service</span><br><span class="line">==</span><br><span class="line">&lt;$aComponent&gt; : appplication component</span><br><span class="line">endlegend</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/fLLDRzim3BthLmZPC6m3dDsBrAZdhes1fJNcmQTSM9j9j5cI8Sdj0kp7J_9NdC0ruFKIXEHxJoH5YpVQW38LBmZHfM86wVkdMCaCjQQ_G5s1oWwCWy4lJvLcmhgziWdtU4XGFRCCB_1GbWNBm30fFDqWJfHGyb8A56Q2b7KOGde0VVUrJOCkrY3o0cbM0ECBIa7JTKXNgyiyVN-S7a9fAeKq4ZkfU7raen96CrGUf66xurO4USwS11GqCV0R3xB8KUc54tm8aXcAAHGijxwQciuWHk8PjM7xZZkdZ1YEDISUvn3RsSzUBb-4Pzipj6njGpCT6cV0c13RM4-n_S5ulbyJNMDEdfIa0oiYGtHyDWD177-Fmk1dzFX05qa6GZ2nh_FNhM7B69c_y-hFLC9A6ybHKSYvODgeTY2iPjQ6WfopKsZ-2MvEzPX-7NYRUgoOCAxksKGuSlSPlieZVKkzglHyT_slD6G06AkeYRfhdmYdKy68TDasjXsAlkwEVk6Oc9jRcLLER2is862FpV_ag0to-bvkDyb5L_eNQUAQxr6WWc8hmX-RCpbh_uVSsZQQVg312zX79fQMMpysm-xKwkiW3jugVyS4Y8ovvCTEk9iyWRXsBQjo-TVllyAXhxiOulhG-iO7YTIrT92HSI1rAfrkCnA45BX7aTC2TuPy-mEyjBjXfoIdve1q4RW6w4hP0ktA08rKcogtZzx7nnB5lP9L-Mb94aHAhg_9gb-2FhtgtaFQBRuQq6qz2w23dj1krJMWVi-ri1FkjDtGhJ6NEo4tzjVkudy0"></p>
+<h4 id="Specification-and-Description-Language-SDL"><a href="#Specification-and-Description-Language-SDL" class="headerlink" title="Specification and Description Language (SDL)"></a>Specification and Description Language (SDL)</h4><p>也是活动图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">start</span><br><span class="line"></span><br><span class="line">if (multiprocessor?) then (yes)</span><br><span class="line">  fork</span><br><span class="line">    :Treatment 1;</span><br><span class="line">  fork again</span><br><span class="line">    :Treatment 2;</span><br><span class="line">  end fork</span><br><span class="line">else (monoproc)</span><br><span class="line">  :Treatment 1;</span><br><span class="line">  :Treatment 2;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/NOun3i8m34Ltdy9ZEy880pq45uZ0eH69NTdkmErn2aixVKjFxtzFvabzRHLWkm1Ang6jrSkYyY0pqTk8FXFZy24R0J6BlYCGBtUbv8tOyNJz0qolLFY8pnqJFtykLQCO4PQ-qIkFJNirn981fiZuz0i0"></p>
+<h4 id="Ditaa-diagram"><a href="#Ditaa-diagram" class="headerlink" title="Ditaa diagram"></a>Ditaa diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@startditaa</span><br><span class="line">+--------+   +-------+    +-------+</span><br><span class="line">|        +---+ ditaa +--&gt; |       |</span><br><span class="line">|  Text  |   +-------+    |diagram|</span><br><span class="line">|Document|   |!magic!|    |       |</span><br><span class="line">|     &#123;d&#125;|   |       |    |       |</span><br><span class="line">+---+----+   +-------+    +-------+</span><br><span class="line">    :                         ^</span><br><span class="line">    |       Lots of work      |</span><br><span class="line">    +-------------------------+</span><br><span class="line">@endditaa</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/SoWkIImgISaiIKpaqjQ50cq51GLj93Q2mrMZ00NQO3cmHX3RJW4cKmDI4v9QKQ805a8nfoObCp6zA34NgCObFxaqDpMl1AIcHZ4tCJqpMH5i18evG52TKbk3B8og1kmC0cu6yQmKS84uBcGJVV9BYXNoqnJAyukoONOWcuO9jBaSKlDIm0410000"></p>
+<h4 id="Gantt-diagram"><a href="#Gantt-diagram" class="headerlink" title="Gantt diagram"></a>Gantt diagram</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@startgantt</span><br><span class="line">project starts the 2018/04/09</span><br><span class="line">saturday are closed</span><br><span class="line">sunday are closed</span><br><span class="line">2018/05/01 is closed</span><br><span class="line">2018/04/17 to 2018/04/19 is closed</span><br><span class="line">[Prototype design] lasts 14 days</span><br><span class="line">[Test prototype] lasts 4 days</span><br><span class="line">[Test prototype] starts at [Prototype design]&apos;s end</span><br><span class="line">[Prototype design] is colored in Fuchsia/FireBrick </span><br><span class="line">[Test prototype] is colored in GreenYellow/Green </span><br><span class="line">@endgantt</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/TL2xRiCm3Dpr5RTrb5KuQBCP7P8rGvR0o23OHAnMa0oIHf2_Z-FMHLst6t6y5rc9UjQBJwgcv_nEZMA21DeHdWltQelI5biZNWTk_GsU2KtCGgsH8Vr2FWKRMpW4MOAbTI_G_EtfjZyezO6pPhtrX9OaND8PqSlOmfKO8yJKHn95FxFczN_RhnkyOkty9A3qP-IZJuwPgKL8s0rD9y7RNM1wuz1yO9spLEoPA9qendorqmnJZL7JU-y0"></p>
+<h4 id="Mathematic-with-AsciiMath-or-JLaTeXMath-notation"><a href="#Mathematic-with-AsciiMath-or-JLaTeXMath-notation" class="headerlink" title="Mathematic with AsciiMath or JLaTeXMath notation"></a>Mathematic with AsciiMath or JLaTeXMath notation</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">:&lt;math&gt;int_0^1f(x)dx&lt;/math&gt;;</span><br><span class="line">:&lt;math&gt;x^2+y_1+z_12^34&lt;/math&gt;;</span><br><span class="line">note right</span><br><span class="line">Try also</span><br><span class="line">&lt;math&gt;d/dxf(x)=lim_(h-&gt;0)(f(x+h)-f(x))/h&lt;/math&gt;</span><br><span class="line">&lt;latex&gt;P(y|\mathbf&#123;x&#125;) \mbox&#123; or &#125; f(\mathbf&#123;x&#125;)+\epsilon&lt;/latex&gt;</span><br><span class="line">end note</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.plantuml.com/plantuml/svg/JO_H3e8W58RlUGekOSoXrbMPyn6wwDB9S62u8JIa3JFVFSbgtPtpVVl_dLEDdZj_7pGu50FtgkoDPscJTIXW4GhwPiUl34rE9fQH1yloPhV_QMEzXAw_AWykRe9SZnPi2K55Y5qdtGyCgQHCCLfted0ICQRgKm8ApRqCvHbDppgIjfl3Wc4zj3RCq3gum0xz6LBBszXhQmgw9O4q0iPBGBLEwqil"></p>
+<h2 id="python-画图工具"><a href="#python-画图工具" class="headerlink" title="python 画图工具"></a>python 画图工具</h2><p>python 也提供了几个画图工具，如果使用 sphinx 编写文档，可以直接把代码嵌套到文档中。</p>
+<ul>
+<li><a href="http://blockdiag.com/en/" target="_blank" rel="noopener">blockdiag</a></li>
+<li><a href="http://blockdiag.com/en/seqdiag/index.html" target="_blank" rel="noopener">seqdiag</a></li>
+<li><a href="http://blockdiag.com/en/actdiag/index.html" target="_blank" rel="noopener">actdiag</a></li>
+<li><a href="http://blockdiag.com/en/nwdiag/index.html" target="_blank" rel="noopener">nwdiag</a></li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install blockdiag</span><br><span class="line">pip install seqdiag</span><br><span class="line">pip install actdiag</span><br><span class="line">pip install nwdiag</span><br></pre></td></tr></table></figure>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>生成图片一般用指定命令接文件名即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blockdiag test.diag</span><br></pre></td></tr></table></figure>
+<h4 id="blockdiag"><a href="#blockdiag" class="headerlink" title="blockdiag"></a>blockdiag</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">blockdiag &#123;</span><br><span class="line">   orientation = portrait</span><br><span class="line"></span><br><span class="line">   A -&gt; B -&gt; C;</span><br><span class="line">        B -&gt; D;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/blockdiag-01.png" alt=""></p>
+<p>blockdiag 可以设置很多属性，例如图片类型，颜色，大小，特效等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">blockdiag &#123;</span><br><span class="line">   // Set stacked to nodes.</span><br><span class="line">   stacked [stacked];</span><br><span class="line">   ellipse [shape = &quot;ellipse&quot;, stacked];</span><br><span class="line"></span><br><span class="line">   stacked -&gt; ellipse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/blockdiag-02.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">blockdiag &#123;</span><br><span class="line">   A -&gt; B [label=&apos;text&apos;, fontsize=16];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/blockdiag-03.png" alt=""></p>
+<h4 id="seqdiag"><a href="#seqdiag" class="headerlink" title="seqdiag"></a>seqdiag</h4><p>seqdiag 用来画时序图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">seqdiag &#123;</span><br><span class="line">  browser  -&gt; webserver [label = &quot;GET /index.html&quot;];</span><br><span class="line">  browser &lt;-- webserver;</span><br><span class="line">  browser  -&gt; webserver [label = &quot;POST /blog/comment&quot;];</span><br><span class="line">              webserver  -&gt; database [label = &quot;INSERT comment&quot;];</span><br><span class="line">              webserver &lt;-- database;</span><br><span class="line">  browser &lt;-- webserver;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/seqdiag-01.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">seqdiag &#123;</span><br><span class="line">  A -&gt; B;</span><br><span class="line"></span><br><span class="line">  // Separator</span><br><span class="line">  === Separator line ===</span><br><span class="line"></span><br><span class="line">  A -&gt; B;</span><br><span class="line"></span><br><span class="line">  // Delay separator</span><br><span class="line">  ... Separator line ...</span><br><span class="line"></span><br><span class="line">  A -&gt; B;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/seqdiag-02.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">seqdiag &#123;</span><br><span class="line">  // Use note (put note on rightside)</span><br><span class="line">  browser -&gt; webserver [note = &quot;request\nGET /&quot;];</span><br><span class="line">  browser &lt;- webserver;</span><br><span class="line"></span><br><span class="line">  // Use leftnote and rightnote</span><br><span class="line">  browser -&gt; webserver [leftnote = &quot;send request&quot;];</span><br><span class="line">  browser &lt;- webserver [rightnote = &quot;send response&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/seqdiag-03.png" alt=""></p>
+<h4 id="actdiag"><a href="#actdiag" class="headerlink" title="actdiag"></a>actdiag</h4><p>actdiag 用来画活动图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">actdiag &#123;</span><br><span class="line">  write -&gt; convert -&gt; image</span><br><span class="line"></span><br><span class="line">  lane user &#123;</span><br><span class="line">     label = &quot;User&quot;</span><br><span class="line">     write [label = &quot;Writing reST&quot;];</span><br><span class="line">     image [label = &quot;Get diagram IMAGE&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  lane actdiag &#123;</span><br><span class="line">     convert [label = &quot;Convert reST to Image&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/actdiag-01.png" alt=""></p>
+<h4 id="nwdiag"><a href="#nwdiag" class="headerlink" title="nwdiag"></a>nwdiag</h4><p>nwdiag 主要用来画网络连线图，报文结构等。</p>
+<p>普通网络图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">nwdiag &#123;</span><br><span class="line">  network dmz &#123;</span><br><span class="line">      address = &quot;210.x.x.x/24&quot;</span><br><span class="line"></span><br><span class="line">      web01 [address = &quot;210.x.x.1&quot;];</span><br><span class="line">      web02 [address = &quot;210.x.x.2&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  network internal &#123;</span><br><span class="line">      address = &quot;172.x.x.x/24&quot;;</span><br><span class="line"></span><br><span class="line">      web01 [address = &quot;172.x.x.1&quot;];</span><br><span class="line">      web02 [address = &quot;172.x.x.2&quot;];</span><br><span class="line">      db01;</span><br><span class="line">      db02;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/nwdiag-01.png" alt=""></p>
+<p>指定多个 ip:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nwdiag &#123;</span><br><span class="line">  network dmz &#123;</span><br><span class="line">      address = &quot;210.x.x.x/24&quot;</span><br><span class="line"></span><br><span class="line">      // set multiple addresses (using comma)</span><br><span class="line">      web01 [address = &quot;210.x.x.1, 210.x.x.20&quot;];</span><br><span class="line">      web02 [address = &quot;210.x.x.2&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  network internal &#123;</span><br><span class="line">      address = &quot;172.x.x.x/24&quot;;</span><br><span class="line"></span><br><span class="line">      web01 [address = &quot;172.x.x.1&quot;];</span><br><span class="line">      web02 [address = &quot;172.x.x.2&quot;];</span><br><span class="line">      db01;</span><br><span class="line">      db02;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/nwdiag-02.png" alt=""></p>
+<p>分组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">nwdiag &#123;</span><br><span class="line">  network Sample_front &#123;</span><br><span class="line">    address = &quot;192.168.10.0/24&quot;;</span><br><span class="line"></span><br><span class="line">    // define group</span><br><span class="line">    group web &#123;</span><br><span class="line">      web01 [address = &quot;.1&quot;];</span><br><span class="line">      web02 [address = &quot;.2&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  network Sample_back &#123;</span><br><span class="line">    address = &quot;192.168.20.0/24&quot;;</span><br><span class="line">    web01 [address = &quot;.1&quot;];</span><br><span class="line">    web02 [address = &quot;.2&quot;];</span><br><span class="line">    db01 [address = &quot;.101&quot;];</span><br><span class="line">    db02 [address = &quot;.102&quot;];</span><br><span class="line"></span><br><span class="line">    // define network using defined nodes</span><br><span class="line">    group db &#123;</span><br><span class="line">      db01;</span><br><span class="line">      db02;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/nwdiag-03.png" alt=""></p>
+<p>peer networks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">nwdiag &#123;</span><br><span class="line">  inet [shape = cloud];</span><br><span class="line">  inet -- router;</span><br><span class="line"></span><br><span class="line">  network &#123;</span><br><span class="line">    router;</span><br><span class="line">    web01;</span><br><span class="line">    web02;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/nwdiag-04.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rackdiag &#123;</span><br><span class="line">  // define height of rack</span><br><span class="line">  16U;</span><br><span class="line"></span><br><span class="line">  // define rack items</span><br><span class="line">  1: UPS [2U];</span><br><span class="line">  3: DB Server</span><br><span class="line">  4: Web Server 1  // put 2 units to rack-level 4</span><br><span class="line">  4: Web Server 2</span><br><span class="line">  5: Web Server 3</span><br><span class="line">  5: Web Server 4</span><br><span class="line">  7: Load Balancer</span><br><span class="line">  8: L3 Switch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/rackdiag-01.png" alt=""></p>
+<p>多个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">rackdiag &#123;</span><br><span class="line">  // define 1st rack</span><br><span class="line">  rack &#123;</span><br><span class="line">    16U;</span><br><span class="line"></span><br><span class="line">    // define rack items</span><br><span class="line">    1: UPS [2U];</span><br><span class="line">    3: DB Server</span><br><span class="line">    4: Web Server</span><br><span class="line">    5: Web Server</span><br><span class="line">    6: Web Server</span><br><span class="line">    7: Load Balancer</span><br><span class="line">    8: L3 Switch</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // define 2nd rack</span><br><span class="line">  rack &#123;</span><br><span class="line">    12U;</span><br><span class="line"></span><br><span class="line">    // define rack items</span><br><span class="line">    1: UPS [2U];</span><br><span class="line">    3: DB Server</span><br><span class="line">    4: Web Server</span><br><span class="line">    5: Web Server</span><br><span class="line">    6: Web Server</span><br><span class="line">    7: Load Balancer</span><br><span class="line">    8: L3 Switch</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/rackdiag-02.png" alt=""></p>
+<p>TCP 报文结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  colwidth = 32</span><br><span class="line">  node_height = 72</span><br><span class="line"></span><br><span class="line">  0-15: Source Port</span><br><span class="line">  16-31: Destination Port</span><br><span class="line">  32-63: Sequence Number</span><br><span class="line">  64-95: Acknowledgment Number</span><br><span class="line">  96-99: Data Offset</span><br><span class="line">  100-105: Reserved</span><br><span class="line">  106: URG</span><br><span class="line">  107: ACK</span><br><span class="line">  108: PSH</span><br><span class="line">  109: RST</span><br><span class="line">  110: SYN</span><br><span class="line">  111: FIN</span><br><span class="line">  112-127: Window</span><br><span class="line">  128-143: Checksum</span><br><span class="line">  144-159: Urgent Pointer</span><br><span class="line">  160-191: (Options and Padding)</span><br><span class="line">  192-223: data [colheight = 3]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/19/diagram/packetdiag-01.png" alt=""></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/diagram/" rel="tag"># diagram</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/03/oslo-context/" rel="next" title="oslo 源码分析之 context">
+                <i class="fa fa-chevron-left"></i> oslo 源码分析之 context
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/22/go-io/" rel="prev" title="go io">
+                go io <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">leesea</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#plantuml"><span class="nav-number">1.</span> <span class="nav-text">plantuml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">1.1.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sequence-diagram"><span class="nav-number">1.1.1.</span> <span class="nav-text">Sequence diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Usecase-diagram"><span class="nav-number">1.1.2.</span> <span class="nav-text">Usecase diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class-diagram"><span class="nav-number">1.1.3.</span> <span class="nav-text">Class diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activity-diagram"><span class="nav-number">1.1.4.</span> <span class="nav-text">Activity diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#State-diagram"><span class="nav-number">1.1.5.</span> <span class="nav-text">State diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-diagram"><span class="nav-number">1.1.6.</span> <span class="nav-text">Object diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Deployment-diagram"><span class="nav-number">1.1.7.</span> <span class="nav-text">Deployment diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Timing-diagram"><span class="nav-number">1.1.8.</span> <span class="nav-text">Timing diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wireframe-graphical-interface"><span class="nav-number">1.1.9.</span> <span class="nav-text">Wireframe graphical interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Archimate-diagram"><span class="nav-number">1.1.10.</span> <span class="nav-text">Archimate diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Specification-and-Description-Language-SDL"><span class="nav-number">1.1.11.</span> <span class="nav-text">Specification and Description Language (SDL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ditaa-diagram"><span class="nav-number">1.1.12.</span> <span class="nav-text">Ditaa diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gantt-diagram"><span class="nav-number">1.1.13.</span> <span class="nav-text">Gantt diagram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mathematic-with-AsciiMath-or-JLaTeXMath-notation"><span class="nav-number">1.1.14.</span> <span class="nav-text">Mathematic with AsciiMath or JLaTeXMath notation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-画图工具"><span class="nav-number">2.</span> <span class="nav-text">python 画图工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">2.2.</span> <span class="nav-text">简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#blockdiag"><span class="nav-number">2.2.1.</span> <span class="nav-text">blockdiag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#seqdiag"><span class="nav-number">2.2.2.</span> <span class="nav-text">seqdiag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#actdiag"><span class="nav-number">2.2.3.</span> <span class="nav-text">actdiag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nwdiag"><span class="nav-number">2.2.4.</span> <span class="nav-text">nwdiag</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leesea</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在介绍源码之前，我们先谈谈什么是 context. 一开始不太理解什么是 context，其实它是一个统称，在不同的地方有不同的含义，所以不是很直白。context 翻译成中文是“上下文”的意思，说白了和文章的上下文是一个意思，通俗一点讲就是环境。例如用户信息，token 之类的。如果还是不明白，看看下面的例子。">
+<meta name="keywords" content="openstack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oslo 源码分析之 context">
+<meta property="og:url" content="http://yoursite.com/2018/06/03/oslo-context/index.html">
+<meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:description" content="在介绍源码之前，我们先谈谈什么是 context. 一开始不太理解什么是 context，其实它是一个统称，在不同的地方有不同的含义，所以不是很直白。context 翻译成中文是“上下文”的意思，说白了和文章的上下文是一个意思，通俗一点讲就是环境。例如用户信息，token 之类的。如果还是不明白，看看下面的例子。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-28T06:28:42.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oslo 源码分析之 context">
+<meta name="twitter:description" content="在介绍源码之前，我们先谈谈什么是 context. 一开始不太理解什么是 context，其实它是一个统称，在不同的地方有不同的含义，所以不是很直白。context 翻译成中文是“上下文”的意思，说白了和文章的上下文是一个意思，通俗一点讲就是环境。例如用户信息，token 之类的。如果还是不明白，看看下面的例子。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="leesea's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/03/oslo-context/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>oslo 源码分析之 context | leesea's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leesea's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/03/oslo-context/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">oslo 源码分析之 context
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-03 15:28:40" itemprop="dateCreated datePublished" datetime="2018-06-03T15:28:40+08:00">2018-06-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在介绍源码之前，我们先谈谈什么是 context. 一开始不太理解什么是 context，其实它是一个统称，在不同的地方有不同的含义，所以不是很直白。context 翻译成中文是“上下文”的意思，说白了和文章的上下文是一个意思，通俗一点讲就是环境。例如用户信息，token 之类的。如果还是不明白，看看下面的例子。</p>
+<a id="more"></a>
+<p>openstack 的 context 主要是用来保存 http request 相关信息。 context 模块主要定义了一个 RequestContext 类，里面保存了跟 request 请求相关的信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RequestContext</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""Helper class to represent useful information about a request context.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Stores information about the security context under which the user</span></span><br><span class="line"><span class="string">    accesses the system, as well as additional request information.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    user_idt_format = <span class="string">u'&#123;user&#125; &#123;tenant&#125; &#123;domain&#125; &#123;user_domain&#125; &#123;p_domain&#125;'</span></span><br><span class="line">    <span class="comment"># Can be overridden in subclasses to specify extra keys that should be</span></span><br><span class="line">    <span class="comment"># read when constructing a context using from_dict.</span></span><br><span class="line">    FROM_DICT_EXTRA_KEYS = []</span><br><span class="line"></span><br><span class="line"><span class="meta">    @_renamed_kwarg('user', 'user_id')</span></span><br><span class="line"><span class="meta">    @_renamed_kwarg('tenant', 'project_id')</span></span><br><span class="line"><span class="meta">    @_renamed_kwarg('domain', 'domain_id')</span></span><br><span class="line"><span class="meta">    @_renamed_kwarg('user_domain', 'user_domain_id')</span></span><br><span class="line"><span class="meta">    @_renamed_kwarg('project_domain', 'project_domain_id')</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,</span></span></span><br><span class="line"><span class="function"><span class="params">                 auth_token=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 user_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 project_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 domain_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 user_domain_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 project_domain_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 is_admin=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 read_only=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 show_deleted=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 request_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 resource_uuid=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 overwrite=True,</span></span></span><br><span class="line"><span class="function"><span class="params">                 roles=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 user_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 project_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 domain_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 user_domain_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 project_domain_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 is_admin_project=True,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_token=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_user_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_user_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_user_domain_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_user_domain_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_project_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_project_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_project_domain_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_project_domain_name=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 service_roles=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 global_request_id=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 system_scope=None)</span>:</span></span><br><span class="line">        <span class="string">"""Initialize the RequestContext</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :param overwrite: Set to False to ensure that the greenthread local</span></span><br><span class="line"><span class="string">                          copy of the index is not overwritten.</span></span><br><span class="line"><span class="string">        :param is_admin_project: Whether the specified project is specified in</span></span><br><span class="line"><span class="string">                                 the token as the admin project. Defaults to</span></span><br><span class="line"><span class="string">                                 True for backwards compatibility.</span></span><br><span class="line"><span class="string">        :type is_admin_project: bool</span></span><br><span class="line"><span class="string">        :param system_scope: The system scope of a token. The value ``all``</span></span><br><span class="line"><span class="string">                             represents the entire deployment system. A service</span></span><br><span class="line"><span class="string">                             ID represents a specific service within the</span></span><br><span class="line"><span class="string">                             deployment system.</span></span><br><span class="line"><span class="string">        :type system_scope: string</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># setting to private variables to avoid triggering subclass properties</span></span><br><span class="line">        self._user_id = user_id</span><br><span class="line">        self._project_id = project_id</span><br><span class="line">        self._domain_id = domain_id</span><br><span class="line">        self._user_domain_id = user_domain_id</span><br><span class="line">        self._project_domain_id = project_domain_id</span><br><span class="line"></span><br><span class="line">        self.auth_token = auth_token</span><br><span class="line">        self.user_name = user_name</span><br><span class="line">        self.project_name = project_name</span><br><span class="line">        self.domain_name = domain_name</span><br><span class="line">        self.system_scope = system_scope</span><br><span class="line">        self.user_domain_name = user_domain_name</span><br><span class="line">        self.project_domain_name = project_domain_name</span><br><span class="line">        self.is_admin = is_admin</span><br><span class="line">        self.is_admin_project = is_admin_project</span><br><span class="line">        self.read_only = read_only</span><br><span class="line">        self.show_deleted = show_deleted</span><br><span class="line">        self.resource_uuid = resource_uuid</span><br><span class="line">        self.roles = roles <span class="keyword">or</span> []</span><br><span class="line"></span><br><span class="line">        self.service_token = service_token</span><br><span class="line">        self.service_user_id = service_user_id</span><br><span class="line">        self.service_user_name = service_user_name</span><br><span class="line">        self.service_user_domain_id = service_user_domain_id</span><br><span class="line">        self.service_user_domain_name = service_user_domain_name</span><br><span class="line">        self.service_project_id = service_project_id</span><br><span class="line">        self.service_project_name = service_project_name</span><br><span class="line">        self.service_project_domain_id = service_project_domain_id</span><br><span class="line">        self.service_project_domain_name = service_project_domain_name</span><br><span class="line">        self.service_roles = service_roles <span class="keyword">or</span> []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> request_id:</span><br><span class="line">            request_id = generate_request_id()</span><br><span class="line">        self.request_id = request_id</span><br><span class="line">        self.global_request_id = global_request_id</span><br><span class="line">        <span class="keyword">if</span> overwrite <span class="keyword">or</span> <span class="keyword">not</span> get_current():</span><br><span class="line">            self.update_store()</span><br></pre></td></tr></table></figure>
+<p>先看官方文档给的一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> oslo_config <span class="keyword">import</span> cfg</span><br><span class="line"><span class="keyword">from</span> oslo_context <span class="keyword">import</span> context</span><br><span class="line"><span class="keyword">from</span> oslo_log <span class="keyword">import</span> log <span class="keyword">as</span> logging</span><br><span class="line"></span><br><span class="line">CONF = cfg.CONF</span><br><span class="line">DOMAIN = <span class="string">"demo"</span></span><br><span class="line"></span><br><span class="line">logging.register_options(CONF)</span><br><span class="line">logging.setup(CONF, DOMAIN)</span><br><span class="line"></span><br><span class="line">LOG = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">LOG.info(<span class="string">"Message without context"</span>)</span><br><span class="line">context.RequestContext()</span><br><span class="line">LOG.info(<span class="string">"Message with context"</span>)</span><br></pre></td></tr></table></figure>
+<p>上面的代码打印结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2016-01-20 21:56:29.283 8428 INFO __main__ [-] Message without context</span><br><span class="line">2016-01-20 21:56:29.284 8428 INFO __main__ [req-929d23e9-f50e-46ae-a8a7-02bc8c3fd2c8 - - - - -] Message with context</span><br></pre></td></tr></table></figure>
+<p>看到上面的打印，有些人可能会有疑问，代码中只创建了 context.RequestContext 对象，并未赋值给 LOG, LOG 是怎么获取 request_id 的，实际上，RequestContext 对象创建之后会保存在 threading.local() 中，所以当前线程的其它代码都可以读取到 RequestContext 的值。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/openstack/" rel="tag"># openstack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/28/go-string/" rel="next" title="go string 连接性能测试">
+                <i class="fa fa-chevron-left"></i> go string 连接性能测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/19/diagram/" rel="prev" title="画图工具介绍">
+                画图工具介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">leesea</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leesea</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Mist</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
