@@ -48,17 +48,13 @@
     <link href="http://yoursite.com/2018/10/17/rabbitmq/"/>
     <id>http://yoursite.com/2018/10/17/rabbitmq/</id>
     <published>2018-10-17T03:49:05.000Z</published>
-    <updated>2018-10-17T04:32:58.891Z</updated>
+    <updated>2018-11-20T12:50:22.620Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>在生产者/消费者模型中，生产者是不会直接将消息发送到队列的，生产者只能把消息发送到 exchange 上。</p><p>先看一个简单的模型：</p><p><img src="/2018/10/17/rabbitmq/exchanges.png" alt=""></p><p>exchange 的一端是生产者，另一端是队列，exchange 需要知道把消息发送到哪些队列。</p><p>有了 exchange 和队列之后，需要进行 bindings, 来告诉 exchange 把消息发送到指定队列。</p><p><img src="/2018/10/17/rabbitmq/bindings.png" alt=""></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.queue_bind(exchange=exchange_name,</span><br><span class="line">                   queue=queue_name,</span><br><span class="line">                   routing_key=<span class="string">'black'</span>)</span><br></pre></td></tr></table></figure><p>在 bindings 的时候，可以指定 routing_key，来控制消息要发送的队列。</p><p><img src="/2018/10/17/rabbitmq/direct-exchange.png" alt=""></p><p>当然多个队列可以有相同的 routing_key</p><p><img src="/2018/10/17/rabbitmq/direct-exchange-multiple.png" alt=""></p><p>一个完整的生产者消费者模型如下：</p><p><img src="/2018/10/17/rabbitmq/python-three-overall.png" alt=""></p><p>根据不同的规则，<br>rabbitmq 划分了四种 exchange：</p><ul><li>Direct</li><li>Fanout: 把消息发送到所有绑定的队列；</li><li>Topic:</li><li>Headers</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h2><p>在生产者/消费者模型中，生产者是不会直接将消息发送到队列的，生产者只能把消息发送到 exchange 上。<br><a id="more"></a></p><p>先看一个简单的模型：</p><p><img src="/2018/10/17/rabbitmq/exchanges.png" alt=""></p><p>exchange 的一端是生产者，另一端是队列，exchange 需要知道把消息发送到哪些队列。</p><p>有了 exchange 和队列之后，需要进行 bindings, 来告诉 exchange 把消息发送到指定队列。</p><p><img src="/2018/10/17/rabbitmq/bindings.png" alt=""></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.queue_bind(exchange=exchange_name,</span><br><span class="line">                   queue=queue_name,</span><br><span class="line">                   routing_key=<span class="string">'black'</span>)</span><br></pre></td></tr></table></figure><p>在 bindings 的时候，可以指定 routing_key，来控制消息要发送的队列。</p><p><img src="/2018/10/17/rabbitmq/direct-exchange.png" alt=""></p><p>当然多个队列可以有相同的 routing_key</p><p><img src="/2018/10/17/rabbitmq/direct-exchange-multiple.png" alt=""></p><p>一个完整的生产者消费者模型如下：</p><p><img src="/2018/10/17/rabbitmq/python-three-overall.png" alt=""></p><p>根据不同的规则，<br>rabbitmq 划分了四种 exchange：</p><ul><li>Direct</li><li>Fanout: 把消息发送到所有绑定的队列；</li><li>Topic:</li><li>Headers</li></ul>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;Exchange&quot;&gt;&lt;a href=&quot;#Exchange&quot; class=&quot;headerlink&quot; title=&quot;Exchange&quot;&gt;&lt;/a&gt;Exchange&lt;/h2&gt;&lt;p&gt;在生产者/消费者模型中，生产者是不会直接将消息发送到队列
-      
+      &lt;h2 id=&quot;Exchange&quot;&gt;&lt;a href=&quot;#Exchange&quot; class=&quot;headerlink&quot; title=&quot;Exchange&quot;&gt;&lt;/a&gt;Exchange&lt;/h2&gt;&lt;p&gt;在生产者/消费者模型中，生产者是不会直接将消息发送到队列的，生产者只能把消息发送到 exchange 上。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
