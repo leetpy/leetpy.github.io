@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[kubeadm 安装 k8s]]></title>
-    <url>%2F2018%2F11%2F20%2Fk8s-install%2F</url>
-    <content type="text"><![CDATA[本文介绍使用 kubeadm 安装 k8s 集群 安装版本： k8s: 1.12.2 docker: 17.3.2 yum 源配置添加 docker 源12yum-config-manager --add-repo \ http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 添加 k8s 源12345678910cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo[kubernetes]name=Kubernetesbaseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64enabled=1gpgcheck=0repo_gpgcheck=0gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpgEOF 安装 docker由于 k8s 对 docker 版本有要求，最新的 docker 版本不一定支持，这里安装指定版本。 123456789# 查看可用版本yum list docker-ce --showduplicatesyum install -y --setopt=obsoletes=0 \ docker-ce-17.03.2.ce-1.el7.centos.x86_64 \ docker-ce-selinux-17.03.2.ce-1.el7.centos.noarchsystemctl enable dockersystemctl start docker 安装 kubeadm 和 kubectl1yum install -y kubeadm kubectl 下载 k8s 镜像由于网络原因，kubeadm 需要的镜像无法下载，这里我们使用别人的代理下载。 查看所需 docker 镜像12# 这个命令仅使用 v1.10 以上kubeadm config images list 添加 pullimages.sh 脚本, 并执行， 脚本内容如下： 1234567891011121314151617#!/bin/bashkube-apiserver-amd64:v1.11.2#etcd-amd64:3.2.18 coredns:1.1.3 pause:3.1 )images=(kube-apiserver:v1.12.2kube-controller-manager:v1.12.2kube-scheduler:v1.12.2kube-proxy:v1.12.2pause:3.1etcd:3.2.24coredns:1.2.2)for imageName in $&#123;images[@]&#125; ; do docker pull anjia0532/google-containers.$imageName docker tag anjia0532/google-containers.$imageName k8s.gcr.io/$imageName docker rmi anjia0532/google-containers.$imageNamedone 初始化集群123kubeadm init \ --kubernetes-version=v1.12.2 \ --pod-network-cidr=10.224.0.0/16 master 参与调度默认情况下集群不会调度 pod 到 master 节点，可以执行如下命令来控制 1kubectl taint nodes --all node-role.kubernetes.io/master- 常用命令创建 deployment1kubectl create -f nginx-deployment.yaml 12345678910111213141516171819202122cat nginx-deployment.yamlapiVersion: apps/v1kind: Deploymentmetadata: name: nginx-deployment labels: app: nginxspec: replicas: 3 selector: matchLabels: app: nginx template: metadata: labels: app: nginx spec: containers: - name: nginx image: nginx:1.15.4 ports: - containerPort: 80 service 模板1234567891011apiVersion: v1kind: Servicemetadata: name: appspec: selector: app: app type: NodePort ports: - protocol: TCP port: 5000 常见问题 dns loop detected 123kubectl -n kube-system edit configmap coredns# 注释掉 loop]]></content>
+    <title><![CDATA[k8s学习之job]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-job%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之configmap]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-configmap%2F</url>
+    <content type="text"><![CDATA[很多生产环境中的应用程序较为复杂，可能需要多个 config 文件，命令行参数和环境变量的组合。并且这些配置信息应该从镜像中解耦出来，以保证镜像的可移植性以及配置信息不被泄漏。社区使用 ConfigMap 满足这一需求。 ConfigMap 包含了一系列键值对，用于存储被 pod 或者系统组件（如 controller 等）访问的信息。 configmap 模板12345678910111213apiVersion: v1kind: ConfigMapmetadata: creationTimestamp: 2018-11-21T09:56:37 name: example-conifg namespace: defaultdata: example.property.1: hello example.property.2: world example.property.file: |- property.1=value-1 property.2=value-2 property.3=value-3]]></content>
       <categories>
         <category>PaaS</category>
       </categories>
       <tags>
         <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之daemonset]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-daemonset%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之deployment]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-deployment%2F</url>
+    <content type="text"><![CDATA[Deployment 多用于为 pod 和 replia set 提供更新，并且可以方便地跟踪观察其所属的 replica set 或者 pod 数量以及状态的变化。 Node 调度有时候我们希望 pod 运行在指定的一个或者一批 node 上。可以通过 node 的名字或者 label 来完成。 NodeNamePod.spec.nodeName用于强制约束将Pod调度到指定的Node节点上，这里说是“调度”，但其实指定了nodeName的Pod会直接跳过Scheduler的调度逻辑，直接写入PodList列表，该匹配规则是强制匹配。 eg: 1234567891011121314151617apiVersion: apps/v1kind: Deploymentmetadata: name: my-deployspec: replicas: 1 template: metadata: labels: app: my-app spec: nodeName: master # 指定调度到master节点 containers: - name: nginx image: nginx ports: - containerPort: 80 NodeSelector Pod.spec.nodeSelector是通过kubernetes的label-selector机制进行节点选择，由scheduler调度策略 MatchNodeSelector进行label匹配，调度pod到目标节点，该匹配规则是强制约束。 查看节点 label1kubectl get nodes --show-labels 添加 label1234kubectl label nodes &lt;node_name&gt; &lt;key&gt;=&lt;value&gt;# eg:kubectl label nodes master region=shanghai pod 中指定 label123456789101112131415161718apiVersion: apps/v1kind: Deploymentmetadata: name: my-deployspec: replicas: 1 template: metadata: labels: app: my-app spec: nodeSelector: region: shanghai # 指定调度到上海的节点 containers: - name: nginx image: nginx ports: - containerPort: 80]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之rs]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-rs%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之rc]]></title>
+    <url>%2F2018%2F11%2F21%2Fk8s-rc%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之service]]></title>
+    <url>%2F2018%2F11%2F20%2Fk8s-service%2F</url>
+    <content type="text"><![CDATA[由于重新调度等原因，pod 在 kubernetes 中的 IP 地址不是固定的，因此需要一个代理来确保使用 pod 的应用不需要知晓 pod 的真实 IP 地址。另一个原因是当使用 replication controller 创建了多个 pod 副本时，需要一个代理来为这些 pod 做负载均衡。 service 主要由一个 IP 地址和 label selector 构成。在创建之初，每个 service 便被分配了一个独一无二的 IP 地址，该 IP 地址与 service 的生命周期相同，且不再更改。 service 工作原理userspace 模式iptables 模式service 的自发现环境变量方式环境变量的注入只发生在 pod 创建时，且不会被自动更新。 DNS 方式DNS 缓存问题会导致如下两种不可靠情况 DNS 函数库对 DNS TTL 支持不良问题由来已久。 即使应用程序和 DNS 服务器能够进行恰当的域名重解析操作，每个客户端频繁的域名重解析请求将给系统带来极大的负荷。 service 外部路由service 通常分为三种类型，分别为 ClusterIP, NodePort 和 Loadbalancer。其中 ClusterIP 是最基本的类型，在默认情况下只能在集群内部访问。 NodePortLoadbalancerLoadbalancer 类型的 service 并不是由 kubernetes 集群维护的，需要云服务提供商的支持。如何将外部 loadbalancer 接入的流量导到后端 pod，取决于具体云服务提供商的实现。 external ipservice 模板1234567891011apiVersion: v1kind: Servicemetadata: name: appspec: selector: app: app type: NodePort ports: - protocol: TCP port: 5000]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之pod]]></title>
+    <url>%2F2018%2F11%2F20%2Fk8s-pod%2F</url>
+    <content type="text"><![CDATA[在 Kubernetes 中，能够被创建，调度和管理的最小单元是 pod, 而非单个容器。一个 pod 是由若干个 Docker 容器构成的容器组（pod意为豆荚）。 pod里的容器共享 network namespace, 并通过 volume 机制共享一部分存储。 pod里的容器共享如下资源： pod 是IP等网络资源分配的基本单位，这个IP及network namespace是由pod里的容器共享的。 pod内的所有容器也共享volume。 IPC namespace UTS namespace label每个pod都有一个属性labels – 一组键值对，例如： 1234&quot;labels&quot;: &#123; &quot;key1&quot;: &quot;value1&quot;, &quot;key2&quot;: &quot;value2&quot;&#125; 相等查询12environment = productiontier != frontend 子集查询123environment in (production, qa)tier notin (frontend, backend)partition pod 模板12345678910111213kind: Podmetadata: name: busybox namespace: defaultspec: containers: - name: busybox image: busybox command: - sleep - &quot;36000&quot; imagePullPolicy: IfNotPresent restartPolicy: Always 常用命令根据 label 获取 pod1kubectl get pods -l name=nginx]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kubeadm 安装 k8s]]></title>
+    <url>%2F2018%2F11%2F20%2Fk8s-install%2F</url>
+    <content type="text"><![CDATA[本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本： k8s: 1.12.2 docker: 17.3.2 防火墙配置1234567# 关闭 firewalldsystemctl disable firewalldsystemctl stop firewalld# 关闭 selinuxsetenforce 0sed -i &quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config 内核参数配置1echo 1 &gt; /proc/sys/net/bridge/bridge-nf-call-iptables yum 源配置添加 docker 源CentOS 默认源的docker版本比较低，很多特性不支持，另外k8s对docker版本有要求，这里我们配置 docker-ce 源。 12yum-config-manager --add-repo \ http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 添加 k8s 源12345678910cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo[kubernetes]name=Kubernetesbaseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64enabled=1gpgcheck=0repo_gpgcheck=0gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpgEOF 安装 docker由于 k8s 对 docker 版本有要求，最新的 docker 版本不一定支持，这里安装指定版本。 123456789# 查看可用版本yum list docker-ce --showduplicatesyum install -y --setopt=obsoletes=0 \ docker-ce-17.03.2.ce-1.el7.centos.x86_64 \ docker-ce-selinux-17.03.2.ce-1.el7.centos.noarchsystemctl enable dockersystemctl start docker 安装 kubeadm 和 kubectl1yum install -y kubeadm kubectl 下载 k8s 镜像由于网络原因，kubeadm 需要的镜像无法下载，这里我们使用别人的代理下载。 查看所需 docker 镜像12# 这个命令仅使用 v1.10 以上kubeadm config images list 添加 pullimages.sh 脚本, 并执行， 脚本内容如下： 123456789101112131415#!/bin/bashimages=(kube-apiserver:v1.12.2kube-controller-manager:v1.12.2kube-scheduler:v1.12.2kube-proxy:v1.12.2pause:3.1etcd:3.2.24coredns:1.2.2)for imageName in $&#123;images[@]&#125; ; do docker pull anjia0532/google-containers.$imageName docker tag anjia0532/google-containers.$imageName k8s.gcr.io/$imageName docker rmi anjia0532/google-containers.$imageNamedone 初始化集群1234kubeadm init \ --kubernetes-version=v1.12.2 \ --pod-network-cidr=192.168.3.0/24 \ --service-cidr=192.168.2.0/24 master 参与调度默认情况下集群不会调度 pod 到 master 节点，可以执行如下命令来控制 1kubectl taint nodes --all node-role.kubernetes.io/master- 命令补全1234yum install -y bash-completionsource /usr/share/bash-completion/bash_completionsource &lt;(kubectl completion bash)echo &quot;source &lt;(kubectl completion bash)&quot; &gt;&gt; ~/.bashrc servcie 端口范围修改k8s service 默认的端口范围是 30000-32767, 如果想修改端口范围，进行如下操作： 修改 /etc/kubernetes/manifests/kube-apiserver.yaml，添加： --service-node-port-range=80-32767 systemctl restart kubelet.service常用命令 创建 deployment1kubectl create -f nginx-deployment.yaml 12345678910111213141516171819202122cat nginx-deployment.yamlapiVersion: apps/v1kind: Deploymentmetadata: name: nginx-deployment labels: app: nginxspec: replicas: 3 selector: matchLabels: app: nginx template: metadata: labels: app: nginx spec: containers: - name: nginx image: nginx:1.15.4 ports: - containerPort: 80 常见问题Dns loop detected 编辑 configmap 1kubectl -n kube-system edit configmap coredns 注释掉 loop 12345678910111213141516171819202122apiVersion: v1data: Corefile: | .:53 &#123; errors health kubernetes cluster.local in-addr.arpa ip6.arpa &#123; pods insecure upstream fallthrough in-addr.arpa ip6.arpa &#125; prometheus :9153 proxy . /etc/resolv.conf cache 30 #loop reload loadbalance &#125;kind: ConfigMapmetadata: creationTimestamp: 2018-11-20T03:08:28Z name: coredns]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[docker 三剑客]]></title>
+    <url>%2F2018%2F11%2F18%2Fdocker-scm%2F</url>
+    <content type="text"><![CDATA[docker 三剑客主要用于容器的编排。 创建服务docker service create –replicas 2 –name hello app 服务规模调整docker service scale hello=3docker stack deploy -c docker-compose.yml hello 关闭服务docker stack rm hello 滚动更新task 概念 离开集群docker swarm leave –force 容器运行节点docker stack ps volume + bind mounts 设置节点状态1234# 禁用docker node update --availability drain work1# 启用docker node update --availability active worker1 查看 Tokendocker swarm join-token worker/manager docker config 配置docker network create –attachable –driver overlay oneta 123456version: &quot;3&quot;networks: mynet: driver: overlay attachable: trueservices:]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -83,6 +176,17 @@
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[shell 常用技巧]]></title>
+    <url>%2F2018%2F04%2F22%2Fshell%2F</url>
+    <content type="text"><![CDATA[输出颜色控制123RED=&apos;\033[0;31m&apos;NC=&apos;\033[0m&apos;echo &quot;$&#123;RED&#125;hello world!$&#123;NC&#125;&quot;]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
       </tags>
   </entry>
   <entry>
