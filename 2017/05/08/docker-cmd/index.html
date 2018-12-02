@@ -451,12 +451,12 @@
         <p>记录 docker 常用命令。<br><a id="more"></a></p>
 <h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><ul>
 <li><p>查看创建信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo docker histroy &lt;image_id&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo docker histroy &lt;image_id&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="network"><a href="#network" class="headerlink" title="network"></a>network</h2><ul>
 <li><p>查看容器 IP</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker inspect --format=<span class="string">'&#123;&#123;.NetworkSettings.IPAddress&#125;&#125;'</span> <span class="variable">$CONTAINER_ID</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker inspect --format='&#123;&#123;.NetworkSettings.IPAddress&#125;&#125;' $CONTAINER_ID</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><ul>
@@ -466,21 +466,21 @@
 <li>-t: tty;</li>
 <li>-d: 后台运行;</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tty 登录</span></span><br><span class="line">docker run -i -t &lt;images_id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> tty 登录</span><br><span class="line">docker run -i -t &lt;images_id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>进入后台运行的容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 name</span></span><br><span class="line">docker attach &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 id</span></span><br><span class="line">docker attach &lt;id&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 name</span></span><br><span class="line">docker exec -it &lt;name&gt; /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 id</span></span><br><span class="line">docker exec -it &lt;id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 使用 name</span><br><span class="line">docker attach &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用 id</span><br><span class="line">docker attach &lt;id&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用 name</span><br><span class="line">docker exec -it &lt;name&gt; /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用 id</span><br><span class="line">docker exec -it &lt;id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
 <p>attach 和 exec 的区别在于 exec 执行 exit 时不会 stop 容器，而 attach 会 stop 容器。</p>
 </li>
 <li><p>重命名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker rename &lt;current_name&gt; &lt;new_name&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker rename &lt;current_name&gt; &lt;new_name&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>删除容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除所有</span></span><br><span class="line">docker rm -f $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 删除所有</span><br><span class="line">docker rm -f $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> host -&gt; container</span></span><br><span class="line">docker cp &lt;host_path&gt; &lt;containerID&gt;:&lt;container_path&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> container -&gt; host</span></span><br><span class="line">docker cp &lt;containerID&gt;:&lt;container_path&gt; &lt;host_path&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo docker inspect tox</span></span><br></pre></td></tr></table></figure>
+<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> host -&gt; container</span><br><span class="line">docker cp &lt;host_path&gt; &lt;containerID&gt;:&lt;container_path&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> container -&gt; host</span><br><span class="line">docker cp &lt;containerID&gt;:&lt;container_path&gt; &lt;host_path&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo docker inspect tox</span><br></pre></td></tr></table></figure>
 
       
     </div>
