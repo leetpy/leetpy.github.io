@@ -56,9 +56,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[k8s学习之rs]]></title>
+    <title><![CDATA[k8s学习之Replica Sets]]></title>
     <url>%2F2018%2F11%2F21%2Fk8s-rs%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求. 大部分的kubectl命令不仅支持Replication Controllers也支持ReplicaSets.一个例外是rolling-update命令. 如果你想功能上滚动升级,请考虑使用Deployments来替代.并且rolling-update是命令式的而Deployments则是陈述式的,所以我们推荐 通过rollout这个命令来使用Deployments. 当ReplicaSets能够被独立地使用的时候,今天它主要地被用在Deployments上作为精心策划pod创建,删除和升级的一个机制.当你使用Deployments的时候,你无需去 担心Deployments建立的ReplicaSets怎么去管理.Deployments 拥有和管理他们自己的ReplicaSets. 使用 ReplicaSet一个ReplicaSet保证pod副本为一个指定的数目在给定的任何时间内.然而,一个Deployment是一个更高级别的概念来去管理ReplicaSets 和提供描述性的pods升级以及很多其他有用的特性.因此,我们推荐使用Deployments来替代直接使用ReplicaSets,除非你需要定制的更新编排 或者一点也不需要更新. 这个事实上意味着你可能从不需要操作ReplicaSet对象： 直接使用一个Deployment然后在声明部分定义你的应用.]]></content>
       <categories>
         <category>PaaS</category>
       </categories>
@@ -92,6 +92,17 @@
     <title><![CDATA[k8s学习之pod]]></title>
     <url>%2F2018%2F11%2F20%2Fk8s-pod%2F</url>
     <content type="text"><![CDATA[在 Kubernetes 中，能够被创建，调度和管理的最小单元是 pod, 而非单个容器。一个 pod 是由若干个 Docker 容器构成的容器组（pod意为豆荚）。 pod里的容器共享 network namespace, 并通过 volume 机制共享一部分存储。 pod里的容器共享如下资源： pod 是IP等网络资源分配的基本单位，这个IP及network namespace是由pod里的容器共享的。 pod内的所有容器也共享volume。 IPC namespace UTS namespace label每个pod都有一个属性labels – 一组键值对，例如： 1234&quot;labels&quot;: &#123; &quot;key1&quot;: &quot;value1&quot;, &quot;key2&quot;: &quot;value2&quot;&#125; 相等查询12environment = productiontier != frontend 子集查询123environment in (production, qa)tier notin (frontend, backend)partition pod 模板12345678910111213kind: Podmetadata: name: busybox namespace: defaultspec: containers: - name: busybox image: busybox command: - sleep - &quot;36000&quot; imagePullPolicy: IfNotPresent restartPolicy: Always 常用命令根据 label 获取 pod1kubectl get pods -l name=nginx]]></content>
+      <categories>
+        <category>PaaS</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s学习之帮助查看]]></title>
+    <url>%2F2018%2F11%2F20%2Fk8s-doc%2F</url>
+    <content type="text"><![CDATA[kubectl 提供了 explain 子命令来帮助我们查看 kubernetes 文档。 例如我们想查看 pod 有哪些参数： 1$ kubectl explain pod 具体演示参考：]]></content>
       <categories>
         <category>PaaS</category>
       </categories>
@@ -296,9 +307,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[qemu 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
-    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
+    <title><![CDATA[virsh 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
+    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
       <categories>
         <category>kvm</category>
       </categories>
@@ -307,9 +318,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[virsh 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
-    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
+    <title><![CDATA[qemu 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
+    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
       <categories>
         <category>kvm</category>
       </categories>

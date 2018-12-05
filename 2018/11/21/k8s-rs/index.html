@@ -108,15 +108,18 @@
 
 
 
-  <meta name="keywords" content="k8s">
+  <meta name="description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
+<meta name="keywords" content="k8s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s学习之rs">
+<meta property="og:title" content="k8s学习之Replica Sets">
 <meta property="og:url" content="http://yoursite.com/2018/11/21/k8s-rs/index.html">
 <meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-21T02:51:35.114Z">
+<meta property="og:updated_time" content="2018-12-05T02:15:24.471Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s学习之rs">
+<meta name="twitter:title" content="k8s学习之Replica Sets">
+<meta name="twitter:description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
 
 
 
@@ -135,7 +138,7 @@
   };
 </script>
 
-  <title>k8s学习之rs | leesea's blog</title>
+  <title>k8s学习之Replica Sets | leesea's blog</title>
   
 
 
@@ -352,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">k8s学习之rs
+          <h1 class="post-title" itemprop="name headline">k8s学习之Replica Sets
               
             
           </h1>
@@ -377,12 +380,24 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:06 / Modified: 10:51:35" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:06+08:00">2018-11-21</time>
+              <time title="Created: 2018-11-21 09:56:06" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:06+08:00">2018-11-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-05 10:15:24" itemprop="dateModified" datetime="2018-12-05T10:15:24+08:00">2018-12-05</time>
               
             
           </span>
@@ -433,7 +448,12 @@
       
 
       
-        
+        <p>ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.</p>
+<a id="more"></a>
+<p>大部分的kubectl命令不仅支持Replication Controllers也支持ReplicaSets.一个例外是rolling-update命令. 如果你想功能上滚动升级,请考虑使用Deployments来替代.并且rolling-update是命令式的而Deployments则是陈述式的,所以我们推荐 通过rollout这个命令来使用Deployments.</p>
+<p>当ReplicaSets能够被独立地使用的时候,今天它主要地被用在Deployments上作为精心策划pod创建,删除和升级的一个机制.当你使用Deployments的时候,你无需去 担心Deployments建立的ReplicaSets怎么去管理.Deployments 拥有和管理他们自己的ReplicaSets.</p>
+<h2 id="使用-ReplicaSet"><a href="#使用-ReplicaSet" class="headerlink" title="使用 ReplicaSet"></a>使用 ReplicaSet</h2><p>一个ReplicaSet保证pod副本为一个指定的数目在给定的任何时间内.然而,一个Deployment是一个更高级别的概念来去管理ReplicaSets 和提供描述性的pods升级以及很多其他有用的特性.因此,我们推荐使用Deployments来替代直接使用ReplicaSets,除非你需要定制的更新编排 或者一点也不需要更新. 这个事实上意味着你可能从不需要操作ReplicaSet对象： 直接使用一个Deployment然后在声明部分定义你的应用.</p>
+
       
     </div>
 
@@ -523,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -539,7 +568,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -638,6 +667,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-ReplicaSet"><span class="nav-number">1.</span> <span class="nav-text">使用 ReplicaSet</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

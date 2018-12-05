@@ -128,13 +128,17 @@
   </entry>
   
   <entry>
-    <title>k8s学习之rs</title>
+    <title>k8s学习之Replica Sets</title>
     <link href="http://yoursite.com/2018/11/21/k8s-rs/"/>
     <id>http://yoursite.com/2018/11/21/k8s-rs/</id>
     <published>2018-11-21T01:56:06.000Z</published>
-    <updated>2018-11-21T02:51:35.114Z</updated>
+    <updated>2018-12-05T02:15:24.471Z</updated>
+    
+    <content type="html"><![CDATA[<p>ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.</p><a id="more"></a><p>大部分的kubectl命令不仅支持Replication Controllers也支持ReplicaSets.一个例外是rolling-update命令. 如果你想功能上滚动升级,请考虑使用Deployments来替代.并且rolling-update是命令式的而Deployments则是陈述式的,所以我们推荐 通过rollout这个命令来使用Deployments.</p><p>当ReplicaSets能够被独立地使用的时候,今天它主要地被用在Deployments上作为精心策划pod创建,删除和升级的一个机制.当你使用Deployments的时候,你无需去 担心Deployments建立的ReplicaSets怎么去管理.Deployments 拥有和管理他们自己的ReplicaSets.</p><h2 id="使用-ReplicaSet"><a href="#使用-ReplicaSet" class="headerlink" title="使用 ReplicaSet"></a>使用 ReplicaSet</h2><p>一个ReplicaSet保证pod副本为一个指定的数目在给定的任何时间内.然而,一个Deployment是一个更高级别的概念来去管理ReplicaSets 和提供描述性的pods升级以及很多其他有用的特性.因此,我们推荐使用Deployments来替代直接使用ReplicaSets,除非你需要定制的更新编排 或者一点也不需要更新. 这个事实上意味着你可能从不需要操作ReplicaSet对象： 直接使用一个Deployment然后在声明部分定义你的应用.</p>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.&lt;/p&gt;
     
     </summary>
     
@@ -198,6 +202,28 @@
     <summary type="html">
     
       &lt;p&gt;在 Kubernetes 中，能够被创建，调度和管理的最小单元是 pod, 而非单个容器。一个 pod 是由若干个 Docker 容器构成的容器组（pod意为豆荚）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PaaS" scheme="http://yoursite.com/categories/PaaS/"/>
+    
+    
+      <category term="k8s" scheme="http://yoursite.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8s学习之帮助查看</title>
+    <link href="http://yoursite.com/2018/11/20/k8s-doc/"/>
+    <id>http://yoursite.com/2018/11/20/k8s-doc/</id>
+    <published>2018-11-20T09:58:20.000Z</published>
+    <updated>2018-12-05T02:08:33.165Z</updated>
+    
+    <content type="html"><![CDATA[<p>kubectl 提供了 explain 子命令来帮助我们查看 kubernetes 文档。</p><a id="more"></a><p>例如我们想查看 pod 有哪些参数：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl explain pod</span><br></pre></td></tr></table></figure><p>具体演示参考：</p><script type="text/javascript" src="https://asciinema.org/a/nr99mYPfYNY7UkSEVym3TBbav.js" id="asciicast-nr99mYPfYNY7UkSEVym3TBbav" async></script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;kubectl 提供了 explain 子命令来帮助我们查看 kubernetes 文档。&lt;/p&gt;
     
     </summary>
     
@@ -434,32 +460,6 @@
     
     
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>shell 常用技巧</title>
-    <link href="http://yoursite.com/2018/04/22/shell/"/>
-    <id>http://yoursite.com/2018/04/22/shell/</id>
-    <published>2018-04-22T03:10:11.000Z</published>
-    <updated>2018-11-22T03:12:10.564Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="输出颜色控制"><a href="#输出颜色控制" class="headerlink" title="输出颜色控制"></a>输出颜色控制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RED=&apos;\033[0;31m&apos;</span><br><span class="line">NC=&apos;\033[0m&apos;</span><br><span class="line">echo &quot;$&#123;RED&#125;hello world!$&#123;NC&#125;&quot;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;输出颜色控制&quot;&gt;&lt;a href=&quot;#输出颜色控制&quot; class=&quot;headerlink&quot; title=&quot;输出颜色控制&quot;&gt;&lt;/a&gt;输出颜色控制&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;
-      
-    
-    </summary>
-    
-      <category term="shell" scheme="http://yoursite.com/categories/shell/"/>
-    
-    
-      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
     
   </entry>
   
