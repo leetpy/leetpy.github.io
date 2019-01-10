@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[celery任务超时控制]]></title>
+    <url>%2F2019%2F01%2F10%2Fcelery-time-limit%2F</url>
+    <content type="text"><![CDATA[有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。 超时设置celery 提供了两个参数来控制task超时时间： task_time_limit: 在指定时间内没有完成，task会被kill，然后开始下一个task。 task_soft_time_limit: 在celery配置文件中使用12time_limit = 30soft_time_limit = 10 在装饰器中使用123@app.taskdef mytask(time_limit=30, soft_time_limit=10): do_your_job() 捕获异常12345678from celery.exceptions import SoftTimeLimitExceeded@app.taskdef mytask(soft_time_limit=10): try: return do_work() except SoftTimeLimitExceeded: cleanup_in_a_hurry() 这里实际测试有些情况下仍然捕获不到异常，会直接抛出，出现类似打印： 123456789101112131415161718192021[2019-01-10 15:42:13,716: ERROR/ForkPoolWorker-11] Pool process &lt;celery.concurrency.asynpool.Worker object at 0x107fddb90&gt; error: SoftTimeLimitExceeded()Traceback (most recent call last): File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 289, in __call__ sys.exit(self.workloop(pid=pid)) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 347, in workloop req = wait_for_job() File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 447, in receive ready, req = _receive(1.0) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 419, in _recv return True, loads(get_payload()) File &quot;/Library/Python/2.7/site-packages/billiard/queues.py&quot;, line 355, in get_payload return self._reader.recv_bytes() File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 245, in recv_bytes buf = self._recv_bytes(maxlength) File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 458, in _recv_bytes buf = self._recv(4) File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 424, in _recv chunk = read(handle, remaining) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 227, in soft_timeout_sighandler raise SoftTimeLimitExceeded()SoftTimeLimitExceeded: SoftTimeLimitExceeded() 参考文献[1] http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit]]></content>
+      <tags>
+        <tag>celery</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[pyenv使用]]></title>
     <url>%2F2019%2F01%2F10%2Fpyenv%2F</url>
     <content type="text"><![CDATA[pyenv可以帮助你在一台开发机上建立多个版本的python环境， 并提供方便的切换方法。virtualenv可以搭建虚拟且独立的python环境，可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。 安装1234567git clone https://github.com/pyenv/pyenv.git ~/.pyenvecho 'export PYENV_ROOT="$HOME/.pyenv"' &gt;&gt; ~/.bash_profileecho 'export PATH="$PYENV_ROOT/bin:$PATH"' &gt;&gt; ~/.bash_profileecho -e 'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n eval "$(pyenv init -)"\nfi' &gt;&gt; ~/.bash_profile# restart shellexec "$SHELL" 安装python 版本1pyenv install 2.7.8 如果系统没有安装patch命令，在安装python的时候会报如下错误： 1/root/.pyenv/plugins/python-build/bin/python-build: line 1326: patch: command not found 解决办法： 1yum install patch -y pyenv-virtualenv光有pyenv还不够，我们需要结合virtualenv来使用, pyenv-virtualenv就是干这个活的。 安装12345git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenvecho 'eval "$(pyenv virtualenv-init -)"' &gt;&gt; ~/.bash_profile# restart shellexec "$SHELL" 使用1234567891011# 创建项目pyenv virtualenv 2.7.10 project# Activate virtualenvpyenv activate project# Deactive virtualenvpyenv deactivate# Delete existing virtualenvpyenv uninstall project 参考文献[1] https://github.com/pyenv/pyenv#installation[2] https://github.com/pyenv/pyenv-virtualenv]]></content>
@@ -386,9 +395,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[virsh 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
-    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
+    <title><![CDATA[qemu 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
+    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
       <categories>
         <category>kvm</category>
       </categories>
@@ -397,9 +406,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[qemu 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
-    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
+    <title><![CDATA[virsh 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
+    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
       <categories>
         <category>kvm</category>
       </categories>

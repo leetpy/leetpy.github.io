@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="在测试中可以使用mock来模拟很多场景，而不需要去真正的执行代码。例如数据库查询，网络请求等。">
-<meta name="keywords" content="python">
+  <meta name="description" content="有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。">
+<meta name="keywords" content="celery,python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python mock使用">
-<meta property="og:url" content="http://yoursite.com/2018/12/20/mock/index.html">
+<meta property="og:title" content="celery任务超时控制">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/celery-time-limit/index.html">
 <meta property="og:site_name" content="leesea&#39;s blog">
-<meta property="og:description" content="在测试中可以使用mock来模拟很多场景，而不需要去真正的执行代码。例如数据库查询，网络请求等。">
+<meta property="og:description" content="有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-10T08:39:10.662Z">
+<meta property="og:updated_time" content="2019-01-10T08:55:27.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python mock使用">
-<meta name="twitter:description" content="在测试中可以使用mock来模拟很多场景，而不需要去真正的执行代码。例如数据库查询，网络请求等。">
+<meta name="twitter:title" content="celery任务超时控制">
+<meta name="twitter:description" content="有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/20/mock/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/celery-time-limit/"/>
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>python mock使用 | leesea's blog</title>
+  <title>celery任务超时控制 | leesea's blog</title>
   
 
 
@@ -338,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/mock/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/celery-time-limit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python mock使用
+          <h1 class="post-title" itemprop="name headline">celery任务超时控制
               
             
           </h1>
@@ -380,24 +380,12 @@
                 
               
 
-              <time title="Created: 2018-12-20 22:02:28" itemprop="dateCreated datePublished" datetime="2018-12-20T22:02:28+08:00">2018-12-20</time>
+              <time title="Created: 2019-01-10 16:43:09 / Modified: 16:55:27" itemprop="dateCreated datePublished" datetime="2019-01-10T16:43:09+08:00">2019-01-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-10 16:39:10" itemprop="dateModified" datetime="2019-01-10T16:39:10+08:00">2019-01-10</time>
               
             
           </span>
@@ -430,47 +418,19 @@
       
 
       
-        <p>在测试中可以使用mock来模拟很多场景，而不需要去真正的执行代码。例如数据库查询，网络请求等。</p>
+        <p>有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。</p>
 <a id="more"></a>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>patching 方法</li>
-<li>记录方法调用情况</li>
-</ul>
-<p>查看方法是否通过正确的参数调用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductionClass</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">method</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.something(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">something</span><span class="params">(self, a, b, c)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">real = ProductionClass()</span><br><span class="line">real.something = MagicMock()</span><br><span class="line">real.method()</span><br><span class="line">real.something.assert_called_once_with(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Mock类型"><a href="#Mock类型" class="headerlink" title="Mock类型"></a>Mock类型</h2><p>Mock用来创建一个要模拟的对象。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mock.Mock(spec=<span class="keyword">None</span>, side_effect=<span class="keyword">None</span>, return_value=DEFAULT,</span><br><span class="line">          wraps=<span class="keyword">None</span>, name=<span class="keyword">None</span>, spec_set=<span class="keyword">None</span>, unsafe=<span class="keyword">False</span>, **kwargs)</span><br></pre></td></tr></table></figure>
+<h1 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h1><p>celery 提供了两个参数来控制task超时时间：</p>
 <ul>
-<li><code>spec:</code> 该参数代表要mock的对象，可以是list, strings, 类或者对象。如果传的是一个对象，会调用<code>dir()</code>,访问dir结果之外的属性都会报<code>AttributeError</code>.如果传的是对象，<code>__class__</code>会返回原来的类型。</li>
-<li><code>return_value:</code> mock对象调用的返回值,默认是Mock对象。</li>
-<li><code>side_effect:</code> 会覆盖<code>return_value</code>的返回值，一般用在抛异常或者动态改变返回值。</li>
+<li>task_time_limit: 在指定时间内没有完成，task会被kill，然后开始下一个task。</li>
+<li>task_soft_time_limit: </li>
 </ul>
-<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><ul>
-<li><p><code>return_value</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mock</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Production</span><span class="params">(ojbect)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_hello</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'hello world'</span> </span><br><span class="line"></span><br><span class="line">m1 = mock.Mock(spec=Production)</span><br><span class="line">m2 = mock.Mock(spec=Production, return_value=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> m1()             <span class="comment"># &lt;Mock name='mock()' id='4443060048'&gt;</span></span><br><span class="line"><span class="keyword">print</span> m2()             <span class="comment"># 1</span></span><br><span class="line"><span class="keyword">print</span> type(m1())       <span class="comment"># &lt;class 'mock.mock.Mock'&gt;</span></span><br><span class="line"><span class="keyword">print</span> type(m2())       <span class="comment"># &lt;type 'int'&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>side_effect</code>的值可以是函数，可迭代对象或者是异常。</p>
-<ul>
-<li>如果传参是函数，则会和mock使用相同的参数并调用。如果函数的返回值是<code>DEFAULT</code>怎使用正常的返回值（return_value指定的），否则返回函数的返回值。</li>
-<li>如果传参是可迭代对象，则每次调用使用迭代器的返回值。</li>
-<li>如果传参是异常，则调用会抛指定异常。</li>
-</ul>
-<p>设置异常:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock = Mock()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock.side_effect = Exception(<span class="string">'Boom!'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">Exception: Boom!</span><br></pre></td></tr></table></figure>
-<p>设置可迭代对象:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock = Mock()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock.side_effect = [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock(), mock(), mock()</span><br><span class="line">(<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>设置函数，这里返回<code>DEFAULT</code>:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock = Mock(return_value=<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">side_effect</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> DEFAULT</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock.side_effect = side_effect</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock()</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p>通过参数指定：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>side_effect = <span class="keyword">lambda</span> value: value + <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock = Mock(side_effect=side_effect)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock(<span class="number">3</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mock(<span class="number">-8</span>)</span><br><span class="line"><span class="number">-7</span></span><br></pre></td></tr></table></figure>
-<p>设置为None：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = Mock(side_effect=KeyError, return_value=<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> ...</span><br><span class="line">KeyError</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.side_effect = <span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m()</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>MagicMock是Mock的子类，它实现了大部分的<code>magic method</code>，而不需要你自己去配置。</p>
-<h2 id="patch-装饰器"><a href="#patch-装饰器" class="headerlink" title="patch 装饰器"></a>patch 装饰器</h2><h3 id="mock-patch"><a href="#mock-patch" class="headerlink" title="mock.patch"></a>mock.patch</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mock.patch(target, new=DEFAULT, spec=<span class="keyword">None</span>, create=<span class="keyword">False</span>, spec_set=<span class="keyword">None</span>,</span><br><span class="line">           autospec=<span class="keyword">None</span>, new_callable=<span class="keyword">None</span>, **kwargs)</span><br></pre></td></tr></table></figure>
-<p>patch() 可以作为函数装饰器，类装饰器或上下文管理器。</p>
-<p>如果没有指定<code>new</code>参数，patch对象会使用<code>MagiMock</code>替换。</p>
+<h2 id="在celery配置文件中使用"><a href="#在celery配置文件中使用" class="headerlink" title="在celery配置文件中使用"></a>在celery配置文件中使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_limit = <span class="number">30</span></span><br><span class="line">soft_time_limit = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h2 id="在装饰器中使用"><a href="#在装饰器中使用" class="headerlink" title="在装饰器中使用"></a>在装饰器中使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mytask</span><span class="params">(time_limit=<span class="number">30</span>, soft_time_limit=<span class="number">10</span>)</span>:</span></span><br><span class="line">   do_your_job()</span><br></pre></td></tr></table></figure>
+<h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from celery.exceptions import SoftTimeLimitExceeded</span><br><span class="line"></span><br><span class="line">@app.task</span><br><span class="line">def mytask(soft_time_limit=10):</span><br><span class="line">    try:</span><br><span class="line">        return do_work()</span><br><span class="line">    except SoftTimeLimitExceeded:</span><br><span class="line">        cleanup_in_a_hurry()</span><br></pre></td></tr></table></figure>
+<p>这里实际测试有些情况下仍然捕获不到异常，会直接抛出，出现类似打印：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[2019-01-10 15:42:13,716: ERROR/ForkPoolWorker-11] Pool process &lt;celery.concurrency.asynpool.Worker object at 0x107fddb90&gt; error: SoftTimeLimitExceeded()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 289, in __call__</span><br><span class="line">    sys.exit(self.workloop(pid=pid))</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 347, in workloop</span><br><span class="line">    req = wait_for_job()</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 447, in receive</span><br><span class="line">    ready, req = _receive(1.0)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 419, in _recv</span><br><span class="line">    return True, loads(get_payload())</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/queues.py&quot;, line 355, in get_payload</span><br><span class="line">    return self._reader.recv_bytes()</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 245, in recv_bytes</span><br><span class="line">    buf = self._recv_bytes(maxlength)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 458, in _recv_bytes</span><br><span class="line">    buf = self._recv(4)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 424, in _recv</span><br><span class="line">    chunk = read(handle, remaining)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 227, in soft_timeout_sighandler</span><br><span class="line">    raise SoftTimeLimitExceeded()</span><br><span class="line">SoftTimeLimitExceeded: SoftTimeLimitExceeded()</span><br></pre></td></tr></table></figure>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a href="http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit" target="_blank" rel="noopener">http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit</a></p>
 
       
     </div>
@@ -491,6 +451,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/celery/" rel="tag"># celery</a>
+          
             <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
@@ -504,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/20/es-migration/" rel="next" title="记一次elasticsearch 索引迁移">
-                <i class="fa fa-chevron-left"></i> 记一次elasticsearch 索引迁移
+              <a href="/2019/01/10/pyenv/" rel="next" title="pyenv使用">
+                <i class="fa fa-chevron-left"></i> pyenv使用
               </a>
             
           </div>
@@ -513,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/21/testtools/" rel="prev" title="testtools">
-                testtools <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -711,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock类型"><span class="nav-number">2.</span> <span class="nav-text">Mock类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举例说明"><span class="nav-number">2.1.</span> <span class="nav-text">举例说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patch-装饰器"><span class="nav-number">3.</span> <span class="nav-text">patch 装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mock-patch"><span class="nav-number">3.1.</span> <span class="nav-text">mock.patch</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#超时设置"><span class="nav-number">1.</span> <span class="nav-text">超时设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在celery配置文件中使用"><span class="nav-number">1.1.</span> <span class="nav-text">在celery配置文件中使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在装饰器中使用"><span class="nav-number">1.2.</span> <span class="nav-text">在装饰器中使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获异常"><span class="nav-number">1.3.</span> <span class="nav-text">捕获异常</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
