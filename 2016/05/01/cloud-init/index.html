@@ -108,14 +108,17 @@
 
 
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="cloud-init 是一个系统配置工具，当系统起来时，cloud-init会从固定分区或者url读取数据，然后执行定制化操作。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="cloud-init">
-<meta property="og:url" content="http://yoursite.com/2019/01/23/cloud-init/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/05/01/cloud-init/index.html">
 <meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:description" content="cloud-init 是一个系统配置工具，当系统起来时，cloud-init会从固定分区或者url读取数据，然后执行定制化操作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-23T03:31:03.581Z">
+<meta property="og:updated_time" content="2019-01-23T14:18:21.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cloud-init">
+<meta name="twitter:description" content="cloud-init 是一个系统配置工具，当系统起来时，cloud-init会从固定分区或者url读取数据，然后执行定制化操作。">
 
 
 
@@ -124,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/23/cloud-init/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/05/01/cloud-init/"/>
 
 
 
@@ -334,7 +337,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/cloud-init/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/01/cloud-init/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -376,12 +379,46 @@
                 
               
 
-              <time title="Created: 2019-01-23 11:31:03" itemprop="dateCreated datePublished" datetime="2019-01-23T11:31:03+08:00">2019-01-23</time>
+              <time title="Created: 2016-05-01 11:31:03" itemprop="dateCreated datePublished" datetime="2016-05-01T11:31:03+08:00">2016-05-01</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-23 22:18:21" itemprop="dateModified" datetime="2019-01-23T22:18:21+08:00">2019-01-23</time>
+              
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/openstack/" itemprop="url" rel="index"><span itemprop="name">openstack</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -410,7 +447,35 @@
       
 
       
-        
+        <p>cloud-init 是一个系统配置工具，当系统起来时，cloud-init会从固定分区或者url读取数据，然后执行定制化操作。</p>
+<a id="more"></a>
+<p>cloud-init 有四个执行阶段：</p>
+<ul>
+<li>local: cloud-init-local.service</li>
+<li>init: cloud-init.service</li>
+<li>config: cloud-config.service</li>
+<li>final: cloud-final.service</li>
+</ul>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>cloud-init 各阶段完成哪些工作可以在 /etc/cloud/cloud.cfg 中查看</p>
+<ol>
+<li>local 阶段: 作为 cloud-init 的初始阶段，此时主要完成网口的配置<br>/usr/bin/cloud-init init –local</li>
+<li>init 阶段</li>
+<li>config 阶段</li>
+<li>final 阶段</li>
+</ol>
+<h2 id="cloud-init-脚本生成"><a href="#cloud-init-脚本生成" class="headerlink" title="cloud-init 脚本生成"></a>cloud-init 脚本生成</h2><p>社区提供了<code>write-mime-multipart</code>工具来生成cloud-init脚本。使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">$ cat my-boothook.txt</span><br><span class="line">#!/bin/sh</span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">echo &quot;This will run as soon as possible in the boot sequence&quot;</span><br><span class="line"></span><br><span class="line">$ cat my-user-script.txt</span><br><span class="line">#!/usr/bin/perl</span><br><span class="line">print &quot;This is a user script (rc.local)\n&quot;</span><br><span class="line"></span><br><span class="line">$ cat my-include.txt</span><br><span class="line"># these urls will be read pulled in if they were part of user-data</span><br><span class="line"># comments are allowed.  The format is one url per line</span><br><span class="line">http://www.ubuntu.com/robots.txt</span><br><span class="line">http://www.w3schools.com/html/lastpage.htm</span><br><span class="line"></span><br><span class="line">$ cat my-upstart-job.txt</span><br><span class="line">description &quot;a test upstart job&quot;</span><br><span class="line">start on stopped rc RUNLEVEL=[2345]</span><br><span class="line">console output</span><br><span class="line">task</span><br><span class="line">script</span><br><span class="line">echo &quot;====BEGIN=======&quot;</span><br><span class="line">echo &quot;HELLO From an Upstart Job&quot;</span><br><span class="line">echo &quot;=====END========&quot;</span><br><span class="line">end script</span><br><span class="line"></span><br><span class="line">$ cat my-cloudconfig.txt</span><br><span class="line">#cloud-config</span><br><span class="line">ssh_import_id: [smoser]</span><br><span class="line">apt_sources:</span><br><span class="line"> - source: &quot;ppa:smoser/ppa&quot;</span><br><span class="line"></span><br><span class="line">$ write-mime-multipart --output=combined-userdata.txt \</span><br><span class="line">    my-boothook.txt:text/cloud-boothook \</span><br><span class="line">    my-include.txt:text/x-include-url \</span><br><span class="line">    my-upstart-job.txt:text/upstart-job \</span><br><span class="line">    my-user-script.txt:text/x-shellscript \</span><br><span class="line">    my-cloudconfig.txt</span><br></pre></td></tr></table></figure>
+<h3 id="User-Data-输入格式"><a href="#User-Data-输入格式" class="headerlink" title="User Data 输入格式"></a>User Data 输入格式</h3><ul>
+<li>Gzip Compressed Content</li>
+<li>Mime Multi Part archive</li>
+<li>User-Data Script<br>以<code>#!</code>或<code>Content-Type: text/x-shellscript</code>开头。<br>存放用户脚本，可以是 python, shell, perl 等。user data 里的脚本执行比较晚，类似 rc.local， 而且只在第一次启动时 执行。</li>
+<li>Include File<br>以<code>#include</code>或<code>Content-Type: text/x-include-url</code>开头。<br>includ file 的内容是一串 url, 每行一个，cloud-init 启动时会 读取 url 链接的内容。</li>
+<li>Cloud Config Data<br>以<code>#cloud-config</code>或<code>Content-Type: text/cloud-config</code>开头，内容按规定格式编写。</li>
+<li>Upstart Job<br>以<code>#upstart-job</code>或<code>Content-Type: text/upstart-job</code>开头，<br>文件内容会存放在/etc/init ，以供其它 job 使用。</li>
+<li>Cloud Boothook<br>以#cloud-boothook 或 Content-Type: text/cloud-boothook 开头。<br>boothook 数据会保存到 /var/lib/cloud ，然后立刻执行。boothook 每次上电都会执行，没有机制指定只运行一次。</li>
+<li>Part Handler</li>
+</ul>
+
       
     </div>
 
@@ -437,8 +502,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/10/cprofile/" rel="next" title="使用cProfile分析python性能">
-                <i class="fa fa-chevron-left"></i> 使用cProfile分析python性能
+              <a href="/2016/04/30/virsh/" rel="next" title="virsh 常用命令">
+                <i class="fa fa-chevron-left"></i> virsh 常用命令
               </a>
             
           </div>
@@ -447,8 +512,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/23/mac-config/" rel="prev" title="mac 常用配置">
-                mac 常用配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/01/ovs/" rel="prev" title="ovs 常用命令">
+                ovs 常用命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -494,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -629,6 +703,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cloud-init-脚本生成"><span class="nav-number">2.</span> <span class="nav-text">cloud-init 脚本生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Data-输入格式"><span class="nav-number">2.1.</span> <span class="nav-text">User Data 输入格式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

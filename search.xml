@@ -12,11 +12,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[cloud-init]]></title>
-    <url>%2F2019%2F01%2F23%2Fcloud-init%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[使用cProfile分析python性能]]></title>
     <url>%2F2019%2F01%2F10%2Fcprofile%2F</url>
     <content type="text"><![CDATA[当我们的确是有需要开始真正优化我们的Python程序的时候，我们要做的第一步并不是盲目的去做优化，而是对我们现有的程序进行分析，发现程序的性能瓶颈进而进行针对性的优化。这样才会使我们花时间和精力去做的优化获得最大的效果。]]></content>
@@ -459,6 +454,14 @@
       <tags>
         <tag>openstack</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[cloud-init]]></title>
+    <url>%2F2016%2F05%2F01%2Fcloud-init%2F</url>
+    <content type="text"><![CDATA[cloud-init 是一个系统配置工具，当系统起来时，cloud-init会从固定分区或者url读取数据，然后执行定制化操作。 cloud-init 有四个执行阶段： local: cloud-init-local.service init: cloud-init.service config: cloud-config.service final: cloud-final.service 配置cloud-init 各阶段完成哪些工作可以在 /etc/cloud/cloud.cfg 中查看 local 阶段: 作为 cloud-init 的初始阶段，此时主要完成网口的配置/usr/bin/cloud-init init –local init 阶段 config 阶段 final 阶段 cloud-init 脚本生成社区提供了write-mime-multipart工具来生成cloud-init脚本。使用方法如下： 1234567891011121314151617181920212223242526272829303132333435363738$ cat my-boothook.txt#!/bin/shecho &quot;Hello World!&quot;echo &quot;This will run as soon as possible in the boot sequence&quot;$ cat my-user-script.txt#!/usr/bin/perlprint &quot;This is a user script (rc.local)\n&quot;$ cat my-include.txt# these urls will be read pulled in if they were part of user-data# comments are allowed. The format is one url per linehttp://www.ubuntu.com/robots.txthttp://www.w3schools.com/html/lastpage.htm$ cat my-upstart-job.txtdescription &quot;a test upstart job&quot;start on stopped rc RUNLEVEL=[2345]console outputtaskscriptecho &quot;====BEGIN=======&quot;echo &quot;HELLO From an Upstart Job&quot;echo &quot;=====END========&quot;end script$ cat my-cloudconfig.txt#cloud-configssh_import_id: [smoser]apt_sources: - source: &quot;ppa:smoser/ppa&quot;$ write-mime-multipart --output=combined-userdata.txt \ my-boothook.txt:text/cloud-boothook \ my-include.txt:text/x-include-url \ my-upstart-job.txt:text/upstart-job \ my-user-script.txt:text/x-shellscript \ my-cloudconfig.txt User Data 输入格式 Gzip Compressed Content Mime Multi Part archive User-Data Script以#!或Content-Type: text/x-shellscript开头。存放用户脚本，可以是 python, shell, perl 等。user data 里的脚本执行比较晚，类似 rc.local， 而且只在第一次启动时 执行。 Include File以#include或Content-Type: text/x-include-url开头。includ file 的内容是一串 url, 每行一个，cloud-init 启动时会 读取 url 链接的内容。 Cloud Config Data以#cloud-config或Content-Type: text/cloud-config开头，内容按规定格式编写。 Upstart Job以#upstart-job或Content-Type: text/upstart-job开头，文件内容会存放在/etc/init ，以供其它 job 使用。 Cloud Boothook以#cloud-boothook 或 Content-Type: text/cloud-boothook 开头。boothook 数据会保存到 /var/lib/cloud ，然后立刻执行。boothook 每次上电都会执行，没有机制指定只运行一次。 Part Handler]]></content>
+      <categories>
+        <category>openstack</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[virsh 常用命令]]></title>
