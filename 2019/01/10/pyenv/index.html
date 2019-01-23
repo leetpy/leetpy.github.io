@@ -438,15 +438,15 @@
       
         <p>pyenv可以帮助你在一台开发机上建立多个版本的python环境， 并提供方便的切换方法。<br>virtualenv可以搭建虚拟且独立的python环境，可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。</p>
 <a id="more"></a>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pyenv/pyenv.git ~/.pyenv</span><br><span class="line">echo 'export PYENV_ROOT="$HOME/.pyenv"' &gt;&gt; ~/.bash_profile</span><br><span class="line">echo 'export PATH="$PYENV_ROOT/bin:$PATH"' &gt;&gt; ~/.bash_profile</span><br><span class="line">echo -e 'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n  eval "$(pyenv init -)"\nfi' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> restart shell</span><br><span class="line">exec "$SHELL"</span><br></pre></td></tr></table></figure>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pyenv/pyenv.git ~/.pyenv</span><br><span class="line">echo 'export PYENV_ROOT="$HOME/.pyenv"' &gt;&gt; ~/.bash_profile</span><br><span class="line">echo 'export PATH="$PYENV_ROOT/bin:$PATH"' &gt;&gt; ~/.bash_profile</span><br><span class="line">echo -e 'if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n  eval "$(pyenv init -)"\nfi' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> restart shell</span></span><br><span class="line">exec "$SHELL"</span><br></pre></td></tr></table></figure>
 <h1 id="安装python-版本"><a href="#安装python-版本" class="headerlink" title="安装python 版本"></a>安装python 版本</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 2.7.8</span><br></pre></td></tr></table></figure>
 <p>如果系统没有安装<code>patch</code>命令，在安装python的时候会报如下错误：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/.pyenv/plugins/python-build/bin/python-build: line 1326: patch: command not found</span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install patch -y</span><br></pre></td></tr></table></figure>
 <h1 id="pyenv-virtualenv"><a href="#pyenv-virtualenv" class="headerlink" title="pyenv-virtualenv"></a>pyenv-virtualenv</h1><p>光有pyenv还不够，我们需要结合virtualenv来使用, pyenv-virtualenv就是干这个活的。</p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv</span><br><span class="line">echo 'eval "$(pyenv virtualenv-init -)"' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> restart shell</span><br><span class="line">exec "$SHELL"</span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建项目</span><br><span class="line">pyenv virtualenv 2.7.10 project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Activate virtualenv</span><br><span class="line">pyenv activate project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Deactive virtualenv</span><br><span class="line">pyenv deactivate</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Delete existing virtualenv</span><br><span class="line">pyenv uninstall project</span><br></pre></td></tr></table></figure>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv</span><br><span class="line">echo 'eval "$(pyenv virtualenv-init -)"' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> restart shell</span></span><br><span class="line">exec "$SHELL"</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建项目</span></span><br><span class="line">pyenv virtualenv 2.7.10 project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Activate virtualenv</span></span><br><span class="line">pyenv activate project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Deactive virtualenv</span></span><br><span class="line">pyenv deactivate</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete existing virtualenv</span></span><br><span class="line">pyenv uninstall project</span><br></pre></td></tr></table></figure>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a href="https://github.com/pyenv/pyenv#installation" target="_blank" rel="noopener">https://github.com/pyenv/pyenv#installation</a><br>[2] <a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank" rel="noopener">https://github.com/pyenv/pyenv-virtualenv</a></p>
 
       
@@ -563,7 +563,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -596,7 +596,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -645,7 +647,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

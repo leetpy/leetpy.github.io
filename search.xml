@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mac 常用配置]]></title>
+    <url>%2F2019%2F01%2F23%2Fmac-config%2F</url>
+    <content type="text"><![CDATA[这里主要记录mac使用中的一些小问题。 oh-my-zsh 去掉history共享12# Add follow line in $ZSH/oh-my-zsh.shunsetopt share_history]]></content>
+      <categories>
+        <category>mac</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[cloud-init]]></title>
+    <url>%2F2019%2F01%2F23%2Fcloud-init%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[使用cProfile分析python性能]]></title>
+    <url>%2F2019%2F01%2F10%2Fcprofile%2F</url>
+    <content type="text"><![CDATA[当我们的确是有需要开始真正优化我们的Python程序的时候，我们要做的第一步并不是盲目的去做优化，而是对我们现有的程序进行分析，发现程序的性能瓶颈进而进行针对性的优化。这样才会使我们花时间和精力去做的优化获得最大的效果。]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[celery任务超时控制]]></title>
     <url>%2F2019%2F01%2F10%2Fcelery-time-limit%2F</url>
     <content type="text"><![CDATA[有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。 超时设置celery 提供了两个参数来控制task超时时间： task_time_limit: 在指定时间内没有完成，task会被kill，然后开始下一个task。 task_soft_time_limit: 在celery配置文件中使用12time_limit = 30soft_time_limit = 10 在装饰器中使用123@app.taskdef mytask(time_limit=30, soft_time_limit=10): do_your_job() 捕获异常12345678from celery.exceptions import SoftTimeLimitExceeded@app.taskdef mytask(soft_time_limit=10): try: return do_work() except SoftTimeLimitExceeded: cleanup_in_a_hurry() 这里实际测试有些情况下仍然捕获不到异常，会直接抛出，出现类似打印： 123456789101112131415161718192021[2019-01-10 15:42:13,716: ERROR/ForkPoolWorker-11] Pool process &lt;celery.concurrency.asynpool.Worker object at 0x107fddb90&gt; error: SoftTimeLimitExceeded()Traceback (most recent call last): File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 289, in __call__ sys.exit(self.workloop(pid=pid)) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 347, in workloop req = wait_for_job() File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 447, in receive ready, req = _receive(1.0) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 419, in _recv return True, loads(get_payload()) File &quot;/Library/Python/2.7/site-packages/billiard/queues.py&quot;, line 355, in get_payload return self._reader.recv_bytes() File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 245, in recv_bytes buf = self._recv_bytes(maxlength) File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 458, in _recv_bytes buf = self._recv(4) File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 424, in _recv chunk = read(handle, remaining) File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 227, in soft_timeout_sighandler raise SoftTimeLimitExceeded()SoftTimeLimitExceeded: SoftTimeLimitExceeded() 参考文献[1] http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit]]></content>
@@ -8,8 +35,8 @@
         <category>mq</category>
       </categories>
       <tags>
-        <tag>celery</tag>
         <tag>python</tag>
+        <tag>celery</tag>
       </tags>
   </entry>
   <entry>
@@ -379,6 +406,39 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[awk]]></title>
+    <url>%2F2017%2F01%2F23%2Fawk%2F</url>
+    <content type="text"><![CDATA[awk 主要用于分词。 取匹配次数是三的倍数1cat $source_file | awk &apos;BEGIN&#123;count=0&#125; &#123;i=1; while(i &lt;= NF)&#123; if(count%3==0)&#123;print $i&#125;; count++; i++ &#125;&#125;&apos; 取行数大于1的行的第一列1cat $source_file | awk &apos;&#123; if(NF&gt;1)&#123;print $1&#125;&#125;&apos; 使用正则表达式1cat $source_file | awk &apos;$1~/(x86_64$)|(noarch$)|(i686$)/&#123;print $1&#125;&apos;]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[grep]]></title>
+    <url>%2F2017%2F01%2F23%2Fgrep%2F</url>
+    <content type="text"><![CDATA[grep 主要用于查找过滤。 OR1234567891011# using \|grep &apos;pattern1\|pattern2&apos; filename# using -Egrep -E &apos;pattern1|pattern2&apos; filename# using egrepegrep &apos;pattern1|pattern2&apos; filename# using -egrep -e pattern1 -e pattern2 filename AND123456grep -E &apos;pattern1.*pattern2&apos; filenamegrep -E &apos;pattern1.*pattern2|pattern2.*pattern1&apos; filename# Multiple grepgrep -E &apos;pattern1&apos; filename | grep -E &apos;pattern2&apos; NOT12# using -vgrep -v &apos;pattern1&apos; filename]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sed]]></title>
+    <url>%2F2017%2F01%2F23%2Fsed%2F</url>
+    <content type="text"><![CDATA[sed 主要用于替换匹配等操作。 匹配空格1sed -i &apos;s/key[[:space:]]*=[[:space:]]*value/key=new_value/&apos; file 行范围12345678# 匹配行到最后一行sed -n &apos;/Installed Packages/,$&apos;p file.txt# 前两行sed -n &apos;1,2&apos;p file.txt# 去掉第一行sed -n &apos;2,$&apos;p file.txt 模糊匹配123# 替换 *.iso 为 test.iso, 注意引号的区别sed -i &quot;s/\\(.*\\)iso/test.iso/&quot; vm.xmlsed -i &apos;s/\(.*\)iso/test.iso/&apos; vm.xml]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[openstack 社区代码提交]]></title>
     <url>%2F2016%2F09%2F07%2Fcontribute%2F</url>
     <content type="text"><![CDATA[网站介绍 launchpad lanuchpad 主要是社区用来记录 bug 和 bp 的地方; openstack openstack 的官方网站; gerrit 下载代码，评审; 前期准备 注册 launchpad 帐号; 注册 openstack 帐号; 登录 https://review.openstack.org; 进入 https://review.openstack.org/#/settings/ 在里面填写如下信息： 在Profile中的Username 在Agreements中签署协议（个人是ICLA) 在Contact Infomation中填写所有内容，注意如果之前不是Foundation Member就会出现无法提交问题 在HTTP Password中Generate Password，生成一串代码。后续提交代码时需要用到这串密码 提交代码在提交代码之前我们需要做一些简单的配置。 git review安装1pip install git-review git 配置12345678# 这里的名字必须是gerrit的名字git config gitreview.username &lt;your name&gt;# ssh用不了，使用https方式提交git config gitreview.scheme httpsgit config gitreview.port 443git review -s -v 提交代码1234git add --allgit commit -m "commit msg"git review 如果已经 commit 完了，发现还有代码需要修改，我们需要追加 commit. 12# 可以编辑 commit 信息git commit --amend 邮件列表订阅直接访问 Mailing list 退订如果感觉邮件列表太多，可以退订邮件列表： http://lists.openstack.org/cgi-bin/mailman/options/openstack-dev]]></content>
@@ -401,9 +461,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[qemu 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
-    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
+    <title><![CDATA[virsh 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
+    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
       <categories>
         <category>kvm</category>
       </categories>
@@ -412,9 +472,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[virsh 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
-    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
+    <title><![CDATA[qemu 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
+    <content type="text"><![CDATA[镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd]]></content>
       <categories>
         <category>kvm</category>
       </categories>
