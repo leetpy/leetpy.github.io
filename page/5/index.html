@@ -1097,7 +1097,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+                <time title="Modified: 2019-01-23 21:46:44" itemprop="dateModified" datetime="2019-01-23T21:46:44+08:00">2019-01-23</time>
               
             
           </span>
@@ -1149,7 +1149,7 @@
 
       
         
-          <p>virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。<br></p>
+          <p>virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/04/30/virsh/#more" rel="contents">
@@ -1228,7 +1228,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2016/04/30/qemu/" itemprop="url">
-                  qemu 常用命令
+                  qemu 介绍
                 </a>
               
             
@@ -1271,7 +1271,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+                <time title="Modified: 2019-01-23 21:46:34" itemprop="dateModified" datetime="2019-01-23T21:46:34+08:00">2019-01-23</time>
               
             
           </span>
@@ -1323,7 +1323,7 @@
 
       
         
-          <h2 id="镜像基本操作"><a href="#镜像基本操作" class="headerlink" title="镜像基本操作"></a>镜像基本操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看镜像信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img info &lt;filename&gt;</span></span><br></pre></td></tr></table></figure>
+          <h2 id="什么是qemu"><a href="#什么是qemu" class="headerlink" title="什么是qemu"></a>什么是qemu</h2><p>qemu 官方的定义是: <code>QEMU is a generic and open source machine emulator and virtualizer.</code><br>简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构如下图所示：</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2016/04/30/qemu/#more" rel="contents">

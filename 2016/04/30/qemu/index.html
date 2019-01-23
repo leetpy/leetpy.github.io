@@ -108,18 +108,21 @@
 
 
 
-  <meta name="description" content="镜像基本操作12345# 创建镜像$ qemu-img create -f &amp;lt;format&amp;gt; &amp;lt;filename&amp;gt; &amp;lt;size&amp;gt;# 查看镜像信息$ qemu-img info &amp;lt;filename&amp;gt;">
+  <meta name="description" content="什么是qemuqemu 官方的定义是: QEMU is a generic and open source machine emulator and virtualizer.简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构">
 <meta name="keywords" content="openstack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="qemu 常用命令">
+<meta property="og:title" content="qemu 介绍">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/qemu/index.html">
 <meta property="og:site_name" content="leesea&#39;s blog">
-<meta property="og:description" content="镜像基本操作12345# 创建镜像$ qemu-img create -f &amp;lt;format&amp;gt; &amp;lt;filename&amp;gt; &amp;lt;size&amp;gt;# 查看镜像信息$ qemu-img info &amp;lt;filename&amp;gt;">
+<meta property="og:description" content="什么是qemuqemu 官方的定义是: QEMU is a generic and open source machine emulator and virtualizer.简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-28T06:28:42.060Z">
+<meta property="og:image" content="http://yoursite.com/2016/04/30/qemu/qemu.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/04/30/qemu/qemu-kvm.png">
+<meta property="og:updated_time" content="2019-01-23T13:46:34.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="qemu 常用命令">
-<meta name="twitter:description" content="镜像基本操作12345# 创建镜像$ qemu-img create -f &amp;lt;format&amp;gt; &amp;lt;filename&amp;gt; &amp;lt;size&amp;gt;# 查看镜像信息$ qemu-img info &amp;lt;filename&amp;gt;">
+<meta name="twitter:title" content="qemu 介绍">
+<meta name="twitter:description" content="什么是qemuqemu 官方的定义是: QEMU is a generic and open source machine emulator and virtualizer.简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构">
+<meta name="twitter:image" content="http://yoursite.com/2016/04/30/qemu/qemu.jpg">
 
 
 
@@ -138,7 +141,7 @@
   };
 </script>
 
-  <title>qemu 常用命令 | leesea's blog</title>
+  <title>qemu 介绍 | leesea's blog</title>
   
 
 
@@ -355,7 +358,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">qemu 常用命令
+          <h1 class="post-title" itemprop="name headline">qemu 介绍
               
             
           </h1>
@@ -397,7 +400,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 14:28:42" itemprop="dateModified" datetime="2018-09-28T14:28:42+08:00">2018-09-28</time>
+                <time title="Modified: 2019-01-23 21:46:34" itemprop="dateModified" datetime="2019-01-23T21:46:34+08:00">2019-01-23</time>
               
             
           </span>
@@ -448,11 +451,18 @@
       
 
       
-        <h2 id="镜像基本操作"><a href="#镜像基本操作" class="headerlink" title="镜像基本操作"></a>镜像基本操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看镜像信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img info &lt;filename&gt;</span></span><br></pre></td></tr></table></figure>
+        <h2 id="什么是qemu"><a href="#什么是qemu" class="headerlink" title="什么是qemu"></a>什么是qemu</h2><p>qemu 官方的定义是: <code>QEMU is a generic and open source machine emulator and virtualizer.</code><br>简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构如下图所示：</p>
 <a id="more"></a>
-<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> qemu-img resize test.img +2G</span></span><br></pre></td></tr></table></figure>
-<h2 id="qemu-img-快照"><a href="#qemu-img-快照" class="headerlink" title="qemu-img 快照"></a>qemu-img 快照</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -c first_snapshot /var/lib/test.img</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -l /var/lib/test.img</span></span><br><span class="line">Snapshot list:</span><br><span class="line">ID        TAG                 VM SIZE                DATE       VM CLOCK</span><br><span class="line">1         first_snapshot            0 2017-07-11 09:30:40   00:00:00.000</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -a 1 /var/lib/test.img</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -d 1 /var/lib/test.img</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2016/04/30/qemu/qemu.jpg" alt=""></p>
+<h2 id="什么是KVM"><a href="#什么是KVM" class="headerlink" title="什么是KVM"></a>什么是KVM</h2><p>KVM实际上是linux内核提供的虚拟化架构，可以将内核直接充当hypervisor来使用。KVM需要处理器硬件本身支持虚拟化扩展，例如intel VT 和 AMD AMD-V 技术。</p>
+<p>KVM包含一个内核模块kvm.ko用来实现核心虚拟化功能，以及一个和处理器强相关的模块如kvm-intel.ko或kvm-amd.ko。KVM本身不实现任何模拟，仅仅是暴露了一个/dev/kvm接口，这个接口可被宿主机用来主要负责vCPU的创建，虚拟内存的地址空间分配，vCPU寄存器的读写以及vCPU的运行。有了KVM以后，guest os的CPU指令不用再经过QEMU来转译便可直接运行，大大提高了运行速度。但KVM的kvm.ko本身只提供了CPU和内存的虚拟化，所以它必须结合QEMU才能构成一个完整的虚拟化技术，也就是下面要介绍的技术。</p>
+<h2 id="什么是QEMU-KVM"><a href="#什么是QEMU-KVM" class="headerlink" title="什么是QEMU-KVM"></a>什么是QEMU-KVM</h2><p>KVM负责cpu虚拟化+内存虚拟化，实现了cpu和内存的虚拟化，但kvm并不能模拟其他设备，还必须有个运行在用户空间的工具才行。KVM的开发者选择了比较成熟的开源虚拟化软件QEMU来作为这个工具，QEMU模拟IO设备（网卡，磁盘等），对其进行了修改，最后形成了QEMU-KVM。</p>
+<p><img src="/2016/04/30/qemu/qemu-kvm.png" alt=""></p>
+<h2 id="镜像基本操作"><a href="#镜像基本操作" class="headerlink" title="镜像基本操作"></a>镜像基本操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建镜像</span><br><span class="line"><span class="meta">$</span> qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看镜像信息</span><br><span class="line"><span class="meta">$</span> qemu-img info &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<!-- more -->
+<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> qemu-img resize test.img +2G</span><br></pre></td></tr></table></figure>
+<h2 id="qemu-img-快照"><a href="#qemu-img-快照" class="headerlink" title="qemu-img 快照"></a>qemu-img 快照</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -c first_snapshot /var/lib/test.img</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查询快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -l /var/lib/test.img</span><br><span class="line">Snapshot list:</span><br><span class="line">ID        TAG                 VM SIZE                DATE       VM CLOCK</span><br><span class="line">1         first_snapshot            0 2017-07-11 09:30:40   00:00:00.000</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -a 1 /var/lib/test.img</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -d 1 /var/lib/test.img</span><br></pre></td></tr></table></figure>
 <h2 id="qemu-镜像修改"><a href="#qemu-镜像修改" class="headerlink" title="qemu 镜像修改"></a>qemu 镜像修改</h2><p>有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下：</p>
 <ul>
 <li><p>挂载qcow2</p>
@@ -462,8 +472,10 @@
   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vgscan</span><br><span class="line">vgchange -ay</span><br><span class="line">mount /dev/VolGroupName/LogVolName /mnt/</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>卸载qcow2</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt/</span><br><span class="line">vgchange -an VolGroupName</span><br><span class="line">killall qemu-nbd</span><br></pre></td></tr></table></figure></li>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt/</span><br><span class="line">vgchange -an VolGroupName</span><br><span class="line">killall qemu-nbd</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] <a href="https://www.qemu.org/" target="_blank" rel="noopener">https://www.qemu.org/</a></p>
 
       
     </div>
@@ -704,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像基本操作"><span class="nav-number">1.</span> <span class="nav-text">镜像基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式转换"><span class="nav-number">2.</span> <span class="nav-text">格式转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩容"><span class="nav-number">3.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-img-快照"><span class="nav-number">4.</span> <span class="nav-text">qemu-img 快照</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-镜像修改"><span class="nav-number">5.</span> <span class="nav-text">qemu 镜像修改</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是qemu"><span class="nav-number">1.</span> <span class="nav-text">什么是qemu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是KVM"><span class="nav-number">2.</span> <span class="nav-text">什么是KVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是QEMU-KVM"><span class="nav-number">3.</span> <span class="nav-text">什么是QEMU-KVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像基本操作"><span class="nav-number">4.</span> <span class="nav-text">镜像基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式转换"><span class="nav-number">5.</span> <span class="nav-text">格式转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩容"><span class="nav-number">6.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-img-快照"><span class="nav-number">7.</span> <span class="nav-text">qemu-img 快照</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qemu-镜像修改"><span class="nav-number">8.</span> <span class="nav-text">qemu 镜像修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
