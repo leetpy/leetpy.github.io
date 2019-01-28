@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>leesea&#39;s blog</title>
+  <title>leesea</title>
   
   
   <link href="/atom.xml" rel="self"/>
@@ -78,9 +78,9 @@
       <category term="mq" scheme="http://yoursite.com/categories/mq/"/>
     
     
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
       <category term="celery" scheme="http://yoursite.com/tags/celery/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
   </entry>
   

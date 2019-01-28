@@ -113,7 +113,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="qemu 介绍">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/qemu/index.html">
-<meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:site_name" content="leesea">
 <meta property="og:description" content="什么是qemuqemu 官方的定义是: QEMU is a generic and open source machine emulator and virtualizer.简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/04/30/qemu/qemu.jpg">
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="leesea's blog" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="leesea" type="application/atom+xml" />
 
 
 
@@ -141,7 +141,7 @@
   };
 </script>
 
-  <title>qemu 介绍 | leesea's blog</title>
+  <title>qemu 介绍 | leesea</title>
   
 
 
@@ -199,7 +199,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">leesea's blog</span>
+        <span class="site-title">leesea</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -233,6 +233,22 @@
         
         
           
+          <li class="menu-item menu-item-leetcode">
+    <a href="/leetcode" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-code"></i> <br />leetcode</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-reading">
+    <a href="/reading" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-book"></i> <br />reading</a>
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
@@ -252,14 +268,6 @@
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-    <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
   </li>
 
       
@@ -350,7 +358,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea's blog">
+      <meta itemprop="name" content="leesea">
     </span>
 
     
@@ -458,11 +466,11 @@
 <p>KVM包含一个内核模块kvm.ko用来实现核心虚拟化功能，以及一个和处理器强相关的模块如kvm-intel.ko或kvm-amd.ko。KVM本身不实现任何模拟，仅仅是暴露了一个/dev/kvm接口，这个接口可被宿主机用来主要负责vCPU的创建，虚拟内存的地址空间分配，vCPU寄存器的读写以及vCPU的运行。有了KVM以后，guest os的CPU指令不用再经过QEMU来转译便可直接运行，大大提高了运行速度。但KVM的kvm.ko本身只提供了CPU和内存的虚拟化，所以它必须结合QEMU才能构成一个完整的虚拟化技术，也就是下面要介绍的技术。</p>
 <h2 id="什么是QEMU-KVM"><a href="#什么是QEMU-KVM" class="headerlink" title="什么是QEMU-KVM"></a>什么是QEMU-KVM</h2><p>KVM负责cpu虚拟化+内存虚拟化，实现了cpu和内存的虚拟化，但kvm并不能模拟其他设备，还必须有个运行在用户空间的工具才行。KVM的开发者选择了比较成熟的开源虚拟化软件QEMU来作为这个工具，QEMU模拟IO设备（网卡，磁盘等），对其进行了修改，最后形成了QEMU-KVM。</p>
 <p><img src="/2016/04/30/qemu/qemu-kvm.png" alt=""></p>
-<h2 id="镜像基本操作"><a href="#镜像基本操作" class="headerlink" title="镜像基本操作"></a>镜像基本操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建镜像</span><br><span class="line"><span class="meta">$</span> qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看镜像信息</span><br><span class="line"><span class="meta">$</span> qemu-img info &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="镜像基本操作"><a href="#镜像基本操作" class="headerlink" title="镜像基本操作"></a>镜像基本操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看镜像信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img info &lt;filename&gt;</span></span><br></pre></td></tr></table></figure>
 <!-- more -->
-<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> qemu-img resize test.img +2G</span><br></pre></td></tr></table></figure>
-<h2 id="qemu-img-快照"><a href="#qemu-img-快照" class="headerlink" title="qemu-img 快照"></a>qemu-img 快照</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 创建快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -c first_snapshot /var/lib/test.img</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查询快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -l /var/lib/test.img</span><br><span class="line">Snapshot list:</span><br><span class="line">ID        TAG                 VM SIZE                DATE       VM CLOCK</span><br><span class="line">1         first_snapshot            0 2017-07-11 09:30:40   00:00:00.000</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -a 1 /var/lib/test.img</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除快照</span><br><span class="line"><span class="meta">$</span> qemu-img snapshot -d 1 /var/lib/test.img</span><br></pre></td></tr></table></figure>
+<h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> qemu-img resize test.img +2G</span></span><br></pre></td></tr></table></figure>
+<h2 id="qemu-img-快照"><a href="#qemu-img-快照" class="headerlink" title="qemu-img 快照"></a>qemu-img 快照</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -c first_snapshot /var/lib/test.img</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -l /var/lib/test.img</span></span><br><span class="line">Snapshot list:</span><br><span class="line">ID        TAG                 VM SIZE                DATE       VM CLOCK</span><br><span class="line">1         first_snapshot            0 2017-07-11 09:30:40   00:00:00.000</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -a 1 /var/lib/test.img</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除快照</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> qemu-img snapshot -d 1 /var/lib/test.img</span></span><br></pre></td></tr></table></figure>
 <h2 id="qemu-镜像修改"><a href="#qemu-镜像修改" class="headerlink" title="qemu 镜像修改"></a>qemu 镜像修改</h2><p>有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下：</p>
 <ul>
 <li><p>挂载qcow2</p>
@@ -509,14 +517,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/30/virsh/" rel="next" title="virsh 常用命令">
+                <i class="fa fa-chevron-left"></i> virsh 常用命令
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/30/virsh/" rel="prev" title="virsh 常用命令">
-                virsh 常用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/01/cloud-init/" rel="prev" title="cloud-init">
+                cloud-init <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +599,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -673,7 +685,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

@@ -113,7 +113,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="virsh 常用命令">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/virsh/index.html">
-<meta property="og:site_name" content="leesea&#39;s blog">
+<meta property="og:site_name" content="leesea">
 <meta property="og:description" content="virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-01-23T13:46:44.529Z">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="leesea's blog" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="leesea" type="application/atom+xml" />
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>virsh 常用命令 | leesea's blog</title>
+  <title>virsh 常用命令 | leesea</title>
   
 
 
@@ -196,7 +196,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">leesea's blog</span>
+        <span class="site-title">leesea</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -230,6 +230,22 @@
         
         
           
+          <li class="menu-item menu-item-leetcode">
+    <a href="/leetcode" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-code"></i> <br />leetcode</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-reading">
+    <a href="/reading" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-book"></i> <br />reading</a>
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
@@ -249,14 +265,6 @@
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-    <a href="/about/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
   </li>
 
       
@@ -347,7 +355,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea's blog">
+      <meta itemprop="name" content="leesea">
     </span>
 
     
@@ -450,7 +458,7 @@
       
         <p>virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。</p>
 <a id="more"></a>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看虚机列表</span><br><span class="line"><span class="meta">$</span> virsh list</span><br><span class="line">Id    Name                           State</span><br><span class="line">----------------------------------------------------</span><br><span class="line"> 3     dev_test                       running</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看网络</span><br><span class="line"><span class="meta">$</span> virsh net-list</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> dumpxml</span><br><span class="line"><span class="meta">$</span> virsh dumpxml &lt;id&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看 vnc 端口号</span><br><span class="line"><span class="meta">$</span> virsh vncdisplay &lt;id&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 增加网卡</span><br><span class="line">virsh attach-interface --domain vm1 --type bridge --source br1</span><br></pre></td></tr></table></figure>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看虚机列表</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> virsh list</span></span><br><span class="line">Id    Name                           State</span><br><span class="line">----------------------------------------------------</span><br><span class="line"> 3     dev_test                       running</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看网络</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> virsh net-list</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> dumpxml</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> virsh dumpxml &lt;id&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看 vnc 端口号</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> virsh vncdisplay &lt;id&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 增加网卡</span></span><br><span class="line">virsh attach-interface --domain vm1 --type bridge --source br1</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -484,8 +492,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/30/qemu/" rel="next" title="qemu 介绍">
-                <i class="fa fa-chevron-left"></i> qemu 介绍
+              <a href="/2015/01/28/leetcode-001/" rel="next" title="Two Sum">
+                <i class="fa fa-chevron-left"></i> Two Sum
               </a>
             
           </div>
@@ -494,8 +502,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/01/cloud-init/" rel="prev" title="cloud-init">
-                cloud-init <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/30/qemu/" rel="prev" title="qemu 介绍">
+                qemu 介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -566,7 +574,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -652,7 +660,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
