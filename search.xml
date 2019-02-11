@@ -464,6 +464,17 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[virsh 常用命令]]></title>
+    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
+    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
+      <categories>
+        <category>kvm</category>
+      </categories>
+      <tags>
+        <tag>openstack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[qemu 介绍]]></title>
     <url>%2F2016%2F04%2F30%2Fqemu%2F</url>
     <content type="text"><![CDATA[什么是qemuqemu 官方的定义是: QEMU is a generic and open source machine emulator and virtualizer.简单来说 qemu 就是用软件来模拟计算机的各种硬件, 使guest os认为自己和硬件直接打交道，其实是和qemu模拟的硬件交互。qemu会将指令翻译给host执行。所有指令通过qemu翻译后执行性能会比较差。qemu的架构如下图所示： 什么是KVMKVM实际上是linux内核提供的虚拟化架构，可以将内核直接充当hypervisor来使用。KVM需要处理器硬件本身支持虚拟化扩展，例如intel VT 和 AMD AMD-V 技术。 KVM包含一个内核模块kvm.ko用来实现核心虚拟化功能，以及一个和处理器强相关的模块如kvm-intel.ko或kvm-amd.ko。KVM本身不实现任何模拟，仅仅是暴露了一个/dev/kvm接口，这个接口可被宿主机用来主要负责vCPU的创建，虚拟内存的地址空间分配，vCPU寄存器的读写以及vCPU的运行。有了KVM以后，guest os的CPU指令不用再经过QEMU来转译便可直接运行，大大提高了运行速度。但KVM的kvm.ko本身只提供了CPU和内存的虚拟化，所以它必须结合QEMU才能构成一个完整的虚拟化技术，也就是下面要介绍的技术。 什么是QEMU-KVMKVM负责cpu虚拟化+内存虚拟化，实现了cpu和内存的虚拟化，但kvm并不能模拟其他设备，还必须有个运行在用户空间的工具才行。KVM的开发者选择了比较成熟的开源虚拟化软件QEMU来作为这个工具，QEMU模拟IO设备（网卡，磁盘等），对其进行了修改，最后形成了QEMU-KVM。 镜像基本操作12345# 创建镜像$ qemu-img create -f &lt;format&gt; &lt;filename&gt; &lt;size&gt;# 查看镜像信息$ qemu-img info &lt;filename&gt; 格式转换1$ qemu-img convert -c -f &lt;fmt&gt; -O &lt;out_fmt&gt; -o &lt;options&gt; &lt;fname&gt; &lt;out_fname&gt; 扩容1$ qemu-img resize test.img +2G qemu-img 快照1234567891011121314# 创建快照$ qemu-img snapshot -c first_snapshot /var/lib/test.img# 查询快照$ qemu-img snapshot -l /var/lib/test.imgSnapshot list:ID TAG VM SIZE DATE VM CLOCK1 first_snapshot 0 2017-07-11 09:30:40 00:00:00.000# 使用快照$ qemu-img snapshot -a 1 /var/lib/test.img# 删除快照$ qemu-img snapshot -d 1 /var/lib/test.img qemu 镜像修改有时候当我们的qemu 镜像系统挂了或者是没有密码时，我们可以挂载qemu镜像，然后对镜像进行修改和文件备份。操作步骤如下： 挂载qcow2 123modprobe nbd max_part=8qemu-nbd -c /dev/nbd0 vdisk01.imgmount /dev/nbd0p1 /mnt/ 挂载lvm分区 qcow2镜像 123vgscanvgchange -aymount /dev/VolGroupName/LogVolName /mnt/ 卸载qcow2 123umount /mnt/vgchange -an VolGroupNamekillall qemu-nbd 参考文献[1] https://www.qemu.org/]]></content>
@@ -475,14 +486,35 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[virsh 常用命令]]></title>
-    <url>%2F2016%2F04%2F30%2Fvirsh%2F</url>
-    <content type="text"><![CDATA[virsh 是 libvirt 的 cli 工具，通过调用 libvirt 接口来控制虚拟机。 常用命令1234567891011121314151617# 查看虚机列表$ virsh listId Name State---------------------------------------------------- 3 dev_test running# 查看网络$ virsh net-list# dumpxml$ virsh dumpxml &lt;id&gt;# 查看 vnc 端口号$ virsh vncdisplay &lt;id&gt;# 增加网卡virsh attach-interface --domain vm1 --type bridge --source br1]]></content>
-      <categories>
-        <category>kvm</category>
-      </categories>
+    <title><![CDATA[Transpose File]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
       <tags>
-        <tag>openstack</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Word Frequency]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
+    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Valid Phone Numbers]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Tenth Line]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-195%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt, print just the 10th line of the file. 题目链接：https://leetcode.com/problems/tenth-line/ 分析题目的意思很简单，就是输出文件的第十行，需要考虑文件行数少于10的情况。 代码1234567891011121314151617181920# Solution 1cnt=0while read line &amp;&amp; [ $cnt -le 10 ]; do let 'cnt = cnt + 1' if [ $cnt -eq 10 ]; then echo $line exit 0 fidone &lt; file.txt# Solution 2awk 'FNR == 10 &#123;print &#125;' file.txt# ORawk 'NR == 10' file.txt# Solution 3sed -n 10p file.txt# Solution 4tail -n+10 file.txt|head -1]]></content>
+      <tags>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
