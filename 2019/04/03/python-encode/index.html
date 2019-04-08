@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="我们经常听到 ASCII, 大致样子就是下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
+  <meta name="description" content="我们经常听到 ASCII, 大致样子如下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈计算机的编码">
 <meta property="og:url" content="http://yoursite.com/2019/04/03/python-encode/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="我们经常听到 ASCII, 大致样子就是下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
+<meta property="og:description" content="我们经常听到 ASCII, 大致样子如下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/03/python-encode/USASCII_code_chart.png">
-<meta property="og:updated_time" content="2019-04-08T03:30:01.368Z">
+<meta property="og:updated_time" content="2019-04-08T06:24:59.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈计算机的编码">
-<meta name="twitter:description" content="我们经常听到 ASCII, 大致样子就是下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
+<meta name="twitter:description" content="我们经常听到 ASCII, 大致样子如下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+">
 <meta name="twitter:image" content="http://yoursite.com/2019/04/03/python-encode/USASCII_code_chart.png">
 
 
@@ -406,7 +406,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-08 11:30:01" itemprop="dateModified" datetime="2019-04-08T11:30:01+08:00">2019-04-08</time>
+                <time title="Modified: 2019-04-08 14:24:59" itemprop="dateModified" datetime="2019-04-08T14:24:59+08:00">2019-04-08</time>
               
             
           </span>
@@ -439,7 +439,7 @@
       
 
       
-        <p>我们经常听到 ASCII, 大致样子就是下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加<code>U+</code></p>
+        <p>我们经常听到 ASCII, 大致样子如下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加<code>U+</code></p>
 <a id="more"></a>
 <p><img src="/2019/04/03/python-encode/USASCII_code_chart.png" alt="USASCII_code_chart"></p>
 <p>是不是认为全部使用unicode编码就万事大吉了，其实也不是，例如英文字符其实只需要7bit 即可表示，如果每个字符都使用2字节的原Unicode编码传输，其第一字节的8位始终为0。这就造成了比较大的浪费。于是人们又提出了Unicode转换格式（Unicode Transformation Format，简称为UTF） ，我们常听到的 utf-8 编码就是其中的一种。</p>
@@ -473,12 +473,13 @@
 </tr>
 </tbody>
 </table>
-<p>在介绍编码解码之前，我们先了解下几个基本概念：</p>
-<ul>
-<li>字符集(Character Set)</li>
-<li>码位(Code Point)</li>
-<li>字符编码(Character Encoding)</li>
-</ul>
+<h2 id="现代编码模型"><a href="#现代编码模型" class="headerlink" title="现代编码模型"></a>现代编码模型</h2><p>在现代编码模型里要知道一个字符如何映射成计算机里比特，需要经过如下几个步骤。</p>
+<ol>
+<li>知道一个系统需要支持哪些字符，这些字符的集合被称为字符表（Character repertoire）</li>
+<li>给字符表里的抽象字符编上一个数字，也就是字符集合到一个整数集合的映射。这种映射称为编码字符集（CCS:Coded Character Set）,unicode是属于这一层的概念，跟计算机里的什么进制啊没有任何关系，它是完全数学的抽象的。</li>
+<li>将CCS里字符对应的整数转换成有限长度的比特值，便于以后计算机使用一定长度的二进制形式表示该整数。这个对应关系被称为字符编码表（CEF:Character Encoding Form）UTF-8, UTF-16都属于这层。</li>
+<li>对于CEF得到的比特值具体如何在计算机中进行存储，传输。因为存在大端小端的问题，这就会跟具体的操作系统相关了。这种解决方案称为字符编码方案（CES:Character Encoding Scheme）。</li>
+</ol>
 <h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>字符集从字面意思讲就是字符的集合，例如可以把数字0-9, 字母a-z, A-Z 一起组成一个字符集，可以把所有的汉子组成一个字符集。</p>
 <h2 id="码位"><a href="#码位" class="headerlink" title="码位"></a>码位</h2><p>上面说的 ASCII 和 unicode 都是码位，也称编码的位置，英文 code point. 不同的字符集有不同的码位。码位其实就是一个字符和计算机二进制的映射。简单地讲就是定义了字符集里一个字符对应的二进制编码。</p>
 <h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>字符编码主要是为了减少码位的长度，方便传输。把码位转换成字节序列的过程叫编码，把字节序列转换成码位的过程叫解码。</p>
@@ -727,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">1.</span> <span class="nav-text">字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#码位"><span class="nav-number">2.</span> <span class="nav-text">码位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符编码"><span class="nav-number">3.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#现代编码模型"><span class="nav-number">1.</span> <span class="nav-text">现代编码模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">2.</span> <span class="nav-text">字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#码位"><span class="nav-number">3.</span> <span class="nav-text">码位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符编码"><span class="nav-number">4.</span> <span class="nav-text">字符编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
