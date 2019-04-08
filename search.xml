@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[谈谈计算机的编码]]></title>
+    <url>%2F2019%2F04%2F03%2Fpython-encode%2F</url>
+    <content type="text"><![CDATA[我们经常听到 ASCII, 大致样子就是下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+ 是不是认为全部使用unicode编码就万事大吉了，其实也不是，例如英文字符其实只需要7bit 即可表示，如果每个字符都使用2字节的原Unicode编码传输，其第一字节的8位始终为0。这就造成了比较大的浪费。于是人们又提出了Unicode转换格式（Unicode Transformation Format，简称为UTF） ，我们常听到的 utf-8 编码就是其中的一种。 UTF-8 使用1~6字节来编码，具体如下： 128个ASCII 使用一个字节编码； 拉丁，希腊，等用两个字节编码； 少数语言（汉子）使用三字节编码； 极少数辅助字符使用4～6字节编码； 这里举个例子说明下。例如我们想表示字母A, 用 ASCII 表示为 100 0001, 如果用 unicode 表示为 U+0041换成二进制是 0000 0000 0000 0000 0000 0100 0000 0001。而使用utf-8编码则为 0100 0001。 ASCII Unicode UTF-8 A 100 0001 0000 0000 0000 0000 0000 0100 0000 0001 0100 0001 在介绍编码解码之前，我们先了解下几个基本概念： 字符集(Character Set) 码位(Code Point) 字符编码(Character Encoding) 字符集字符集从字面意思讲就是字符的集合，例如可以把数字0-9, 字母a-z, A-Z 一起组成一个字符集，可以把所有的汉子组成一个字符集。 码位上面说的 ASCII 和 unicode 都是码位，也称编码的位置，英文 code point. 不同的字符集有不同的码位。码位其实就是一个字符和计算机二进制的映射。简单地讲就是定义了字符集里一个字符对应的二进制编码。 字符编码字符编码主要是为了减少码位的长度，方便传输。把码位转换成字节序列的过程叫编码，把字节序列转换成码位的过程叫解码。 在 python2 中 str 是原始序列，而 unicode 则需要加 u表示，在 python3 中 str 就是 unicode 类型。eg: 123456789101112131415161718192021222324252627# python2&gt;&gt;&gt; country = u'中国'&gt;&gt;&gt; type(country)&lt;type 'unicode'&gt;&gt;&gt;&gt; countryu'\u4e2d\u56fd'&gt;&gt;&gt; name = country.encode('utf-8')&gt;&gt;&gt; name'\xe4\xb8\xad\xe5\x9b\xbd'&gt;&gt;&gt; print names中国&gt;&gt;&gt; city = '苏州'&gt;&gt;&gt; type(city)&lt;type 'str'&gt;&gt;&gt;&gt; city'\xe8\x8b\x8f\xe5\xb7\x9e'&gt;&gt;&gt; city.decode('utf-8')u'\u82cf\u5dde'# python3&gt;&gt;&gt; country = '中国'&gt;&gt;&gt; type(country)&lt;class 'str'&gt;&gt;&gt;&gt; country'中国' 参考文献[1] https://en.wikipedia.org/wiki/ASCII [2] https://en.wikipedia.org/wiki/Unicode [3] https://en.wikipedia.org/wiki/Character_encoding [4] https://en.wikipedia.org/wiki/Code_point [5] http://blog.jobbole.com/39309/]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[常用 Docker 容器]]></title>
     <url>%2F2019%2F03%2F07%2Fdocker-common%2F</url>
     <content type="text"><![CDATA[主要记录开发过程中常用的容器创建命令。 Rabbitmq12docker pull rabbitmqdocker run -d --hostname my-rabbit --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq]]></content>
@@ -54,6 +59,28 @@
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[celery 启动命令]]></title>
+    <url>%2F2019%2F01%2F09%2Fcelery-cmd%2F</url>
+    <content type="text"><![CDATA[1celery -A tasks worker --loglevel=info]]></content>
+      <categories>
+        <category>mq</category>
+      </categories>
+      <tags>
+        <tag>celery</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[celery 介绍]]></title>
+    <url>%2F2019%2F01%2F08%2Fcelery-intro%2F</url>
+    <content type="text"><![CDATA[按照官方说法 Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。 创建 application1234567from celery import Celeryapp = Celery('tasks', broker='pyamqp://guest@localhost//')@app.taskdef add(x, y): return x + y 这里的 broker 指定消息中间件的地址，rabbitmq 有多种写法： amqp:// pyamqp:// librabbitmq:// 如果安装了librabbitmq，则 amqp 使用 librabbitmq，否则使用 py-amqp。当然也可直接指定。librabbitmq是python封装的c库，效率更高。 启动Celery1celery -A tasks worker --loglevel=info 调用task调用 task 有多种方式，分别是 apply_async(args[, kwargs[, …]]) 发送消息，支持多种参数 delay(*args, **kwargs) 发送消息，不支持执行参数 calling (__call__) 12&gt;&gt;&gt; from tasks import add&gt;&gt;&gt; add.delay(4, 4) 调用task会返回一个AsyncResult对象，可以用来获取task是否完成，返回值，异常信息。 保存结果如果需要task的状态，需要通过backend参数设置状态的存放地址，可以是 SQLAlchemy/DjangoORM, Memcached, Redis, RPC(RabbitMQ/AMQP) 完成状态12result = add.delay(4, 4)result.ready() 释放资源每一个AsyncResult都需要显示调用get(),forget()来释放资源。 celery 配置]]></content>
+      <categories>
+        <category>mq</category>
+      </categories>
+      <tags>
+        <tag>celery</tag>
       </tags>
   </entry>
   <entry>
@@ -513,17 +540,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Transpose File]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
+    <title><![CDATA[Valid Phone Numbers]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Valid Phone Numbers]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
+    <title><![CDATA[Transpose File]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>

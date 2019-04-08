@@ -110,7 +110,7 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="leesea">
-<meta property="og:url" content="http://yoursite.com/tags/docker/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/Docker/index.html">
 <meta property="og:site_name" content="leesea">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/docker/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/Docker/"/>
 
 
 
@@ -133,7 +133,7 @@
   };
 </script>
 
-  <title>Tag: docker | leesea</title>
+  <title>Tag: Docker | leesea</title>
   
 
 
@@ -357,7 +357,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>docker<small>Tag</small>
+        <h1>Docker<small>Tag</small>
         </h1>
       </div>
 
@@ -369,37 +369,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/03/07/docker-common/" itemprop="url">
+            <a class="post-title-link" href="/2017/05/08/docker-cmd/" itemprop="url">
               
-                <span itemprop="name">常用 Docker 容器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-03-07T15:35:43+08:00"
-              content="2019-03-07" >
-          03-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/18/docker-scm/" itemprop="url">
-              
-                <span itemprop="name">docker 三剑客</span>
+                <span itemprop="name">Docker 常用命令</span>
               
             </a>
         
@@ -407,9 +379,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2018-11-18T11:27:04+08:00"
-              content="2018-11-18" >
-          11-18
+              datetime="2017-05-08T10:32:49+08:00"
+              content="2017-05-08" >
+          05-08
         </time>
       </div>
 
@@ -466,7 +438,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1043,6 +1015,55 @@
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+('.popup-trigger').click(function(e) {
       e.stopPropagation();
       if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
