@@ -124,7 +124,7 @@
     <link href="http://yoursite.com/2019/03/07/docker-common/"/>
     <id>http://yoursite.com/2019/03/07/docker-common/</id>
     <published>2019-03-07T07:35:43.000Z</published>
-    <updated>2019-03-07T07:38:57.991Z</updated>
+    <updated>2019-07-01T07:13:11.521Z</updated>
     
     <content type="html"><![CDATA[<p>主要记录开发过程中常用的容器创建命令。</p><a id="more"></a><h2 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull rabbitmq</span><br><span class="line">docker run -d --hostname my-rabbit --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -134,7 +134,7 @@
     
     </summary>
     
-      <category term="Paas" scheme="http://yoursite.com/categories/Paas/"/>
+      <category term="PaaS" scheme="http://yoursite.com/categories/PaaS/"/>
     
     
       <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
