@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[rest framework 学习]]></title>
+    <url>%2F2019%2F06%2F04%2Frestframework%2F</url>
+    <content type="text"><![CDATA[APIView]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sklearn学习]]></title>
+    <url>%2F2019%2F05%2F29%2Fsklearn%2F</url>
+    <content type="text"><![CDATA[Sklearn 笔记 安装12345# pip 安装pip install -U scikit-learn# conda 安装conda install scikit-learn 模型优化分类器随机森林1234from sklearn.ensemble import RandomForestClassifierforest_clf = RandomForestClassifier(random_state=42)forest_clf.fit(X_train, Y_train) 随机梯度1234from sklearn.linear_model import SGDClassifiersgd_clf = SGDClassifier(random_state=42)sgd_clf.fit(X_train, Y_train) 误差分析混淆矩阵12345678from sklearn.model_selection import cross_val_predictfrom sklearn.metrics import confusion_matrix# 使用交叉验证做出预测y_train_pred = cross_val_predict(sgd_clf, X_train, y_train, cv=3)# 获取混淆矩阵conf_mx = confusion_matrix(Y_train, y_train_pred) 查看结果 12345# 画图import matplotlib.pyplot as plt%matplotlib inlineplt.matshow(conf_mx, cmap=plt.cm.gray)plt.show() 有时候我们仅关注误差数据图像呈现。 123456row_sums = conf_mx.sum(axis=1, keepdims=True)norm_conf_mx = conf_mx / row_sums # 混淆矩阵每一列除以每种类型数量np.fill_diagonal(norm_conf_mx, 0) # 对角线用0填充plt.matshow(norm_conf_mx, cmap=plt.cm.gray)plt.show() 说明下，这里行代表实际类别，列代表预测的类别。颜色越亮说明分错概率越高。 准确率召回率]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[numpy]]></title>
+    <url>%2F2019%2F05%2F05%2Fml-numpy%2F</url>
+    <content type="text"><![CDATA[生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 123from sklearn.model_selection import train_test_splittrain_set, test_set = train_test_split(housing, test_size=0.2, random_state=42) 分层采样 画图散点图12345# housing 是 dataForm 对象housing.plot(kind="scatter", x="longtitude", y="latitude")# 通过设置 alpha 可以方面的看出密度housing.plot(kind="scatter", x="longtitude", y="latitude", alpha=0.1)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[anaconda 常用命令]]></title>
+    <url>%2F2019%2F04%2F30%2Fanaconda-cmd%2F</url>
+    <content type="text"><![CDATA[Anaconda指的是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。Anaconda 本身支持虚拟环境，不需要安装pyenv. 虚拟环境1234567891011# createconda create --name ml# list envconda info --envs# active envconda activate ml# deactivesource deactivate 随机梯度下降分类器]]></content>
+      <categories>
+        <category>machine learning</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[谈谈计算机的编码]]></title>
     <url>%2F2019%2F04%2F03%2Fpython-encode%2F</url>
     <content type="text"><![CDATA[我们经常听到 ASCII, 大致样子如下图所示。ASCII 由一个 7bit 组成，故只能表示2^7(128)个字符。由于 ASCII 能表示的字符数量有限，对很多语言支持无能为力。于是人们又搞了一套 unicode(又称万国码或者国际码，统一编码等)。 unicode 以4～6个十六进制数表示，前缀加U+ 是不是认为全部使用unicode编码就万事大吉了，其实也不是，例如英文字符其实只需要7bit 即可表示，如果每个字符都使用2字节的原Unicode编码传输，其第一字节的8位始终为0。这就造成了比较大的浪费。于是人们又提出了Unicode转换格式（Unicode Transformation Format，简称为UTF） ，我们常听到的 utf-8 编码就是其中的一种。 UTF-8 使用1~6字节来编码，具体如下： 128个ASCII 使用一个字节编码； 拉丁，希腊，等用两个字节编码； 少数语言（汉子）使用三字节编码； 极少数辅助字符使用4～6字节编码； 这里举个例子说明下。例如我们想表示字母A, 用 ASCII 表示为 100 0001, 如果用 unicode 表示为 U+0041换成二进制是 0000 0000 0000 0000 0000 0100 0000 0001。而使用utf-8编码则为 0100 0001。 ASCII Unicode UTF-8 A 100 0001 0000 0000 0000 0000 0000 0100 0000 0001 0100 0001 现代编码模型在现代编码模型里要知道一个字符如何映射成计算机里比特，需要经过如下几个步骤。 知道一个系统需要支持哪些字符，这些字符的集合被称为字符表（Character repertoire） 给字符表里的抽象字符编上一个数字，也就是字符集合到一个整数集合的映射。这种映射称为编码字符集（CCS:Coded Character Set）,unicode是属于这一层的概念，跟计算机里的什么进制啊没有任何关系，它是完全数学的抽象的。 将CCS里字符对应的整数转换成有限长度的比特值，便于以后计算机使用一定长度的二进制形式表示该整数。这个对应关系被称为字符编码表（CEF:Character Encoding Form）UTF-8, UTF-16都属于这层。 对于CEF得到的比特值具体如何在计算机中进行存储，传输。因为存在大端小端的问题，这就会跟具体的操作系统相关了。这种解决方案称为字符编码方案（CES:Character Encoding Scheme）。 字符集字符集从字面意思讲就是字符的集合，例如可以把数字0-9, 字母a-z, A-Z 一起组成一个字符集，可以把所有的汉子组成一个字符集。 码位上面说的 ASCII 和 unicode 都是码位，也称编码的位置，英文 code point. 不同的字符集有不同的码位。码位其实就是一个字符和计算机二进制的映射。简单地讲就是定义了字符集里一个字符对应的二进制编码。 字符编码字符编码主要是为了减少码位的长度，方便传输。把码位转换成字节序列的过程叫编码，把字节序列转换成码位的过程叫解码。 在 python2 中 str 是原始序列，而 unicode 则需要加 u表示，在 python3 中 str 就是 unicode 类型。eg: 123456789101112131415161718192021222324252627# python2&gt;&gt;&gt; country = u'中国'&gt;&gt;&gt; type(country)&lt;type 'unicode'&gt;&gt;&gt;&gt; countryu'\u4e2d\u56fd'&gt;&gt;&gt; name = country.encode('utf-8')&gt;&gt;&gt; name'\xe4\xb8\xad\xe5\x9b\xbd'&gt;&gt;&gt; print names中国&gt;&gt;&gt; city = '苏州'&gt;&gt;&gt; type(city)&lt;type 'str'&gt;&gt;&gt;&gt; city'\xe8\x8b\x8f\xe5\xb7\x9e'&gt;&gt;&gt; city.decode('utf-8')u'\u82cf\u5dde'# python3&gt;&gt;&gt; country = '中国'&gt;&gt;&gt; type(country)&lt;class 'str'&gt;&gt;&gt;&gt; country'中国' 参考文献[1] https://en.wikipedia.org/wiki/ASCII [2] https://en.wikipedia.org/wiki/Unicode [3] https://en.wikipedia.org/wiki/Character_encoding [4] https://en.wikipedia.org/wiki/Code_point [5] http://blog.jobbole.com/39309/]]></content>
@@ -532,17 +561,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Transpose File]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
+    <title><![CDATA[Valid Phone Numbers]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Valid Phone Numbers]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
+    <title><![CDATA[Transpose File]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
