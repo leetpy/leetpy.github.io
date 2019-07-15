@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-15 14:03:29" itemprop="dateModified" datetime="2019-07-15T14:03:29+08:00">2019-07-15</time>
+                <time title="Modified: 2019-07-15 14:16:44" itemprop="dateModified" datetime="2019-07-15T14:16:44+08:00">2019-07-15</time>
               
             
           </span>
@@ -458,6 +458,13 @@
       
         
           <p>并发无外乎进程，线程，协程三种方式。 Python 由于GIL锁的存在，多线程有些鸡雏，只能跑在一个核上。多进程各种语言差不多，创建开销比较大。</p>
+<p>协程并不是操作系统内核提供的，它是用户态下实现的。协程主要用在网络上。参考许式伟的文档：大部分你看到的协程（纤程）库只是一个半吊子。它们都只实现了协程的创建和执行权的切换，缺了非常多的内容。包括：</p>
+<ul>
+<li>协程的调度；</li>
+<li>协程的同步、互斥与通讯；</li>
+<li>协程的系统调用包装，尤其是网络 IO 请求的包装。</li>
+</ul>
+<p>python3 的协程主要是 <code>asyncio</code> + <code>aiohttp</code> 实现，其中 <code>aiphttp</code>还存在不少坑。如果是 python2 可以用 <code>gevent</code> 或者 <code>eventlet</code> 之类的库。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/04/python-coroutine/#more" rel="contents">
