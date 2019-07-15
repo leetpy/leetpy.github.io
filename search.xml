@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[谈谈 python 的并发]]></title>
+    <url>%2F2019%2F07%2F04%2Fpython-coroutine%2F</url>
+    <content type="text"><![CDATA[future 模块12345678910111213141516171819202122232425import randomimport timefrom concurrent.futures import ThreadPoolExecutorfrom concurrent.futures import as_completeddef foo(i): # do something time.sleep(random.randint(1, 5)) return i# max_workers 指定线程池大小，如果不指定默认是 cpu *5p = ThreadPoolExecutor(max_workers=4)# 提交任务tasks = [p.submit(foo, i) for i in range(10)]# 获取返回结果, 这里的返回并不是按照提交顺序来的，而是谁先完成，谁先返回for future in as_completed(tasks): print(future.result()) # 如果希望有序返回，使用 map# 这里 result 是生成器，可以使用 list(result) 转换为 list 类型result = p.map(foo, range(10))]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[django ORM]]></title>
+    <url>%2F2019%2F07%2F04%2Fdjango%2F</url>
+    <content type="text"><![CDATA[数据获取12345# 获取所有对象Model.objects.all()# 根据条件过滤Model.objects.filter(name="lina") 特殊操作 大于: __gt 大于等于: __gte 小于: __lt 小于等于: __lte 包含: __contains 开头是: __startswith 结尾是: __endswith 其中之一: __in 范围： __range 12# inModel.object.filter(name__in=["line", "Alice"]) 创建12345Industry.objects.update_or_create( industry_id=industry_id, name=industry_name[INDUSTRY_NAME_CHN], defaults=&#123;'name_en': industry_name[INDUSTRY_NAME_EN]&#125;,)]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[rest framework 学习]]></title>
     <url>%2F2019%2F06%2F04%2Frestframework%2F</url>
     <content type="text"><![CDATA[APIView]]></content>
@@ -329,7 +348,7 @@
   <entry>
     <title><![CDATA[go io]]></title>
     <url>%2F2018%2F08%2F22%2Fgo-io%2F</url>
-    <content type="text"><![CDATA[go 语言的标准库 io 包主要定义了常用的 io接口，具体如如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657// 读取接口type Reader interface &#123; Read(p []byte) (n int, err error)&#125;// 写接口type Writer interface &#123; Write(p []byte) (n int, err error)&#125;// 关闭读写type Closer interface &#123; Close() error&#125;// 指定位置type Seeker interface &#123; Seek(offset int64, whence int) (int64, error)&#125;// 指定位置读取type ReaderAt interface &#123; ReadAt(p []byte, off int64) (n int, err error)&#125;// io 包还提供了一些组合接口type ReadSeeker interface &#123; Reader Seeker&#125;type WriteCloser interface &#123; Writer Closer&#125;type WriteSeeker interface &#123; Writer Seeker&#125;type ReadWriter interface &#123; Reader Writer&#125;type ReadWriteCloser interface &#123; Reader Writer Closer&#125;type ReadWriteSeeker interface &#123; Reader Writer Seeker&#125; 实现了上面接口的包如下： strings.Reader 实现了 io.Reader os.File 同时实现了 io.Reader 和 io.Writer net.conn 实现了 io.Reader, io.Writer, io.Close bufio.Reader/Writer 分别实现了io.Reader 和 io.Writer bytes.Buffer 同时实现了 io.Reader 和 io.Writer bytes.Reader 实现了io.Reader ioutil 12// 读取所有数据func ReadAll(r io.Reader) ([]byte, error)]]></content>
+    <content type="text"><![CDATA[go 语言的标准库 io 包主要定义了常用的 io接口，具体如如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657// 读取接口type Reader interface &#123; Read(p []byte) (n int, err error)&#125;// 写接口type Writer interface &#123; Write(p []byte) (n int, err error)&#125;// 关闭读写type Closer interface &#123; Close() error&#125;// 指定位置type Seeker interface &#123; Seek(offset int64, whence int) (int64, error)&#125;// 指定位置读取type ReaderAt interface &#123; ReadAt(p []byte, off int64) (n int, err error)&#125;// io 包还提供了一些组合接口type ReadSeeker interface &#123; Reader Seeker&#125;type WriteCloser interface &#123; Writer Closer&#125;type WriteSeeker interface &#123; Writer Seeker&#125;type ReadWriter interface &#123; Reader Writer&#125;type ReadWriteCloser interface &#123; Reader Writer Closer&#125;type ReadWriteSeeker interface &#123; Reader Writer Seeker&#125; 实现了上面接口的包如下： strings.Reader 实现了 io.Reader os.File 同时实现了 io.Reader 和 io.Writer net.conn 实现了 io.Reader, io.Writer, io.Close bufio.Reader/Writer 分别实现了io.Reader 和 io.Writer bytes.Buffer 同时实现了 io.Reader 和 io.Writer bytes.Reader 实现了io.Reader ioutil 12// 读取所有数据func ReadAll(r io.Reader) ([]byte, error) 读取文件 1dataBytes, err := ioutil.ReadFile(myFile)]]></content>
       <categories>
         <category>coding</category>
       </categories>
@@ -415,7 +434,7 @@
   <entry>
     <title><![CDATA[go_http]]></title>
     <url>%2F2018%2F04%2F20%2Fgo-http%2F</url>
-    <content type="text"><![CDATA[先看一个简单的 tcp 连接: 123456789101112131415// serverln, err := net.Listen("tcp", ":8000")if err != nil &#123;&#125;for &#123; conn, err := ln.Accept() if err != nil &#123; continue &#125; go handleConnection(conn)&#125;// clientconn, err := net.Dial("tcp", ":8000")if err != nil &#123;&#125;status, err := bufio.NewReader(conn).ReadString('\n') http server起一个 http server 有两种方式，分别是 http.Server.ListenAndServe() 和 http.ListenAndServe(),两者在本质上是相同的。 监听 http123456// 创建 tcp 连接s := &amp;http.Server&#123;&#125;s.ListenAndServe()// 这里会创建一个 http.Server，然后调用 ListenAndServehttp.ListenAndServe(":80808", nil)]]></content>
+    <content type="text"><![CDATA[先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&#123;&#125;jsonStr, err := json.Marshal(map[string][]string&#123;"hosts": data&#125;)client := &amp;http.Client&#123;&#125;req, err := http.NewRequest("POST", url, bytes.NewReader(jsonStr))// set headerreq.Header.Add("Content-Type", "application/json")resp, err := client.Do(req) 读取结果和返回码1234567resp, err := http.Get("http://example.com/")// 获取返回码fmt.Println(resp.StatusCode)defer resp.Body.Close()body, err := ioutil.ReadAll(resp.Body) 123456789101112131415// serverln, err := net.Listen("tcp", ":8000")if err != nil &#123;&#125;for &#123; conn, err := ln.Accept() if err != nil &#123; continue &#125; go handleConnection(conn)&#125;// clientconn, err := net.Dial("tcp", ":8000")if err != nil &#123;&#125;status, err := bufio.NewReader(conn).ReadString('\n') Https 非安全访问12345tr := &amp;http.Transport&#123; TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: true&#125;,&#125;client := &amp;http.Client&#123;Transport: tr&#125;resp, err := client.Get(url) http server起一个 http server 有两种方式，分别是 http.Server.ListenAndServe() 和 http.ListenAndServe(),两者在本质上是相同的。 监听 http123456// 创建 tcp 连接s := &amp;http.Server&#123;&#125;s.ListenAndServe()// 这里会创建一个 http.Server，然后调用 ListenAndServehttp.ListenAndServe(":80808", nil)]]></content>
       <categories>
         <category>coding</category>
       </categories>
@@ -553,17 +572,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Word Frequency]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
-    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
+    <title><![CDATA[Valid Phone Numbers]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Valid Phone Numbers]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
+    <title><![CDATA[Word Frequency]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
+    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
