@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
-<meta name="keywords" content="k8s">
+  <meta name="description" content="painlessES 使用的是 painless 语言。 更新数组12 显示版本信息增加查询参数: version=true">
+<meta name="keywords" content="elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s学习之Replica Sets">
-<meta property="og:url" content="http://yoursite.com/2018/11/21/k8s-rs/index.html">
+<meta property="og:title" content="elasticsearch 笔记">
+<meta property="og:url" content="http://yoursite.com/2019/07/16/elasticsearch/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
+<meta property="og:description" content="painlessES 使用的是 painless 语言。 更新数组12 显示版本信息增加查询参数: version=true">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-05T02:15:24.471Z">
+<meta property="og:updated_time" content="2019-07-16T07:17:45.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s学习之Replica Sets">
-<meta name="twitter:description" content="ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.">
+<meta name="twitter:title" content="elasticsearch 笔记">
+<meta name="twitter:description" content="painlessES 使用的是 painless 语言。 更新数组12 显示版本信息增加查询参数: version=true">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/21/k8s-rs/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/16/elasticsearch/"/>
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>k8s学习之Replica Sets | leesea</title>
+  <title>elasticsearch 笔记 | leesea</title>
   
 
 
@@ -346,7 +346,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-rs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -363,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">k8s学习之Replica Sets
+          <h1 class="post-title" itemprop="name headline">elasticsearch 笔记
               
             
           </h1>
@@ -388,46 +388,16 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:06" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:06+08:00">2018-11-21</time>
+              <time title="Created: 2019-07-16 10:17:28 / Modified: 15:17:45" itemprop="dateCreated datePublished" datetime="2019-07-16T10:17:28+08:00">2019-07-16</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-05 10:15:24" itemprop="dateModified" datetime="2018-12-05T10:15:24+08:00">2018-12-05</time>
               
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -456,11 +426,10 @@
       
 
       
-        <p>ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.</p>
-<a id="more"></a>
-<p>大部分的kubectl命令不仅支持Replication Controllers也支持ReplicaSets.一个例外是rolling-update命令. 如果你想功能上滚动升级,请考虑使用Deployments来替代.并且rolling-update是命令式的而Deployments则是陈述式的,所以我们推荐 通过rollout这个命令来使用Deployments.</p>
-<p>当ReplicaSets能够被独立地使用的时候,今天它主要地被用在Deployments上作为精心策划pod创建,删除和升级的一个机制.当你使用Deployments的时候,你无需去 担心Deployments建立的ReplicaSets怎么去管理.Deployments 拥有和管理他们自己的ReplicaSets.</p>
-<h2 id="使用-ReplicaSet"><a href="#使用-ReplicaSet" class="headerlink" title="使用 ReplicaSet"></a>使用 ReplicaSet</h2><p>一个ReplicaSet保证pod副本为一个指定的数目在给定的任何时间内.然而,一个Deployment是一个更高级别的概念来去管理ReplicaSets 和提供描述性的pods升级以及很多其他有用的特性.因此,我们推荐使用Deployments来替代直接使用ReplicaSets,除非你需要定制的更新编排 或者一点也不需要更新. 这个事实上意味着你可能从不需要操作ReplicaSet对象： 直接使用一个Deployment然后在声明部分定义你的应用.</p>
+        <a id="more"></a>
+<h2 id="painless"><a href="#painless" class="headerlink" title="painless"></a>painless</h2><p>ES 使用的是 <code>painless</code> 语言。</p>
+<h2 id="更新数组"><a href="#更新数组" class="headerlink" title="更新数组"></a>更新数组</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="显示版本信息"><a href="#显示版本信息" class="headerlink" title="显示版本信息"></a>显示版本信息</h2><p>增加查询参数: <code>version=true</code></p>
 
       
     </div>
@@ -481,7 +450,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/elasticsearch/" rel="tag"># elasticsearch</a>
           
         </div>
       
@@ -494,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/21/k8s-rc/" rel="next" title="k8s学习之rc">
-                <i class="fa fa-chevron-left"></i> k8s学习之rc
+              <a href="/2019/07/04/python-coroutine/" rel="next" title="谈谈 python 的并发">
+                <i class="fa fa-chevron-left"></i> 谈谈 python 的并发
               </a>
             
           </div>
@@ -503,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/21/k8s-deployment/" rel="prev" title="k8s学习之deployment">
-                k8s学习之deployment <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -711,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-ReplicaSet"><span class="nav-number">1.</span> <span class="nav-text">使用 ReplicaSet</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">3.</span> <span class="nav-text">显示版本信息</span></a></li></ol></div>
             
 
           </div>
