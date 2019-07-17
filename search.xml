@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[elasticsearch 笔记]]></title>
     <url>%2F2019%2F07%2F16%2Felasticsearch%2F</url>
-    <content type="text"><![CDATA[painlessES 使用的是 painless 语言。 更新数组12 显示版本信息增加查询参数: version=true]]></content>
+    <content type="text"><![CDATA[painlessES 使用的是 painless 语言。 更新数组12 索引操作删除单个索引 1DELETE /index_name 删除所有索引 123# 两张选其一即可DELETE /_allDELETE /* 索引复制 12345678910POST /_reindex?wait_for_completion=false&#123; &quot;source&quot;: &#123; &quot;index&quot;: &quot;source_index&quot; &#125;, &quot;dest&quot;: &#123; &quot;index&quot;: &quot;target_index&quot; &#125;&#125; 文档操作删除单个文档 1DELETE /index/_doc/id 文档重建 123456PUT /index/type/id&#123; &quot;ip&quot;: &quot;10.10.10.10&quot;, &quot;name&quot;: &quot;lina&quot;&#125; 显示版本信息增加查询参数: version=true]]></content>
       <tags>
         <tag>elasticsearch</tag>
       </tags>
