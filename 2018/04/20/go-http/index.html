@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&amp;#123;&amp;#125;jsonStr, err := json.Marshal(map[string][]">
+  <meta name="description" content="go 最强大的地方在于 goroutine 的实现，goroutine最适合的应用场景就是异步i/o。">
 <meta name="keywords" content="go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go http 使用">
 <meta property="og:url" content="http://yoursite.com/2018/04/20/go-http/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&amp;#123;&amp;#125;jsonStr, err := json.Marshal(map[string][]">
+<meta property="og:description" content="go 最强大的地方在于 goroutine 的实现，goroutine最适合的应用场景就是异步i/o。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T04:14:26.859Z">
+<meta property="og:updated_time" content="2019-07-22T06:40:32.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go http 使用">
-<meta name="twitter:description" content="先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&amp;#123;&amp;#125;jsonStr, err := json.Marshal(map[string][]">
+<meta name="twitter:description" content="go 最强大的地方在于 goroutine 的实现，goroutine最适合的应用场景就是异步i/o。">
 
 
 
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-15 12:14:26" itemprop="dateModified" datetime="2019-07-15T12:14:26+08:00">2019-07-15</time>
+                <time title="Modified: 2019-07-22 14:40:32" itemprop="dateModified" datetime="2019-07-22T14:40:32+08:00">2019-07-22</time>
               
             
           </span>
@@ -456,11 +456,13 @@
       
 
       
-        <p>先看一个简单的 tcp 连接:</p>
+        <p>go 最强大的地方在于 goroutine 的实现，goroutine最适合的应用场景就是异步i/o。</p>
+<a id="more"></a>
+<p>先看一个简单的 tcp 连接:</p>
 <h2 id="post-json"><a href="#post-json" class="headerlink" title="post json"></a>post json</h2><p>当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;&#125;</span><br><span class="line">jsonStr, err := json.Marshal(<span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">string</span>&#123;<span class="string">"hosts"</span>: data&#125;)</span><br><span class="line"></span><br><span class="line">client := &amp;http.Client&#123;&#125;</span><br><span class="line">req, err := http.NewRequest(<span class="string">"POST"</span>, url, bytes.NewReader(jsonStr))</span><br><span class="line"></span><br><span class="line"><span class="comment">// set header</span></span><br><span class="line">req.Header.Add(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">resp, err := client.Do(req)</span><br></pre></td></tr></table></figure>
 <h2 id="读取结果和返回码"><a href="#读取结果和返回码" class="headerlink" title="读取结果和返回码"></a>读取结果和返回码</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">resp, err := http.Get(<span class="string">"http://example.com/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取返回码</span></span><br><span class="line">fmt.Println(resp.StatusCode)</span><br><span class="line"></span><br><span class="line"><span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">body, err := ioutil.ReadAll(resp.Body)</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+<!-- more -->
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server</span></span><br><span class="line">ln, err := net.Listen(<span class="string">"tcp"</span>, <span class="string">":8000"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">    conn, err := ln.Accept()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">go</span> handleConnection(conn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// client</span></span><br><span class="line">conn, err := net.Dial(<span class="string">"tcp"</span>, <span class="string">":8000"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;&#125;</span><br><span class="line">status, err := bufio.NewReader(conn).ReadString(<span class="string">'\n'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="Https-非安全访问"><a href="#Https-非安全访问" class="headerlink" title="Https 非安全访问"></a>Https 非安全访问</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tr := &amp;http.Transport&#123;</span><br><span class="line">    TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: <span class="literal">true</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line">client := &amp;http.Client&#123;Transport: tr&#125;</span><br><span class="line">resp, err := client.Get(url)</span><br></pre></td></tr></table></figure>
 <h2 id="http-server"><a href="#http-server" class="headerlink" title="http server"></a>http server</h2><p>起一个 http server 有两种方式，分别是 <code>http.Server.ListenAndServe()</code> 和 <code>http.ListenAndServe()</code>,<br>两者在本质上是相同的。</p>

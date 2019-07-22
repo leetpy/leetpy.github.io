@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 12">
+  <meta name="description" content="numpy 主要用来做数据分析。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="numpy">
 <meta property="og:url" content="http://yoursite.com/2019/05/05/ml-numpy/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 12">
+<meta property="og:description" content="numpy 主要用来做数据分析。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-05T06:35:16.759Z">
+<meta property="og:updated_time" content="2019-07-22T06:28:08.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="numpy">
-<meta name="twitter:description" content="生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 12">
+<meta name="twitter:description" content="numpy 主要用来做数据分析。">
 
 
 
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="Created: 2019-05-05 11:26:16 / Modified: 14:35:16" itemprop="dateCreated datePublished" datetime="2019-05-05T11:26:16+08:00">2019-05-05</time>
+              <time title="Created: 2019-05-05 11:26:16" itemprop="dateCreated datePublished" datetime="2019-05-05T11:26:16+08:00">2019-05-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-22 14:28:08" itemprop="dateModified" datetime="2019-07-22T14:28:08+08:00">2019-07-22</time>
               
             
           </span>
@@ -425,7 +437,8 @@
       
 
       
-        <a id="more"></a>
+        <p>numpy 主要用来做数据分析。</p>
+<a id="more"></a>
 <h2 id="生成测试数据"><a href="#生成测试数据" class="headerlink" title="生成测试数据"></a>生成测试数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机洗牌</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># permutation 会返回新的数组，shuffle 是在原来的数组上洗牌</span></span><br><span class="line">shuffled_indices = np.random.permutation(len(data))</span><br><span class="line">test_set_size = int(len(data) * test_ratio)</span><br></pre></td></tr></table></figure>
 <p>Scikit-learn 也提供了分割子集的方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">train_set, test_set = train_test_split(housing, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure>

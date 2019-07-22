@@ -909,7 +909,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-17 13:07:53" itemprop="dateModified" datetime="2019-07-17T13:07:53+08:00">2019-07-17</time>
+                <time title="Modified: 2019-07-22 14:26:58" itemprop="dateModified" datetime="2019-07-22T14:26:58+08:00">2019-07-22</time>
               
             
           </span>
@@ -961,12 +961,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h2 id="参数获取"><a href="#参数获取" class="headerlink" title="参数获取"></a>参数获取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 QueryString</span></span><br><span class="line">query_params = self.request.query_params</span><br><span class="line">only_latest = query_params.get(<span class="string">'latest'</span>, <span class="keyword">False</span>)  <span class="comment"># get 返回的是 str 类型</span></span><br></pre></td></tr></table></figure>
-<h2 id="APIView"><a href="#APIView" class="headerlink" title="APIView"></a>APIView</h2><p><img src="/2019/06/04/restframework/APIView.png" alt=""></p>
-
-          
+          <p>rest framework 是 Django 的 api 框架。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/04/restframework/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1208,12 +1210,24 @@
                 
               
 
-              <time title="Created: 2019-05-05 11:26:16 / Modified: 14:35:16" itemprop="dateCreated datePublished" datetime="2019-05-05T11:26:16+08:00">2019-05-05</time>
+              <time title="Created: 2019-05-05 11:26:16" itemprop="dateCreated datePublished" datetime="2019-05-05T11:26:16+08:00">2019-05-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-22 14:28:08" itemprop="dateModified" datetime="2019-07-22T14:28:08+08:00">2019-07-22</time>
               
             
           </span>
@@ -1247,15 +1261,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h2 id="生成测试数据"><a href="#生成测试数据" class="headerlink" title="生成测试数据"></a>生成测试数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机洗牌</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># permutation 会返回新的数组，shuffle 是在原来的数组上洗牌</span></span><br><span class="line">shuffled_indices = np.random.permutation(len(data))</span><br><span class="line">test_set_size = int(len(data) * test_ratio)</span><br></pre></td></tr></table></figure>
-<p>Scikit-learn 也提供了分割子集的方式：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">train_set, test_set = train_test_split(housing, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure>
-<p>分层采样</p>
-<h2 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h2><h3 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># housing 是 dataForm 对象</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过设置 alpha 可以方面的看出密度</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>, alpha=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-
-          
+          <p>numpy 主要用来做数据分析。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/05/ml-numpy/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

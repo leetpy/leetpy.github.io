@@ -83,17 +83,13 @@
     <link href="http://yoursite.com/2019/06/04/restframework/"/>
     <id>http://yoursite.com/2019/06/04/restframework/</id>
     <published>2019-06-04T03:18:50.000Z</published>
-    <updated>2019-07-17T05:07:53.100Z</updated>
+    <updated>2019-07-22T06:26:58.888Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="参数获取"><a href="#参数获取" class="headerlink" title="参数获取"></a>参数获取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 QueryString</span></span><br><span class="line">query_params = self.request.query_params</span><br><span class="line">only_latest = query_params.get(<span class="string">'latest'</span>, <span class="keyword">False</span>)  <span class="comment"># get 返回的是 str 类型</span></span><br></pre></td></tr></table></figure><h2 id="APIView"><a href="#APIView" class="headerlink" title="APIView"></a>APIView</h2><p><img src="/2019/06/04/restframework/APIView.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<p>rest framework 是 Django 的 api 框架。</p><a id="more"></a><h2 id="参数获取"><a href="#参数获取" class="headerlink" title="参数获取"></a>参数获取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取 QueryString</span></span><br><span class="line">query_params = self.request.query_params</span><br><span class="line">only_latest = query_params.get(<span class="string">'latest'</span>, <span class="keyword">False</span>)  <span class="comment"># get 返回的是 str 类型</span></span><br></pre></td></tr></table></figure><h2 id="APIView"><a href="#APIView" class="headerlink" title="APIView"></a>APIView</h2><p><img src="/2019/06/04/restframework/APIView.png" alt=""></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;参数获取&quot;&gt;&lt;a href=&quot;#参数获取&quot; class=&quot;headerlink&quot; title=&quot;参数获取&quot;&gt;&lt;/a&gt;参数获取&lt;/h2&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
-      
+      &lt;p&gt;rest framework 是 Django 的 api 框架。&lt;/p&gt;
     
     </summary>
     
@@ -127,17 +123,13 @@
     <link href="http://yoursite.com/2019/05/05/ml-numpy/"/>
     <id>http://yoursite.com/2019/05/05/ml-numpy/</id>
     <published>2019-05-05T03:26:16.000Z</published>
-    <updated>2019-05-05T06:35:16.759Z</updated>
+    <updated>2019-07-22T06:28:08.408Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="生成测试数据"><a href="#生成测试数据" class="headerlink" title="生成测试数据"></a>生成测试数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机洗牌</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># permutation 会返回新的数组，shuffle 是在原来的数组上洗牌</span></span><br><span class="line">shuffled_indices = np.random.permutation(len(data))</span><br><span class="line">test_set_size = int(len(data) * test_ratio)</span><br></pre></td></tr></table></figure><p>Scikit-learn 也提供了分割子集的方式：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">train_set, test_set = train_test_split(housing, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure><p>分层采样</p><h2 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h2><h3 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># housing 是 dataForm 对象</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过设置 alpha 可以方面的看出密度</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>, alpha=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>numpy 主要用来做数据分析。</p><a id="more"></a><h2 id="生成测试数据"><a href="#生成测试数据" class="headerlink" title="生成测试数据"></a>生成测试数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机洗牌</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># permutation 会返回新的数组，shuffle 是在原来的数组上洗牌</span></span><br><span class="line">shuffled_indices = np.random.permutation(len(data))</span><br><span class="line">test_set_size = int(len(data) * test_ratio)</span><br></pre></td></tr></table></figure><p>Scikit-learn 也提供了分割子集的方式：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">train_set, test_set = train_test_split(housing, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure><p>分层采样</p><h2 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h2><h3 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># housing 是 dataForm 对象</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过设置 alpha 可以方面的看出密度</span></span><br><span class="line">housing.plot(kind=<span class="string">"scatter"</span>, x=<span class="string">"longtitude"</span>, y=<span class="string">"latitude"</span>, alpha=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;生成测试数据&quot;&gt;&lt;a href=&quot;#生成测试数据&quot; class=&quot;headerlink&quot; title=&quot;生成测试数据&quot;&gt;&lt;/a&gt;生成测试数据&lt;/h2&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table
-      
+      &lt;p&gt;numpy 主要用来做数据分析。&lt;/p&gt;
     
     </summary>
     

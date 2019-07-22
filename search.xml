@@ -30,7 +30,7 @@
   <entry>
     <title><![CDATA[rest framework 学习]]></title>
     <url>%2F2019%2F06%2F04%2Frestframework%2F</url>
-    <content type="text"><![CDATA[参数获取123# 获取 QueryStringquery_params = self.request.query_paramsonly_latest = query_params.get('latest', False) # get 返回的是 str 类型 APIView]]></content>
+    <content type="text"><![CDATA[rest framework 是 Django 的 api 框架。 参数获取123# 获取 QueryStringquery_params = self.request.query_paramsonly_latest = query_params.get('latest', False) # get 返回的是 str 类型 APIView]]></content>
       <categories>
         <category>python</category>
       </categories>
@@ -46,7 +46,7 @@
   <entry>
     <title><![CDATA[numpy]]></title>
     <url>%2F2019%2F05%2F05%2Fml-numpy%2F</url>
-    <content type="text"><![CDATA[生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 123from sklearn.model_selection import train_test_splittrain_set, test_set = train_test_split(housing, test_size=0.2, random_state=42) 分层采样 画图散点图12345# housing 是 dataForm 对象housing.plot(kind="scatter", x="longtitude", y="latitude")# 通过设置 alpha 可以方面的看出密度housing.plot(kind="scatter", x="longtitude", y="latitude", alpha=0.1)]]></content>
+    <content type="text"><![CDATA[numpy 主要用来做数据分析。 生成测试数据123456# 随机洗牌import numpy as np# permutation 会返回新的数组，shuffle 是在原来的数组上洗牌shuffled_indices = np.random.permutation(len(data))test_set_size = int(len(data) * test_ratio) Scikit-learn 也提供了分割子集的方式： 123from sklearn.model_selection import train_test_splittrain_set, test_set = train_test_split(housing, test_size=0.2, random_state=42) 分层采样 画图散点图12345# housing 是 dataForm 对象housing.plot(kind="scatter", x="longtitude", y="latitude")# 通过设置 alpha 可以方面的看出密度housing.plot(kind="scatter", x="longtitude", y="latitude", alpha=0.1)]]></content>
   </entry>
   <entry>
     <title><![CDATA[anaconda 常用命令]]></title>
@@ -334,7 +334,7 @@
   <entry>
     <title><![CDATA[docker 三剑客]]></title>
     <url>%2F2018%2F11%2F18%2Fdocker-scm%2F</url>
-    <content type="text"><![CDATA[docker 三剑客主要用于容器的编排。 创建服务docker service create –replicas 2 –name hello app 服务规模调整docker service scale hello=3docker stack deploy -c docker-compose.yml hello 关闭服务docker stack rm hello 滚动更新task 概念 离开集群docker swarm leave –force 容器运行节点docker stack ps volume + bind mounts 设置节点状态1234# 禁用docker node update --availability drain work1# 启用docker node update --availability active worker1 查看 Tokendocker swarm join-token worker/manager docker config 配置docker network create –attachable –driver overlay oneta 123456version: &quot;3&quot;networks: mynet: driver: overlay attachable: trueservices:]]></content>
+    <content type="text"><![CDATA[如果仅仅使用容器，在线上部署或者线下调试都需要耗费大量的时间。因此需要容器编排工具。例如 k8s, 但是k8s 比较重，安装管理复杂。docker 公司自己的swarm可以完成类似的工作。 docker-machine 用于创建 swam 节点，docker-compose 用户管理和部署。 创建服务1234docker service create --replicas 2 --name hello app# 通过 docker-compose 文件部署docker stack deploy -c docker-compose.yml hello 更新12345# 服务规模调整docker service scale hello=3# 镜像更新docker service update --image nginx:latest hello 关闭服务1234docker stack rm hello# 删除服务docker service rm hello 查看日志1docker service log hello --raw 离开集群1docker swarm leave --force 容器运行节点docker stack ps volume + bind mounts 设置节点状态1234# 禁用docker node update --availability drain work1# 启用docker node update --availability active worker1 查看 Token1docker swarm join-token worker/manager docker config 配置docker network create –attachable –driver overlay oneta 123456version: &quot;3&quot;networks: mynet: driver: overlay attachable: trueservices:]]></content>
       <categories>
         <category>PaaS</category>
       </categories>
@@ -431,7 +431,7 @@
   <entry>
     <title><![CDATA[shell 常用技巧]]></title>
     <url>%2F2018%2F04%2F22%2Fshell%2F</url>
-    <content type="text"><![CDATA[输出颜色控制123RED=&apos;\033[0;31m&apos;NC=&apos;\033[0m&apos;echo &quot;$&#123;RED&#125;hello world!$&#123;NC&#125;&quot;]]></content>
+    <content type="text"><![CDATA[记录些 shell 的使用技巧。 输出颜色控制123RED=&apos;\033[0;31m&apos;NC=&apos;\033[0m&apos;echo &quot;$&#123;RED&#125;hello world!$&#123;NC&#125;&quot;]]></content>
       <categories>
         <category>shell</category>
       </categories>
@@ -442,7 +442,7 @@
   <entry>
     <title><![CDATA[go http 使用]]></title>
     <url>%2F2018%2F04%2F20%2Fgo-http%2F</url>
-    <content type="text"><![CDATA[先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&#123;&#125;jsonStr, err := json.Marshal(map[string][]string&#123;"hosts": data&#125;)client := &amp;http.Client&#123;&#125;req, err := http.NewRequest("POST", url, bytes.NewReader(jsonStr))// set headerreq.Header.Add("Content-Type", "application/json")resp, err := client.Do(req) 读取结果和返回码1234567resp, err := http.Get("http://example.com/")// 获取返回码fmt.Println(resp.StatusCode)defer resp.Body.Close()body, err := ioutil.ReadAll(resp.Body) 123456789101112131415// serverln, err := net.Listen("tcp", ":8000")if err != nil &#123;&#125;for &#123; conn, err := ln.Accept() if err != nil &#123; continue &#125; go handleConnection(conn)&#125;// clientconn, err := net.Dial("tcp", ":8000")if err != nil &#123;&#125;status, err := bufio.NewReader(conn).ReadString('\n') Https 非安全访问12345tr := &amp;http.Transport&#123; TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: true&#125;,&#125;client := &amp;http.Client&#123;Transport: tr&#125;resp, err := client.Get(url) http server起一个 http server 有两种方式，分别是 http.Server.ListenAndServe() 和 http.ListenAndServe(),两者在本质上是相同的。 监听 http123456// 创建 tcp 连接s := &amp;http.Server&#123;&#125;s.ListenAndServe()// 这里会创建一个 http.Server，然后调用 ListenAndServehttp.ListenAndServe(":80808", nil)]]></content>
+    <content type="text"><![CDATA[go 最强大的地方在于 goroutine 的实现，goroutine最适合的应用场景就是异步i/o。 先看一个简单的 tcp 连接: post json当需要指定 Header 参数时，需要创建一个 http.Client 对象，然后用 http.Client 发起 http 请求。例如 POST 的时候指定 Heaer: 123456789data := map[string]string&#123;&#125;jsonStr, err := json.Marshal(map[string][]string&#123;"hosts": data&#125;)client := &amp;http.Client&#123;&#125;req, err := http.NewRequest("POST", url, bytes.NewReader(jsonStr))// set headerreq.Header.Add("Content-Type", "application/json")resp, err := client.Do(req) 读取结果和返回码1234567resp, err := http.Get("http://example.com/")// 获取返回码fmt.Println(resp.StatusCode)defer resp.Body.Close()body, err := ioutil.ReadAll(resp.Body) 123456789101112131415// serverln, err := net.Listen("tcp", ":8000")if err != nil &#123;&#125;for &#123; conn, err := ln.Accept() if err != nil &#123; continue &#125; go handleConnection(conn)&#125;// clientconn, err := net.Dial("tcp", ":8000")if err != nil &#123;&#125;status, err := bufio.NewReader(conn).ReadString('\n') Https 非安全访问12345tr := &amp;http.Transport&#123; TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: true&#125;,&#125;client := &amp;http.Client&#123;Transport: tr&#125;resp, err := client.Get(url) http server起一个 http server 有两种方式，分别是 http.Server.ListenAndServe() 和 http.ListenAndServe(),两者在本质上是相同的。 监听 http123456// 创建 tcp 连接s := &amp;http.Server&#123;&#125;s.ListenAndServe()// 这里会创建一个 http.Server，然后调用 ListenAndServehttp.ListenAndServe(":80808", nil)]]></content>
       <categories>
         <category>coding</category>
       </categories>
