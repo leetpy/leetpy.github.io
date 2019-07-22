@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="painlessES 使用的是 painless 语言。 更新数组12 索引操作删除单个索引 1DELETE /index_name 删除所有索引 123# 两张选其一即可DELETE /_allDELETE /* 索引复制 12345678910POST /_reindex?wait_for_completion=false&amp;#123;  &amp;quot;source&amp;quot;: &amp;#123;">
+  <meta name="description" content="记录下ES的常用操作，方便查看。">
 <meta name="keywords" content="elasticsearch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="elasticsearch 笔记">
 <meta property="og:url" content="http://yoursite.com/2019/07/16/elasticsearch/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="painlessES 使用的是 painless 语言。 更新数组12 索引操作删除单个索引 1DELETE /index_name 删除所有索引 123# 两张选其一即可DELETE /_allDELETE /* 索引复制 12345678910POST /_reindex?wait_for_completion=false&amp;#123;  &amp;quot;source&amp;quot;: &amp;#123;">
+<meta property="og:description" content="记录下ES的常用操作，方便查看。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T06:41:06.672Z">
+<meta property="og:updated_time" content="2019-07-22T02:26:02.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch 笔记">
-<meta name="twitter:description" content="painlessES 使用的是 painless 语言。 更新数组12 索引操作删除单个索引 1DELETE /index_name 删除所有索引 123# 两张选其一即可DELETE /_allDELETE /* 索引复制 12345678910POST /_reindex?wait_for_completion=false&amp;#123;  &amp;quot;source&amp;quot;: &amp;#123;">
+<meta name="twitter:description" content="记录下ES的常用操作，方便查看。">
 
 
 
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-17 14:41:06" itemprop="dateModified" datetime="2019-07-17T14:41:06+08:00">2019-07-17</time>
+                <time title="Modified: 2019-07-22 10:26:02" itemprop="dateModified" datetime="2019-07-22T10:26:02+08:00">2019-07-22</time>
               
             
           </span>
@@ -438,7 +438,8 @@
       
 
       
-        <a id="more"></a>
+        <p>记录下ES的常用操作，方便查看。</p>
+<a id="more"></a>
 <h2 id="painless"><a href="#painless" class="headerlink" title="painless"></a>painless</h2><p>ES 使用的是 <code>painless</code> 语言。</p>
 <h2 id="更新数组"><a href="#更新数组" class="headerlink" title="更新数组"></a>更新数组</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h2><p><strong>删除单个索引</strong></p>
@@ -451,7 +452,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /index/_doc/id</span><br></pre></td></tr></table></figure>
 <p><strong>文档重建</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /index/type/id</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;ip&quot;: &quot;10.10.10.10&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;lina&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="显示版本信息"><a href="#显示版本信息" class="headerlink" title="显示版本信息"></a>显示版本信息</h2><p>增加查询参数: <code>version=true</code></p>
+<h2 id="显示版本信息"><a href="#显示版本信息" class="headerlink" title="显示版本信息"></a>显示版本信息</h2><p>ES文档都一个_version的计数器，用来记录文档的变更情况。需要注意的是ES并没有保存历史文档，_version只是一个计数器。需要查看version, 增加查询参数: <code>version=true</code></p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>根据 <code>_id</code>查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &#123;</span><br><span class="line">        &quot;bool&quot;: &#123;</span><br><span class="line">            &quot;must&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;terms&quot;: &#123;</span><br><span class="line">                        &quot;_id&quot;: [</span><br><span class="line">                            &quot;12345678&quot;,</span><br><span class="line">                            &quot;12345679&quot;</span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>指定时间范围，这里的 <code>date</code> 是文档中的字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &#123;</span><br><span class="line">        &quot;range&quot; : &#123;</span><br><span class="line">            &quot;date&quot; : &#123;</span><br><span class="line">                &quot;gte&quot; : &quot;2019-05-01T00:00:00&quot;,</span><br><span class="line">                &quot;lte&quot; : &quot;2019-05-01T23:59:59&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -698,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a></li></ol></div>
             
 
           </div>
