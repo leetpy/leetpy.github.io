@@ -108,20 +108,17 @@
 
 
 
-  <meta name="description" content="Sklearn 笔记">
+  <meta name="description" content="Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sklearn学习">
-<meta property="og:url" content="http://yoursite.com/2019/05/29/sklearn/index.html">
+<meta property="og:title" content="vagrant 使用">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/vagrant/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="Sklearn 笔记">
+<meta property="og:description" content="Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx_norm.png">
-<meta property="og:updated_time" content="2019-05-29T07:24:51.309Z">
+<meta property="og:updated_time" content="2019-07-24T09:39:15.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sklearn学习">
-<meta name="twitter:description" content="Sklearn 笔记">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx.png">
+<meta name="twitter:title" content="vagrant 使用">
+<meta name="twitter:description" content="Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。">
 
 
 
@@ -130,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/29/sklearn/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/24/vagrant/"/>
 
 
 
@@ -140,7 +137,7 @@
   };
 </script>
 
-  <title>sklearn学习 | leesea</title>
+  <title>vagrant 使用 | leesea</title>
   
 
 
@@ -348,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/sklearn/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/vagrant/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -365,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sklearn学习
+          <h1 class="post-title" itemprop="name headline">vagrant 使用
               
             
           </h1>
@@ -390,7 +387,7 @@
                 
               
 
-              <time title="Created: 2019-05-29 14:41:04 / Modified: 15:24:51" itemprop="dateCreated datePublished" datetime="2019-05-29T14:41:04+08:00">2019-05-29</time>
+              <time title="Created: 2019-07-24 14:33:09 / Modified: 17:39:15" itemprop="dateCreated datePublished" datetime="2019-07-24T14:33:09+08:00">2019-07-24</time>
             
 
             
@@ -428,20 +425,25 @@
       
 
       
-        <p>Sklearn 笔记</p>
+        <p>Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。</p>
 <a id="more"></a>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip 安装</span></span><br><span class="line">pip install -U scikit-learn</span><br><span class="line"></span><br><span class="line"><span class="comment"># conda 安装</span></span><br><span class="line">conda install scikit-learn</span><br></pre></td></tr></table></figure>
-<h2 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h2><h2 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h2><h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">forest_clf = RandomForestClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">forest_clf.fit(X_train, Y_train)</span><br></pre></td></tr></table></figure>
-<h3 id="随机梯度"><a href="#随机梯度" class="headerlink" title="随机梯度"></a>随机梯度</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDClassifier</span><br><span class="line"></span><br><span class="line">sgd_clf = SGDClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">sgd_clf.fit(X_train, Y_train)</span><br></pre></td></tr></table></figure>
-<h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><h3 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_predict</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用交叉验证做出预测</span></span><br><span class="line">y_train_pred = cross_val_predict(sgd_clf, X_train, y_train, cv=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取混淆矩阵</span></span><br><span class="line">conf_mx = confusion_matrix(Y_train, y_train_pred)</span><br></pre></td></tr></table></figure>
-<p>查看结果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 画图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.matshow(conf_mx, cmap=plt.cm.gray)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/29/sklearn/conf_mx.png" alt=""></p>
-<p>有时候我们仅关注误差数据图像呈现。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row_sums = conf_mx.sum(axis=<span class="number">1</span>, keepdims=<span class="keyword">True</span>)</span><br><span class="line">norm_conf_mx = conf_mx / row_sums <span class="comment"># 混淆矩阵每一列除以每种类型数量</span></span><br><span class="line"></span><br><span class="line">np.fill_diagonal(norm_conf_mx, <span class="number">0</span>)  <span class="comment"># 对角线用0填充</span></span><br><span class="line">plt.matshow(norm_conf_mx, cmap=plt.cm.gray)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/29/sklearn/conf_mx_norm.png" alt=""></p>
-<p>说明下，这里行代表实际类别，列代表预测的类别。颜色越亮说明分错概率越高。</p>
-<h3 id="准确率"><a href="#准确率" class="headerlink" title="准确率"></a>准确率</h3><h3 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h3>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">https://www.vagrantup.com/downloads.html</a> 下载对应安装包安装即可。</p>
+<h2 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h2><p>Vagrant 可以使用命令安装虚拟机，不过网络容易断，建议先下载镜像，再离线安装。</p>
+<h3 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a>在线安装</h3><p>虚拟机类型根据自己需求选择，这里选择的是 virtualbox</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vagrant box add centos/7</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">This box can work with multiple providers! The providers that it</span><br><span class="line">can work with are listed below. Please review the list and choose</span><br><span class="line">the provider you will be working with.</span><br><span class="line"></span><br><span class="line">1) hyperv</span><br><span class="line">2) libvirt</span><br><span class="line">3) virtualbox</span><br><span class="line">4) vmware_desktop</span><br><span class="line"></span><br><span class="line">Enter your choice: 3</span><br></pre></td></tr></table></figure>
+<h3 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h3><p>vagrant 网站提供了一些镜像下载，地址如下： <a href="https://app.vagrantup.com/boxes/search" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search</a>, 这里以centos7为例：</p>
+<ol>
+<li>下载镜像 centos7 的镜像；</li>
+<li><code>vagrant box add —name &#39;centos/7&#39; [box_path]</code></li>
+</ol>
+<h2 id="虚拟机操作"><a href="#虚拟机操作" class="headerlink" title="虚拟机操作"></a>虚拟机操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动虚拟机</span></span><br><span class="line">vagrant up</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录虚拟机(默认账号密码都是vagrant, 可以 su 到 root)</span></span><br><span class="line">vagrant ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭虚拟机</span></span><br><span class="line">vagrant halt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 销毁虚拟机</span></span><br><span class="line">vagrant destroy</span><br></pre></td></tr></table></figure>
+<h2 id="pycharm-集成"><a href="#pycharm-集成" class="headerlink" title="pycharm 集成"></a>pycharm 集成</h2><p>Vagrant 只支持pycharm 专业版，不需要单独安装插件。</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
+<li><p>vboxsf  mount 问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant plugin install vagrant-vbguest</span><br><span class="line">vagrant destroy &amp;&amp; vagrant up</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
       
     </div>
 
@@ -468,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/05/ml-numpy/" rel="next" title="numpy">
-                <i class="fa fa-chevron-left"></i> numpy
+              <a href="/2019/07/23/python-date/" rel="next" title="python 时间日期">
+                <i class="fa fa-chevron-left"></i> python 时间日期
               </a>
             
           </div>
@@ -477,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/04/restframework/" rel="prev" title="rest framework 学习">
-                rest framework 学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -685,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型优化"><span class="nav-number">2.</span> <span class="nav-text">模型优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类器"><span class="nav-number">3.</span> <span class="nav-text">分类器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机森林"><span class="nav-number">3.1.</span> <span class="nav-text">随机森林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机梯度"><span class="nav-number">3.2.</span> <span class="nav-text">随机梯度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#误差分析"><span class="nav-number">4.</span> <span class="nav-text">误差分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#混淆矩阵"><span class="nav-number">4.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准确率"><span class="nav-number">4.2.</span> <span class="nav-text">准确率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#召回率"><span class="nav-number">4.3.</span> <span class="nav-text">召回率</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装虚拟机"><span class="nav-number">2.</span> <span class="nav-text">安装虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在线安装"><span class="nav-number">2.1.</span> <span class="nav-text">在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线安装"><span class="nav-number">2.2.</span> <span class="nav-text">离线安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机操作"><span class="nav-number">3.</span> <span class="nav-text">虚拟机操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm-集成"><span class="nav-number">4.</span> <span class="nav-text">pycharm 集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">5.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
             
 
           </div>

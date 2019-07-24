@@ -108,20 +108,18 @@
 
 
 
-  <meta name="description" content="Sklearn 笔记">
+  <meta name="description" content="时间和日期常常会在编程中使用。">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sklearn学习">
-<meta property="og:url" content="http://yoursite.com/2019/05/29/sklearn/index.html">
+<meta property="og:title" content="python 时间日期">
+<meta property="og:url" content="http://yoursite.com/2019/07/23/python-date/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="Sklearn 笔记">
+<meta property="og:description" content="时间和日期常常会在编程中使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx_norm.png">
-<meta property="og:updated_time" content="2019-05-29T07:24:51.309Z">
+<meta property="og:updated_time" content="2019-07-23T08:03:52.749Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sklearn学习">
-<meta name="twitter:description" content="Sklearn 笔记">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/29/sklearn/conf_mx.png">
+<meta name="twitter:title" content="python 时间日期">
+<meta name="twitter:description" content="时间和日期常常会在编程中使用。">
 
 
 
@@ -130,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/29/sklearn/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/23/python-date/"/>
 
 
 
@@ -140,7 +138,7 @@
   };
 </script>
 
-  <title>sklearn学习 | leesea</title>
+  <title>python 时间日期 | leesea</title>
   
 
 
@@ -348,7 +346,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/sklearn/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/python-date/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -365,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sklearn学习
+          <h1 class="post-title" itemprop="name headline">python 时间日期
               
             
           </h1>
@@ -390,7 +388,7 @@
                 
               
 
-              <time title="Created: 2019-05-29 14:41:04 / Modified: 15:24:51" itemprop="dateCreated datePublished" datetime="2019-05-29T14:41:04+08:00">2019-05-29</time>
+              <time title="Created: 2019-07-23 10:01:52 / Modified: 16:03:52" itemprop="dateCreated datePublished" datetime="2019-07-23T10:01:52+08:00">2019-07-23</time>
             
 
             
@@ -428,20 +426,17 @@
       
 
       
-        <p>Sklearn 笔记</p>
+        <p>时间和日期常常会在编程中使用。</p>
 <a id="more"></a>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip 安装</span></span><br><span class="line">pip install -U scikit-learn</span><br><span class="line"></span><br><span class="line"><span class="comment"># conda 安装</span></span><br><span class="line">conda install scikit-learn</span><br></pre></td></tr></table></figure>
-<h2 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h2><h2 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h2><h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">forest_clf = RandomForestClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">forest_clf.fit(X_train, Y_train)</span><br></pre></td></tr></table></figure>
-<h3 id="随机梯度"><a href="#随机梯度" class="headerlink" title="随机梯度"></a>随机梯度</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDClassifier</span><br><span class="line"></span><br><span class="line">sgd_clf = SGDClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">sgd_clf.fit(X_train, Y_train)</span><br></pre></td></tr></table></figure>
-<h2 id="误差分析"><a href="#误差分析" class="headerlink" title="误差分析"></a>误差分析</h2><h3 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_predict</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用交叉验证做出预测</span></span><br><span class="line">y_train_pred = cross_val_predict(sgd_clf, X_train, y_train, cv=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取混淆矩阵</span></span><br><span class="line">conf_mx = confusion_matrix(Y_train, y_train_pred)</span><br></pre></td></tr></table></figure>
-<p>查看结果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 画图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.matshow(conf_mx, cmap=plt.cm.gray)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/29/sklearn/conf_mx.png" alt=""></p>
-<p>有时候我们仅关注误差数据图像呈现。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row_sums = conf_mx.sum(axis=<span class="number">1</span>, keepdims=<span class="keyword">True</span>)</span><br><span class="line">norm_conf_mx = conf_mx / row_sums <span class="comment"># 混淆矩阵每一列除以每种类型数量</span></span><br><span class="line"></span><br><span class="line">np.fill_diagonal(norm_conf_mx, <span class="number">0</span>)  <span class="comment"># 对角线用0填充</span></span><br><span class="line">plt.matshow(norm_conf_mx, cmap=plt.cm.gray)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/05/29/sklearn/conf_mx_norm.png" alt=""></p>
-<p>说明下，这里行代表实际类别，列代表预测的类别。颜色越亮说明分错概率越高。</p>
-<h3 id="准确率"><a href="#准确率" class="headerlink" title="准确率"></a>准确率</h3><h3 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h3>
+<h2 id="字符串和日期转换"><a href="#字符串和日期转换" class="headerlink" title="字符串和日期转换"></a>字符串和日期转换</h2><ul>
+<li><code>strptime</code> = “string parse time”</li>
+<li><code>strftime</code> = “string format time”</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># str 转 datetime</span></span><br><span class="line">datetime_obj = datetime.strptime(<span class="string">'Jun 1 2005  1:33PM'</span>, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 转 str</span></span><br><span class="line">date_str = datetime.strftime(datetime_obj, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="datetime-转-date"><a href="#datetime-转-date" class="headerlink" title="datetime 转 date"></a>datetime 转 date</h2><p>使用 <code>date</code> 函数转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">date_str = <span class="string">'2019.01.22'</span></span><br><span class="line">index_date = datetime.strptime(date_str, <span class="string">"%Y.%m.%d"</span>).date()</span><br></pre></td></tr></table></figure>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨天</span></span><br><span class="line">yesterday = today + datetime.timedelta(<span class="number">-11</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明天</span></span><br><span class="line">tomorrow = today + datetime.timedelta(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="日期比较"><a href="#日期比较" class="headerlink" title="日期比较"></a>日期比较</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># date 类型比较</span></span><br><span class="line">days = (today - tomorrow).days()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 类型比较</span></span><br><span class="line">datetime1 &gt; datetime2</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -459,6 +454,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
 
       
       
@@ -468,8 +469,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/05/ml-numpy/" rel="next" title="numpy">
-                <i class="fa fa-chevron-left"></i> numpy
+              <a href="/2019/07/16/elasticsearch/" rel="next" title="elasticsearch 笔记">
+                <i class="fa fa-chevron-left"></i> elasticsearch 笔记
               </a>
             
           </div>
@@ -478,8 +479,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/04/restframework/" rel="prev" title="rest framework 学习">
-                rest framework 学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/24/vagrant/" rel="prev" title="vagrant 使用">
+                vagrant 使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -685,7 +686,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型优化"><span class="nav-number">2.</span> <span class="nav-text">模型优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类器"><span class="nav-number">3.</span> <span class="nav-text">分类器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机森林"><span class="nav-number">3.1.</span> <span class="nav-text">随机森林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机梯度"><span class="nav-number">3.2.</span> <span class="nav-text">随机梯度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#误差分析"><span class="nav-number">4.</span> <span class="nav-text">误差分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#混淆矩阵"><span class="nav-number">4.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准确率"><span class="nav-number">4.2.</span> <span class="nav-text">准确率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#召回率"><span class="nav-number">4.3.</span> <span class="nav-text">召回率</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和日期转换"><span class="nav-number">1.</span> <span class="nav-text">字符串和日期转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#datetime-转-date"><span class="nav-number">2.</span> <span class="nav-text">datetime 转 date</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用函数"><span class="nav-number">3.</span> <span class="nav-text">常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期比较"><span class="nav-number">4.</span> <span class="nav-text">日期比较</span></a></li></ol></div>
             
 
           </div>

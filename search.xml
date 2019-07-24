@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vagrant 使用]]></title>
+    <url>%2F2019%2F07%2F24%2Fvagrant%2F</url>
+    <content type="text"><![CDATA[Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。 安装https://www.vagrantup.com/downloads.html 下载对应安装包安装即可。 安装虚拟机Vagrant 可以使用命令安装虚拟机，不过网络容易断，建议先下载镜像，再离线安装。 在线安装虚拟机类型根据自己需求选择，这里选择的是 virtualbox 12345678910111213vagrant box add centos/7This box can work with multiple providers! The providers that itcan work with are listed below. Please review the list and choosethe provider you will be working with.1) hyperv2) libvirt3) virtualbox4) vmware_desktopEnter your choice: 3 离线安装vagrant 网站提供了一些镜像下载，地址如下： https://app.vagrantup.com/boxes/search, 这里以centos7为例： 下载镜像 centos7 的镜像； vagrant box add —name &#39;centos/7&#39; [box_path] 虚拟机操作1234567891011# 启动虚拟机vagrant up# 登录虚拟机(默认账号密码都是vagrant, 可以 su 到 root)vagrant ssh# 关闭虚拟机vagrant halt# 销毁虚拟机vagrant destroy pycharm 集成Vagrant 只支持pycharm 专业版，不需要单独安装插件。 FAQ vboxsf mount 问题 12vagrant plugin install vagrant-vbguestvagrant destroy &amp;&amp; vagrant up]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[python 时间日期]]></title>
+    <url>%2F2019%2F07%2F23%2Fpython-date%2F</url>
+    <content type="text"><![CDATA[时间和日期常常会在编程中使用。 字符串和日期转换 strptime = “string parse time” strftime = “string format time” 123456789from datetime import datetime# str 转 datetimedatetime_obj = datetime.strptime('Jun 1 2005 1:33PM', '%b %d %Y %I:%M%p')# datetime 转 strdate_str = datetime.strftime(datetime_obj, '%b %d %Y %I:%M%p') datetime 转 date使用 date 函数转换 1234from datetime import datetimedate_str = '2019.01.22'index_date = datetime.strptime(date_str, "%Y.%m.%d").date() 常用函数12345678# 获取当前日期today = datetime.date.today()# 昨天yesterday = today + datetime.timedelta(-11)# 明天tomorrow = today + datetime.timedelta(1) 日期比较123456# date 类型比较days = (today - tomorrow).days()# datetime 类型比较datetime1 &gt; datetime2]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[elasticsearch 笔记]]></title>
     <url>%2F2019%2F07%2F16%2Felasticsearch%2F</url>
     <content type="text"><![CDATA[记录下ES的常用操作，方便查看。 painlessES 使用的是 painless 语言。 更新数组12 索引操作删除单个索引 1DELETE /index_name 删除所有索引 123# 两张选其一即可DELETE /_allDELETE /* 索引复制 12345678910POST /_reindex?wait_for_completion=false&#123; &quot;source&quot;: &#123; &quot;index&quot;: &quot;source_index&quot; &#125;, &quot;dest&quot;: &#123; &quot;index&quot;: &quot;target_index&quot; &#125;&#125; 文档操作删除单个文档 1DELETE /index/_doc/id 文档重建 123456PUT /index/type/id&#123; &quot;ip&quot;: &quot;10.10.10.10&quot;, &quot;name&quot;: &quot;lina&quot;&#125; 显示版本信息ES文档都一个_version的计数器，用来记录文档的变更情况。需要注意的是ES并没有保存历史文档，_version只是一个计数器。需要查看version, 增加查询参数: version=true 查询根据 _id查询 12345678910111213141516&#123; &quot;query&quot;: &#123; &quot;bool&quot;: &#123; &quot;must&quot;: [ &#123; &quot;terms&quot;: &#123; &quot;_id&quot;: [ &quot;12345678&quot;, &quot;12345679&quot; ] &#125; &#125; ] &#125; &#125;&#125; 指定时间范围，这里的 date 是文档中的字段 12345678910&#123; &quot;query&quot;: &#123; &quot;range&quot; : &#123; &quot;date&quot; : &#123; &quot;gte&quot; : &quot;2019-05-01T00:00:00&quot;, &quot;lte&quot; : &quot;2019-05-01T23:59:59&quot; &#125; &#125; &#125;&#125;]]></content>
@@ -580,14 +593,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Word Frequency]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
-    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Valid Phone Numbers]]></title>
     <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
     <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
@@ -599,6 +604,14 @@
     <title><![CDATA[Transpose File]]></title>
     <url>%2F2015%2F01%2F29%2Fleetcode-194%2F</url>
     <content type="text"><![CDATA[描述Given a text file file.txt, transpose its content. You may assume that each row has the same number of columns and each field is separated by the ‘ ‘ character. 题目链接：https://leetcode.com/problems/transpose-file/ 分析矩阵转制，用一个数组保存结果。 代码123456789101112awk '&#123;\ for(i=1;i&lt;=NF;i++)&#123;\ if(NR==1)&#123;\ s[i]=$i\ &#125; else &#123;\ s[i]=s[i]" "$i;\ &#125;\ &#125;\&#125; \END&#123;\ for(i=1;s[i]!="";i++) print s[i]\&#125;' file.txt]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Word Frequency]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
+    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
