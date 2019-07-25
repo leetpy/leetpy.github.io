@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[alpine]]></title>
+    <url>%2F2019%2F07%2F25%2Falpine%2F</url>
+    <content type="text"><![CDATA[alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。 定制时区1234567apk add tzdata --no-cachels /usr/share/zoneinfoecho "Europe/Brussels" &gt; /etc/timezone# 或者通过环境变量方式设置ENV TZ Asia/Shanghai]]></content>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mysql 笔记]]></title>
+    <url>%2F2019%2F07%2F25%2Fmysql%2F</url>
+    <content type="text"><![CDATA[host 授权12345-- 通配符设置网段grant all privileges on &lt;db_name&gt;.* to root@'10.249.149.%' identified by '&lt;pwd&gt;';flush privileges；]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vagrant 使用]]></title>
     <url>%2F2019%2F07%2F24%2Fvagrant%2F</url>
     <content type="text"><![CDATA[Vagrant 是一款虚拟机管理工具，支持hyper, libvirt, virtual box, VMware_desktop, 可以和IDE 集成。使用vagrant的好处是可以在windows或者macos下编写代码，在linux下运行。 安装https://www.vagrantup.com/downloads.html 下载对应安装包安装即可。 安装虚拟机Vagrant 可以使用命令安装虚拟机，不过网络容易断，建议先下载镜像，再离线安装。 在线安装虚拟机类型根据自己需求选择，这里选择的是 virtualbox 12345678910111213vagrant box add centos/7This box can work with multiple providers! The providers that itcan work with are listed below. Please review the list and choosethe provider you will be working with.1) hyperv2) libvirt3) virtualbox4) vmware_desktopEnter your choice: 3 离线安装vagrant 网站提供了一些镜像下载，地址如下： https://app.vagrantup.com/boxes/search, 这里以centos7为例： 下载镜像 centos7 的镜像； vagrant box add —name &#39;centos/7&#39; [box_path] 虚拟机操作1234567891011121314# 生成虚拟机配置文件vagrant init centos/7# 启动虚拟机vagrant up# 登录虚拟机(默认账号密码都是vagrant, 可以 su 到 root)vagrant ssh# 关闭虚拟机vagrant halt# 销毁虚拟机vagrant destroy pycharm 集成Vagrant 只支持pycharm 专业版，不需要单独安装插件。 vagrant 配置说明12345# 配置同步目录config.vm.synced_folder "./", "/vagrant_data/my_project", create: true# 配置网络config.vm.network "private_network", ip: "192.168.33.10" FAQ vboxsf mount 问题 12vagrant plugin install vagrant-vbguestvagrant destroy &amp;&amp; vagrant up]]></content>
@@ -593,9 +612,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Valid Phone Numbers]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
+    <title><![CDATA[Word Frequency]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
+    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
@@ -609,17 +628,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Word Frequency]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-192%2F</url>
-    <content type="text"><![CDATA[描述Write a bash script to calculate the frequency of each word in a text file words.txt. 题目链接：https://leetcode.com/problems/word-frequency/ 分析这题的思路是先用awk打印每个单词，再用sort排序，使相同的行在一起，再用uniq去除重复行，再根据次数排序，最后awk调换下打印顺序即可。 代码12awk '&#123;i=1;while(i&lt;=NF)&#123;print $i; i++&#125;&#125;' words.txt | \ sort | uniq -c | sort -k1nr | awk '&#123;print $2, $1&#125;']]></content>
+    <title><![CDATA[Tenth Line]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-195%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt, print just the 10th line of the file. 题目链接：https://leetcode.com/problems/tenth-line/ 分析题目的意思很简单，就是输出文件的第十行，需要考虑文件行数少于10的情况。 代码1234567891011121314151617181920# Solution 1cnt=0while read line &amp;&amp; [ $cnt -le 10 ]; do let 'cnt = cnt + 1' if [ $cnt -eq 10 ]; then echo $line exit 0 fidone &lt; file.txt# Solution 2awk 'FNR == 10 &#123;print &#125;' file.txt# ORawk 'NR == 10' file.txt# Solution 3sed -n 10p file.txt# Solution 4tail -n+10 file.txt|head -1]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Tenth Line]]></title>
-    <url>%2F2015%2F01%2F29%2Fleetcode-195%2F</url>
-    <content type="text"><![CDATA[描述Given a text file file.txt, print just the 10th line of the file. 题目链接：https://leetcode.com/problems/tenth-line/ 分析题目的意思很简单，就是输出文件的第十行，需要考虑文件行数少于10的情况。 代码1234567891011121314151617181920# Solution 1cnt=0while read line &amp;&amp; [ $cnt -le 10 ]; do let 'cnt = cnt + 1' if [ $cnt -eq 10 ]; then echo $line exit 0 fidone &lt; file.txt# Solution 2awk 'FNR == 10 &#123;print &#125;' file.txt# ORawk 'NR == 10' file.txt# Solution 3sed -n 10p file.txt# Solution 4tail -n+10 file.txt|head -1]]></content>
+    <title><![CDATA[Valid Phone Numbers]]></title>
+    <url>%2F2015%2F01%2F29%2Fleetcode-193%2F</url>
+    <content type="text"><![CDATA[描述Given a text file file.txt that contains list of phone numbers (one per line), write a one liner bash script to print all valid phone numbers. 题目链接：https://leetcode.com/problems/valid-phone-numbers/ 分析编写匹配电话号码的正则表达式，过滤指定文件。使用 grep 即可。 代码1grep "^\(([0-9]\&#123;3\&#125;) \|[0-9]\&#123;3\&#125;-\)[0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;$" file.txt 说明 grep 在双引号(“)中使用括号时需要加转意符； [0-9] 匹配数字； {n} 表示要匹配的次数； (|) 来表示或；]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
