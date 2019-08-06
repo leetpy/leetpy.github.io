@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[alpine]]></title>
     <url>%2F2019%2F07%2F25%2Falpine%2F</url>
-    <content type="text"><![CDATA[alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。 定制时区1234567apk add tzdata --no-cachels /usr/share/zoneinfoecho "Europe/Brussels" &gt; /etc/timezone# 或者通过环境变量方式设置ENV TZ Asia/Shanghai]]></content>
+    <content type="text"><![CDATA[alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。 定制时区1234567apk add tzdata --no-cachels /usr/share/zoneinfoecho "Europe/Brussels" &gt; /etc/timezone# 或者通过环境变量方式设置ENV TZ Asia/Shanghai mysqlalpine 的 gcc 不是标准的 glibc, 使用 mysql 时有点问题，需要用下面的sed 命令修改下。 12apk add --no-cache mariadb-dev gcc musl-devsed '/st_mysql_options options;/a unsigned int reconnect;' /usr/include/mysql/mysql.h -i.bkp]]></content>
       <tags>
         <tag>docker</tag>
       </tags>

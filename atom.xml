@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-25T06:29:40.529Z</updated>
+  <updated>2019-08-06T11:24:22.603Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/2019/07/25/alpine/"/>
     <id>http://yoursite.com/2019/07/25/alpine/</id>
     <published>2019-07-25T03:41:22.000Z</published>
-    <updated>2019-07-25T06:29:40.529Z</updated>
+    <updated>2019-08-06T11:24:22.603Z</updated>
     
-    <content type="html"><![CDATA[<p>alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。</p><a id="more"></a><h2 id="定制时区"><a href="#定制时区" class="headerlink" title="定制时区"></a>定制时区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apk add tzdata --no-cache</span><br><span class="line">ls /usr/share/zoneinfo</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Europe/Brussels"</span> &gt;  /etc/timezone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过环境变量方式设置</span></span><br><span class="line">ENV TZ Asia/Shanghai</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。</p><a id="more"></a><h2 id="定制时区"><a href="#定制时区" class="headerlink" title="定制时区"></a>定制时区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apk add tzdata --no-cache</span><br><span class="line">ls /usr/share/zoneinfo</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Europe/Brussels"</span> &gt;  /etc/timezone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过环境变量方式设置</span></span><br><span class="line">ENV TZ Asia/Shanghai</span><br></pre></td></tr></table></figure><h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p>alpine 的 gcc 不是标准的 glibc, 使用 mysql 时有点问题，需要用下面的sed 命令修改下。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apk add --no-cache mariadb-dev gcc musl-dev</span><br><span class="line">sed <span class="string">'/st_mysql_options options;/a unsigned int reconnect;'</span> /usr/include/mysql/mysql.h -i.bkp</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     

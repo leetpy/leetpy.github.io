@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-25T06:29:40.529Z">
+<meta property="og:updated_time" content="2019-08-06T11:24:22.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="alpine">
 <meta name="twitter:description" content="alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。">
@@ -388,12 +388,24 @@
                 
               
 
-              <time title="Created: 2019-07-25 11:41:22 / Modified: 14:29:40" itemprop="dateCreated datePublished" datetime="2019-07-25T11:41:22+08:00">2019-07-25</time>
+              <time title="Created: 2019-07-25 11:41:22" itemprop="dateCreated datePublished" datetime="2019-07-25T11:41:22+08:00">2019-07-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-06 19:24:22" itemprop="dateModified" datetime="2019-08-06T19:24:22+08:00">2019-08-06</time>
               
             
           </span>
@@ -429,6 +441,8 @@
         <p>alpine 是一个很小的linux 镜像，只有十几M大小，很适合部分服务。不过 alpine 的 c 库不是 glibc，所以依赖 glibc 时会有一些问题。</p>
 <a id="more"></a>
 <h2 id="定制时区"><a href="#定制时区" class="headerlink" title="定制时区"></a>定制时区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apk add tzdata --no-cache</span><br><span class="line">ls /usr/share/zoneinfo</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Europe/Brussels"</span> &gt;  /etc/timezone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者通过环境变量方式设置</span></span><br><span class="line">ENV TZ Asia/Shanghai</span><br></pre></td></tr></table></figure>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p>alpine 的 gcc 不是标准的 glibc, 使用 mysql 时有点问题，需要用下面的sed 命令修改下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apk add --no-cache mariadb-dev gcc musl-dev</span><br><span class="line">sed <span class="string">'/st_mysql_options options;/a unsigned int reconnect;'</span> /usr/include/mysql/mysql.h -i.bkp</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -679,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定制时区"><span class="nav-number">1.</span> <span class="nav-text">定制时区</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定制时区"><span class="nav-number">1.</span> <span class="nav-text">定制时区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">2.</span> <span class="nav-text">mysql</span></a></li></ol></div>
             
 
           </div>
