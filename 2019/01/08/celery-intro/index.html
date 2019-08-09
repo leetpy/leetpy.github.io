@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="按照官方说法 Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-01T06:12:38.171Z">
+<meta property="og:updated_time" content="2019-08-06T12:55:59.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="celery 介绍">
 <meta name="twitter:description" content="按照官方说法 Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-01 14:12:38" itemprop="dateModified" datetime="2019-04-01T14:12:38+08:00">2019-04-01</time>
+                <time title="Modified: 2019-08-06 20:55:59" itemprop="dateModified" datetime="2019-08-06T20:55:59+08:00">2019-08-06</time>
               
             
           </span>
@@ -458,7 +458,11 @@
       
         <p>按照<a href="http://docs.celeryproject.org/en/latest/index.html" target="_blank" rel="noopener">官方说法</a> Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。</p>
 <a id="more"></a>
-<h2 id="创建-application"><a href="#创建-application" class="headerlink" title="创建 application"></a>创建 application</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>, broker=<span class="string">'pyamqp://guest@localhost//'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<p>首先 celery 不是mq，也不是生产者或者消费者，celery 只是一个库，对消息进行了封装。</p>
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h2><p>celery 的 Application是线程安全的，所以可以在一个进程内创建多个application.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>, broker=<span class="string">'pyamqp://guest@localhost//'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<p>application的创建是lazy模式，默认只</p>
+<h3 id="通过-application-设置参数"><a href="#通过-application-设置参数" class="headerlink" title="通过 application 设置参数"></a>通过 application 设置参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.conf.enable_utc = <span class="keyword">True</span></span><br><span class="line">app.conf.timezone = <span class="string">'Europe/London'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量设置</span></span><br><span class="line">app.conf.update(</span><br><span class="line">        enable_utc=<span class="keyword">True</span>,</span><br><span class="line">        timezone=<span class="string">'Europe/London'</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>这里的 broker 指定消息中间件的地址，rabbitmq 有多种写法：</p>
 <ul>
 <li>amqp://</li>
@@ -483,7 +487,95 @@
 <h2 id="保存结果"><a href="#保存结果" class="headerlink" title="保存结果"></a>保存结果</h2><p>如果需要<code>task</code>的状态，需要通过<code>backend</code>参数设置状态的存放地址，可以是 SQLAlchemy/DjangoORM, Memcached, Redis, RPC(RabbitMQ/AMQP)</p>
 <h3 id="完成状态"><a href="#完成状态" class="headerlink" title="完成状态"></a>完成状态</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = add.delay(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">result.ready()</span><br></pre></td></tr></table></figure>
 <h3 id="释放资源"><a href="#释放资源" class="headerlink" title="释放资源"></a>释放资源</h3><p>每一个<code>AsyncResult</code>都需要显示调用<code>get()</code>,<code>forget()</code>来释放资源。</p>
-<h2 id="celery-配置"><a href="#celery-配置" class="headerlink" title="celery 配置"></a>celery 配置</h2>
+<h2 id="celery-配置"><a href="#celery-配置" class="headerlink" title="celery 配置"></a>celery 配置</h2><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accept_content</td>
+<td>支持序列化类型，默认 json格式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 控制task速率(每分钟最多执行200个)</span></span><br><span class="line">app.control.rate_limit(<span class="string">'myapp.mytask'</span>, <span class="string">'200/m'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="消息持久化"><a href="#消息持久化" class="headerlink" title="消息持久化"></a>消息持久化</h2><p>默认情况下，消息是会写到硬盘的，当然也可以自己配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> kombu <span class="keyword">import</span> Exchange, Queue</span><br><span class="line"></span><br><span class="line">CELERY_QUEUES = (</span><br><span class="line">    Queue(<span class="string">'celery'</span>, routing_key=<span class="string">'celery'</span>),</span><br><span class="line">    Queue(<span class="string">'transient'</span>, routing_key=<span class="string">'transient'</span>,</span><br><span class="line">          delivery_mode=<span class="number">1</span>), <span class="comment"># 1: 不持久化， 2: 持久化</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -737,7 +829,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-application"><span class="nav-number">1.</span> <span class="nav-text">创建 application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Celery"><span class="nav-number">2.</span> <span class="nav-text">启动Celery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用task"><span class="nav-number">3.</span> <span class="nav-text">调用task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存结果"><span class="nav-number">4.</span> <span class="nav-text">保存结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完成状态"><span class="nav-number">4.1.</span> <span class="nav-text">完成状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#释放资源"><span class="nav-number">4.2.</span> <span class="nav-text">释放资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#celery-配置"><span class="nav-number">5.</span> <span class="nav-text">celery 配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Application"><span class="nav-number">1.</span> <span class="nav-text">Application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-application-设置参数"><span class="nav-number">1.1.</span> <span class="nav-text">通过 application 设置参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Celery"><span class="nav-number">2.</span> <span class="nav-text">启动Celery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用task"><span class="nav-number">3.</span> <span class="nav-text">调用task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存结果"><span class="nav-number">4.</span> <span class="nav-text">保存结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完成状态"><span class="nav-number">4.1.</span> <span class="nav-text">完成状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#释放资源"><span class="nav-number">4.2.</span> <span class="nav-text">释放资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#celery-配置"><span class="nav-number">5.</span> <span class="nav-text">celery 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息持久化"><span class="nav-number">6.</span> <span class="nav-text">消息持久化</span></a></li></ol></div>
             
 
           </div>
