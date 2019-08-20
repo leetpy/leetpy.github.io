@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="git 实用汇总，很多小技巧，开发中经常遇到，速查手册。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-09T06:14:05.953Z">
+<meta property="og:updated_time" content="2019-08-12T04:27:37.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 常用命令">
 <meta name="twitter:description" content="git 实用汇总，很多小技巧，开发中经常遇到，速查手册。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-09 14:14:05" itemprop="dateModified" datetime="2019-08-09T14:14:05+08:00">2019-08-09</time>
+                <time title="Modified: 2019-08-12 12:27:37" itemprop="dateModified" datetime="2019-08-12T12:27:37+08:00">2019-08-12</time>
               
             
           </span>
@@ -489,7 +489,7 @@
 <li>使用git commit –amend 这个时候git会自动调用vi打开你的commit信息，你编辑成新的就可以了。</li>
 <li>使用git push origin 远程分支名 提交代码</li>
 </ol>
-<h2 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># eg: 本地分支名为 dev01, 创建远程分支 dev01</span></span><br><span class="line">git push origin dev01:dev01</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有时候远程分支已经删除了，但是本地 git branch -a 还是能看到</span></span><br><span class="line"><span class="comment"># 可用 prune 清除</span></span><br><span class="line">git remote prune origin</span><br></pre></td></tr></table></figure>
+<h2 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># eg: 本地分支名为 dev01, 创建远程分支 dev01</span></span><br><span class="line">git push origin dev01:dev01</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有时候远程分支已经删除了，但是本地 git branch -a 还是能看到</span></span><br><span class="line"><span class="comment"># 可用 prune 清除</span></span><br><span class="line">git remote prune origin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用 fetch 删除</span></span><br><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 <h2 id="修改远程分支地址"><a href="#修改远程分支地址" class="headerlink" title="修改远程分支地址"></a>修改远程分支地址</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin https://test.git</span><br></pre></td></tr></table></figure>
 
       
@@ -606,7 +606,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -702,7 +702,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

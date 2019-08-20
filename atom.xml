@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-06T11:24:22.603Z</updated>
+  <updated>2019-08-20T08:10:37.563Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kafka 常用命令</title>
+    <link href="http://yoursite.com/2019/08/19/kafka/"/>
+    <id>http://yoursite.com/2019/08/19/kafka/</id>
+    <published>2019-08-19T10:42:48.000Z</published>
+    <updated>2019-08-20T08:10:37.563Z</updated>
+    
+    <content type="html"><![CDATA[<p>kafka 常用命令。</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出所有 consumer group</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list</span><br><span class="line"></span><br><span class="line"><span class="comment">#某个 consumer group 信息</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group_id_qa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将某个 group 的 topic 重置到 earliest</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group group_id_qa --topic t_frame_set_qa --execute --reset-offsets --to-earliest</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出所有 topic</span></span><br><span class="line">./kafka-topics.sh --zookeeper 192.168.1.100:2181/kafka --list</span><br><span class="line"></span><br><span class="line"><span class="comment">#某个 topic 信息</span></span><br><span class="line">./kafka-topics.sh --zookeeper 192.168.1.100:2181/kafka --describe --topic t_my_topic</span><br><span class="line"></span><br><span class="line"><span class="comment">#console 消费</span></span><br><span class="line">./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic t_my_topic --max-messages 1</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;kafka 常用命令。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="kafka" scheme="http://yoursite.com/tags/kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈几款 kv 数据库</title>
+    <link href="http://yoursite.com/2019/08/15/kv/"/>
+    <id>http://yoursite.com/2019/08/15/kv/</id>
+    <published>2019-08-15T03:44:53.000Z</published>
+    <updated>2019-08-19T10:42:17.816Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><h2 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h2><p>etcd 虽然也是kv存储，但是更多的是用来做服务发现。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;redis&quot;&gt;&lt;a href=&quot;#redis&quot; class=&quot;headerlink&quot; title=&quot;redis&quot;&gt;&lt;/a&gt;redis&lt;/h2&gt;&lt;h2 id=&quot;etcd&quot;&gt;&lt;a href=&quot;#etcd&quot; class=&quot;headerlink&quot; title=&quot;etcd&quot;
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>alpine</title>
@@ -85,9 +126,9 @@
     <link href="http://yoursite.com/2019/07/23/python-date/"/>
     <id>http://yoursite.com/2019/07/23/python-date/</id>
     <published>2019-07-23T02:01:52.000Z</published>
-    <updated>2019-08-09T02:12:02.776Z</updated>
+    <updated>2019-08-12T03:09:59.677Z</updated>
     
-    <content type="html"><![CDATA[<p>时间和日期常常会在编程中使用。</p><a id="more"></a><h2 id="字符串和日期转换"><a href="#字符串和日期转换" class="headerlink" title="字符串和日期转换"></a>字符串和日期转换</h2><ul><li><code>strptime</code> = “string parse time”</li><li><code>strftime</code> = “string format time”</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># str 转 datetime</span></span><br><span class="line">datetime_obj = datetime.strptime(<span class="string">'Jun 1 2005  1:33PM'</span>, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 转 str</span></span><br><span class="line">date_str = datetime.strftime(datetime_obj, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># date 转 str</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line">today_str = today.strftime(<span class="string">'%Y-%m-%d'</span>)</span><br></pre></td></tr></table></figure><h2 id="datetime-转-date"><a href="#datetime-转-date" class="headerlink" title="datetime 转 date"></a>datetime 转 date</h2><p>使用 <code>date</code> 函数转换</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">date_str = <span class="string">'2019.01.22'</span></span><br><span class="line">index_date = datetime.strptime(date_str, <span class="string">"%Y.%m.%d"</span>).date()</span><br></pre></td></tr></table></figure><h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨天</span></span><br><span class="line">yesterday = today + datetime.timedelta(<span class="number">-11</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明天</span></span><br><span class="line">tomorrow = today + datetime.timedelta(<span class="number">1</span>)</span><br></pre></td></tr></table></figure><h2 id="日期比较"><a href="#日期比较" class="headerlink" title="日期比较"></a>日期比较</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># date 类型比较</span></span><br><span class="line">days = (today - tomorrow).days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 类型比较</span></span><br><span class="line">datetime1 &gt; datetime2</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>时间和日期常常会在编程中使用。</p><a id="more"></a><h2 id="字符串和日期转换"><a href="#字符串和日期转换" class="headerlink" title="字符串和日期转换"></a>字符串和日期转换</h2><ul><li><code>strptime</code> = “string parse time”</li><li><code>strftime</code> = “string format time”</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># str 转 datetime</span></span><br><span class="line">datetime_obj = datetime.strptime(<span class="string">'Jun 1 2005  1:33PM'</span>, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 转 str</span></span><br><span class="line">date_str = datetime.strftime(datetime_obj, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># date 转 str</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line">today_str = today.strftime(<span class="string">'%Y-%m-%d'</span>)</span><br></pre></td></tr></table></figure><h2 id="datetime-转-date"><a href="#datetime-转-date" class="headerlink" title="datetime 转 date"></a>datetime 转 date</h2><p>使用 <code>date</code> 函数转换</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">date_str = <span class="string">'2019.01.22'</span></span><br><span class="line">index_date = datetime.strptime(date_str, <span class="string">"%Y.%m.%d"</span>).date()</span><br></pre></td></tr></table></figure><h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨天</span></span><br><span class="line">yesterday = today + datetime.timedelta(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明天</span></span><br><span class="line">tomorrow = today + datetime.timedelta(<span class="number">1</span>)</span><br></pre></td></tr></table></figure><h2 id="日期比较"><a href="#日期比较" class="headerlink" title="日期比较"></a>日期比较</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># date 类型比较</span></span><br><span class="line">days = (today - tomorrow).days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 类型比较</span></span><br><span class="line">datetime1 &gt; datetime2</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -393,46 +434,6 @@
     
     
       <category term="celery" scheme="http://yoursite.com/tags/celery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>celery 介绍</title>
-    <link href="http://yoursite.com/2019/01/08/celery-intro/"/>
-    <id>http://yoursite.com/2019/01/08/celery-intro/</id>
-    <published>2019-01-08T07:54:48.000Z</published>
-    <updated>2019-08-06T12:55:59.751Z</updated>
-    
-    <content type="html"><![CDATA[<p>按照<a href="http://docs.celeryproject.org/en/latest/index.html" target="_blank" rel="noopener">官方说法</a> Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。</p><a id="more"></a><p>首先 celery 不是mq，也不是生产者或者消费者，celery 只是一个库，对消息进行了封装。</p><h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h2><p>celery 的 Application是线程安全的，所以可以在一个进程内创建多个application.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>, broker=<span class="string">'pyamqp://guest@localhost//'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure><p>application的创建是lazy模式，默认只</p><h3 id="通过-application-设置参数"><a href="#通过-application-设置参数" class="headerlink" title="通过 application 设置参数"></a>通过 application 设置参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.conf.enable_utc = <span class="keyword">True</span></span><br><span class="line">app.conf.timezone = <span class="string">'Europe/London'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量设置</span></span><br><span class="line">app.conf.update(</span><br><span class="line">        enable_utc=<span class="keyword">True</span>,</span><br><span class="line">        timezone=<span class="string">'Europe/London'</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>这里的 broker 指定消息中间件的地址，rabbitmq 有多种写法：</p><ul><li>amqp://</li><li>pyamqp://</li><li>librabbitmq://</li></ul><p>如果安装了librabbitmq，则 amqp 使用 librabbitmq，否则使用 py-amqp。当然也可直接指定。librabbitmq是python封装的c库，效率更高。</p><h2 id="启动Celery"><a href="#启动Celery" class="headerlink" title="启动Celery"></a>启动Celery</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery -A tasks worker --loglevel=info</span><br></pre></td></tr></table></figure><h2 id="调用task"><a href="#调用task" class="headerlink" title="调用task"></a>调用task</h2><p>调用 task 有多种方式，分别是</p><ul><li><p>apply_async(args[, kwargs[, …]])</p><p>发送消息，支持多种参数</p></li><li><p>delay(*args, **kwargs)</p><p>发送消息，不支持执行参数</p></li><li><p><em>calling</em> (<code>__call__</code>)</p></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> tasks <span class="keyword">import</span> add</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.delay(<span class="number">4</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure><p>调用<code>task</code>会返回一个<code>AsyncResult</code>对象，可以用来获取<code>task</code>是否完成，返回值，异常信息。</p><h2 id="保存结果"><a href="#保存结果" class="headerlink" title="保存结果"></a>保存结果</h2><p>如果需要<code>task</code>的状态，需要通过<code>backend</code>参数设置状态的存放地址，可以是 SQLAlchemy/DjangoORM, Memcached, Redis, RPC(RabbitMQ/AMQP)</p><h3 id="完成状态"><a href="#完成状态" class="headerlink" title="完成状态"></a>完成状态</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = add.delay(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">result.ready()</span><br></pre></td></tr></table></figure><h3 id="释放资源"><a href="#释放资源" class="headerlink" title="释放资源"></a>释放资源</h3><p>每一个<code>AsyncResult</code>都需要显示调用<code>get()</code>,<code>forget()</code>来释放资源。</p><h2 id="celery-配置"><a href="#celery-配置" class="headerlink" title="celery 配置"></a>celery 配置</h2><table><thead><tr><th>配置项</th><th>说明</th></tr></thead><tbody><tr><td>accept_content</td><td>支持序列化类型，默认 json格式</td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td></tr></tbody></table><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 控制task速率(每分钟最多执行200个)</span></span><br><span class="line">app.control.rate_limit(<span class="string">'myapp.mytask'</span>, <span class="string">'200/m'</span>)</span><br></pre></td></tr></table></figure><h2 id="消息持久化"><a href="#消息持久化" class="headerlink" title="消息持久化"></a>消息持久化</h2><p>默认情况下，消息是会写到硬盘的，当然也可以自己配置：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> kombu <span class="keyword">import</span> Exchange, Queue</span><br><span class="line"></span><br><span class="line">CELERY_QUEUES = (</span><br><span class="line">    Queue(<span class="string">'celery'</span>, routing_key=<span class="string">'celery'</span>),</span><br><span class="line">    Queue(<span class="string">'transient'</span>, routing_key=<span class="string">'transient'</span>,</span><br><span class="line">          delivery_mode=<span class="number">1</span>), <span class="comment"># 1: 不持久化， 2: 持久化</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;按照&lt;a href=&quot;http://docs.celeryproject.org/en/latest/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方说法&lt;/a&gt; Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="mq" scheme="http://yoursite.com/categories/mq/"/>
-    
-    
-      <category term="celery" scheme="http://yoursite.com/tags/celery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx_log</title>
-    <link href="http://yoursite.com/2019/01/08/nginx-log/"/>
-    <id>http://yoursite.com/2019/01/08/nginx-log/</id>
-    <published>2019-01-08T06:51:31.000Z</published>
-    <updated>2019-01-08T06:56:35.283Z</updated>
-    
-    <content type="html"><![CDATA[<p>nginx 日志需要自己进程转储。</p><a id="more"></a><h2 id="crontab-方式"><a href="#crontab-方式" class="headerlink" title="crontab 方式"></a>crontab 方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mv access.log access.log.0</span><br><span class="line">kill -USR1 `cat master.nginx.pid`</span><br><span class="line">sleep 1</span><br><span class="line">gzip access.log.0    # do something with access.log.0</span><br></pre></td></tr></table></figure><p><a href="https://www.nginx.com/resources/wiki/start/topics/examples/logrotation/" target="_blank" rel="noopener">Log Rotation</a></p><h2 id="logrotate"><a href="#logrotate" class="headerlink" title="logrotate"></a>logrotate</h2><p>在 /etc/logrotate.d/nginx 文件中添加：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/var/log/nginx/access/access.log &#123; </span><br><span class="line">rotate 3</span><br><span class="line">size=50G</span><br><span class="line">missingok</span><br><span class="line">notifempty</span><br><span class="line">compress</span><br><span class="line">delaycompress</span><br><span class="line">sharedscripts</span><br><span class="line">    postrotate</span><br><span class="line">    /usr/sbin/nginx -s reload &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;nginx 日志需要自己进程转储。&lt;/p&gt;
-    
-    </summary>
-    
     
   </entry>
   
