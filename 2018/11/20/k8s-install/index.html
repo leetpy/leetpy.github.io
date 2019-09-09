@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-30T01:40:32.968Z">
+<meta property="og:updated_time" content="2019-08-28T06:24:26.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubeadm 安装 k8s">
 <meta name="twitter:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-30 09:40:32" itemprop="dateModified" datetime="2018-11-30T09:40:32+08:00">2018-11-30</time>
+                <time title="Modified: 2019-08-28 14:24:26" itemprop="dateModified" datetime="2019-08-28T14:24:26+08:00">2019-08-28</time>
               
             
           </span>
@@ -477,7 +477,7 @@
 <h3 id="查看所需-docker-镜像"><a href="#查看所需-docker-镜像" class="headerlink" title="查看所需 docker 镜像"></a>查看所需 docker 镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 这个命令仅使用 v1.10 以上</span><br><span class="line">kubeadm config images list</span><br></pre></td></tr></table></figure>
 <p>添加 <code>pullimages.sh</code> 脚本, 并执行， 脚本内容如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">images=(</span><br><span class="line">    kube-apiserver:v1.12.2</span><br><span class="line">    kube-controller-manager:v1.12.2</span><br><span class="line">    kube-scheduler:v1.12.2</span><br><span class="line">    kube-proxy:v1.12.2</span><br><span class="line">    pause:3.1</span><br><span class="line">    etcd:3.2.24</span><br><span class="line">    coredns:1.2.2</span><br><span class="line">)</span><br><span class="line">for imageName in $&#123;images[@]&#125; ; do</span><br><span class="line">    docker pull anjia0532/google-containers.$imageName</span><br><span class="line">    docker tag anjia0532/google-containers.$imageName k8s.gcr.io/$imageName</span><br><span class="line">    docker rmi anjia0532/google-containers.$imageName</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-<h2 id="初始化集群"><a href="#初始化集群" class="headerlink" title="初始化集群"></a>初始化集群</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">	  --kubernetes-version=v1.12.2 \</span><br><span class="line">	  --pod-network-cidr=192.168.3.0/24 \</span><br><span class="line">      --service-cidr=192.168.2.0/24</span><br></pre></td></tr></table></figure>
+<h2 id="初始化集群"><a href="#初始化集群" class="headerlink" title="初始化集群"></a>初始化集群</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">	  --kubernetes-version=v1.12.2 \</span><br><span class="line">	  --pod-network-cidr=192.168.3.0/24 \</span><br><span class="line">    --service-cidr=192.168.2.0/24</span><br></pre></td></tr></table></figure>
 <h2 id="master-参与调度"><a href="#master-参与调度" class="headerlink" title="master 参与调度"></a>master 参与调度</h2><p>默认情况下集群不会调度 pod 到 master 节点，可以执行如下命令来控制</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes --all node-role.kubernetes.io/master-</span><br></pre></td></tr></table></figure>
 <h2 id="命令补全"><a href="#命令补全" class="headerlink" title="命令补全"></a>命令补全</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y bash-completion</span><br><span class="line">source /usr/share/bash-completion/bash_completion</span><br><span class="line">source &lt;(kubectl completion bash)</span><br><span class="line">echo &quot;source &lt;(kubectl completion bash)&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
@@ -616,7 +616,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-count">72</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

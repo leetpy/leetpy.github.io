@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="记录下ES的常用操作，方便查看。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-22T02:26:02.691Z">
+<meta property="og:updated_time" content="2019-09-05T06:13:11.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch 笔记">
 <meta name="twitter:description" content="记录下ES的常用操作，方便查看。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-22 10:26:02" itemprop="dateModified" datetime="2019-07-22T10:26:02+08:00">2019-07-22</time>
+                <time title="Modified: 2019-09-05 14:13:11" itemprop="dateModified" datetime="2019-09-05T14:13:11+08:00">2019-09-05</time>
               
             
           </span>
@@ -457,7 +457,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &#123;</span><br><span class="line">        &quot;bool&quot;: &#123;</span><br><span class="line">            &quot;must&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;terms&quot;: &#123;</span><br><span class="line">                        &quot;_id&quot;: [</span><br><span class="line">                            &quot;12345678&quot;,</span><br><span class="line">                            &quot;12345679&quot;</span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>指定时间范围，这里的 <code>date</code> 是文档中的字段</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;query&quot;: &#123;</span><br><span class="line">        &quot;range&quot; : &#123;</span><br><span class="line">            &quot;date&quot; : &#123;</span><br><span class="line">                &quot;gte&quot; : &quot;2019-05-01T00:00:00&quot;,</span><br><span class="line">                &quot;lte&quot; : &quot;2019-05-01T23:59:59&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>数组匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 这里 hosts 是一个数组类型</span><br><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;: &#123;</span><br><span class="line">		&quot;bool&quot;: &#123;</span><br><span class="line">			&quot;should&quot;: &#123;</span><br><span class="line">				&quot;term&quot;: &#123;</span><br><span class="line">					&quot;hosts&quot;: &#123;</span><br><span class="line">						&quot;value&quot;: &quot;www.test.gov.cn&quot;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查询聚合"><a href="#查询聚合" class="headerlink" title="查询聚合"></a>查询聚合</h2>
       
     </div>
 
@@ -572,7 +574,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-count">72</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -713,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询聚合"><span class="nav-number">7.</span> <span class="nav-text">查询聚合</span></a></li></ol></div>
             
 
           </div>

@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="主要记录开发过程中常用的容器创建命令。">
+  <meta name="description" content="在开发过程中，常常会使用到 mariadb, redis, rabbitmq 等通用组件，这里使用 docker-compose 管理，方便本地调试。">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用 Docker 容器">
 <meta property="og:url" content="http://yoursite.com/2019/03/07/docker-common/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="主要记录开发过程中常用的容器创建命令。">
+<meta property="og:description" content="在开发过程中，常常会使用到 mariadb, redis, rabbitmq 等通用组件，这里使用 docker-compose 管理，方便本地调试。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T07:13:11.521Z">
+<meta property="og:updated_time" content="2019-09-09T03:50:06.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用 Docker 容器">
-<meta name="twitter:description" content="主要记录开发过程中常用的容器创建命令。">
+<meta name="twitter:description" content="在开发过程中，常常会使用到 mariadb, redis, rabbitmq 等通用组件，这里使用 docker-compose 管理，方便本地调试。">
 
 
 
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-01 15:13:11" itemprop="dateModified" datetime="2019-07-01T15:13:11+08:00">2019-07-01</time>
+                <time title="Modified: 2019-09-09 11:50:06" itemprop="dateModified" datetime="2019-09-09T11:50:06+08:00">2019-09-09</time>
               
             
           </span>
@@ -456,9 +456,12 @@
       
 
       
-        <p>主要记录开发过程中常用的容器创建命令。</p>
+        <p>在开发过程中，常常会使用到 mariadb, redis, rabbitmq 等通用组件，这里使用 docker-compose 管理，方便本地调试。</p>
 <a id="more"></a>
-<h2 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull rabbitmq</span><br><span class="line">docker run -d --hostname my-rabbit --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq</span><br></pre></td></tr></table></figure>
+<p>这里使用 docker-compose 管理。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  mariadb:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mariadb:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">mariadb</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">3306</span><span class="string">:3306</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      MYSQL_ROOT_PASSWORD:</span> <span class="string">"your_pwd"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  rabbitmq:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">rabbitmq:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">rabbitmq</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">15672</span><span class="string">:15672</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">5672</span><span class="string">:5672</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">redis:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">6379</span><span class="string">:6379</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dev</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">  dev:</span></span><br><span class="line"><span class="attr">    driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+<p>附 <code>docker-compose</code> 命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 后台启动容器</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止容器</span></span><br><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -549,17 +552,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -574,7 +568,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-count">72</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -705,22 +699,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rabbitmq"><span class="nav-number">1.</span> <span class="nav-text">Rabbitmq</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
