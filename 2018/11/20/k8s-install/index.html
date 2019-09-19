@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-19T09:55:56.747Z">
+<meta property="og:updated_time" content="2019-09-19T09:57:39.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubeadm 安装 k8s">
 <meta name="twitter:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 17:55:56" itemprop="dateModified" datetime="2019-09-19T17:55:56+08:00">2019-09-19</time>
+                <time title="Modified: 2019-09-19 17:57:39" itemprop="dateModified" datetime="2019-09-19T17:57:39+08:00">2019-09-19</time>
               
             
           </span>
@@ -504,7 +504,7 @@
 <h2 id="节点管理"><a href="#节点管理" class="headerlink" title="节点管理"></a>节点管理</h2><h3 id="节点查看"><a href="#节点查看" class="headerlink" title="节点查看"></a>节点查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes -o wide</span><br></pre></td></tr></table></figure>
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 驱赶节点上所有 pod</span></span><br><span class="line">kubectl drain 192.168.100.102 --delete-local-data --ignore-daemonsets</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除节点</span></span><br><span class="line">kubectl delete node</span><br></pre></td></tr></table></figure>
 <p>驱赶pod后的节点是 <code>SchedulingDisabled</code> 状态。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[yuanliang01@s25 ~]$ kubectl get node</span><br><span class="line">NAME                       STATUS                     ROLES    AGE    VERSION</span><br><span class="line">192.168.100.102            Ready,SchedulingDisabled   &lt;none&gt;   292d   v1.12.2</span><br><span class="line">192.168.100.103            Ready                      master   292d   v1.12.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get node</span><br><span class="line">NAME                       STATUS                     ROLES    AGE    VERSION</span><br><span class="line">192.168.100.102            Ready,SchedulingDisabled   &lt;none&gt;   292d   v1.12.2</span><br><span class="line">192.168.100.103            Ready                      master   292d   v1.12.2</span><br></pre></td></tr></table></figure>
 <h3 id="新增节点"><a href="#新增节点" class="headerlink" title="新增节点"></a>新增节点</h3><ol>
 <li><p>创建 token</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create</span><br></pre></td></tr></table></figure>
