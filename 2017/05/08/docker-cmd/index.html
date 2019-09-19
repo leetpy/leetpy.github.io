@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="记录 docker 常用命令。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-20T12:48:19.265Z">
+<meta property="og:updated_time" content="2019-09-18T09:51:21.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 常用命令">
 <meta name="twitter:description" content="记录 docker 常用命令。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-20 20:48:19" itemprop="dateModified" datetime="2018-11-20T20:48:19+08:00">2018-11-20</time>
+                <time title="Modified: 2019-09-18 17:51:21" itemprop="dateModified" datetime="2019-09-18T17:51:21+08:00">2019-09-18</time>
               
             
           </span>
@@ -489,6 +489,8 @@
 </ul>
 <h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> host -&gt; container</span></span><br><span class="line">docker cp &lt;host_path&gt; &lt;containerID&gt;:&lt;container_path&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> container -&gt; host</span></span><br><span class="line">docker cp &lt;containerID&gt;:&lt;container_path&gt; &lt;host_path&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo docker inspect tox</span></span><br></pre></td></tr></table></figure>
+<h2 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h2><p>如果没有指定 <code>--rm</code>参数，我们创建的 docker 容器并不会删除，镜像也是，一段时间后会发现有很多不用的容器和镜像，一个一个删除会很麻烦，我们可以使用 <code>prune</code>指令批量删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除所有未运行的容器</span></span><br><span class="line">docker container prune</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除所有未使用的镜像</span></span><br><span class="line">docker image prune</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -604,7 +606,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -745,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#network"><span class="nav-number">2.</span> <span class="nav-text">network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-number">3.</span> <span class="nav-text">container</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器"><span class="nav-number">3.1.</span> <span class="nav-text">创建容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件拷贝"><span class="nav-number">4.</span> <span class="nav-text">文件拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看容器信息"><span class="nav-number">5.</span> <span class="nav-text">查看容器信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#image"><span class="nav-number">1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#network"><span class="nav-number">2.</span> <span class="nav-text">network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-number">3.</span> <span class="nav-text">container</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器"><span class="nav-number">3.1.</span> <span class="nav-text">创建容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件拷贝"><span class="nav-number">4.</span> <span class="nav-text">文件拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看容器信息"><span class="nav-number">5.</span> <span class="nav-text">查看容器信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理"><span class="nav-number">6.</span> <span class="nav-text">清理</span></a></li></ol></div>
             
 
           </div>

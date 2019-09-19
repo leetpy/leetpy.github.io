@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-22T01:51:43.925Z</updated>
+  <updated>2019-09-18T09:42:34.160Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,19 +21,17 @@
     <link href="http://yoursite.com/2019/08/22/python-future/"/>
     <id>http://yoursite.com/2019/08/22/python-future/</id>
     <published>2019-08-22T01:50:52.000Z</published>
-    <updated>2019-08-22T01:51:43.925Z</updated>
+    <updated>2019-09-18T09:42:34.160Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> as_completed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(i)</span>:</span></span><br><span class="line">  <span class="comment"># do something</span></span><br><span class="line">  time.sleep(random.randint(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line"><span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line"><span class="comment"># max_workers 指定线程池大小，如果不指定默认是 cpu *5</span></span><br><span class="line">p = ThreadPoolExecutor(max_workers=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交任务</span></span><br><span class="line">tasks = [p.submit(foo, i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取返回结果, 这里的返回并不是按照提交顺序来的，而是谁先完成，谁先返回</span></span><br><span class="line"><span class="keyword">for</span> future <span class="keyword">in</span> as_completed(tasks):</span><br><span class="line">  print(future.result())</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 如果希望有序返回，使用 map</span></span><br><span class="line"><span class="comment"># 这里 result 是生成器，可以使用 list(result) 转换为 list 类型</span></span><br><span class="line">result = p.map(foo, range(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>future 是 python 的的并发库，py2 需要单独安装，py3已经集成到标准库中了。future用的比较多的是线程池和进程池。</p><a id="more"></a><h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> as_completed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(i)</span>:</span></span><br><span class="line">  <span class="comment"># do something</span></span><br><span class="line">  time.sleep(random.randint(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line"><span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line"><span class="comment"># max_workers 指定线程池大小，如果不指定默认是 cpu *5</span></span><br><span class="line">p = ThreadPoolExecutor(max_workers=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交任务</span></span><br><span class="line">tasks = [p.submit(foo, i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取返回结果, 这里的返回并不是按照提交顺序来的，而是谁先完成，谁先返回</span></span><br><span class="line"><span class="keyword">for</span> future <span class="keyword">in</span> as_completed(tasks):</span><br><span class="line">  print(future.result())</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 如果希望有序返回，使用 map</span></span><br><span class="line"><span class="comment"># 这里 result 是生成器，可以使用 list(result) 转换为 list 类型</span></span><br><span class="line">result = p.map(foo, range(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/s
-      
+      &lt;p&gt;future 是 python 的的并发库，py2 需要单独安装，py3已经集成到标准库中了。future用的比较多的是线程池和进程池。&lt;/p&gt;
     
     </summary>
+    
+      <category term="python" scheme="http://yoursite.com/categories/python/"/>
     
     
   </entry>
@@ -95,27 +93,6 @@
   </entry>
   
   <entry>
-    <title>谈谈几款 kv 数据库</title>
-    <link href="http://yoursite.com/2019/08/15/kv/"/>
-    <id>http://yoursite.com/2019/08/15/kv/</id>
-    <published>2019-08-15T03:44:53.000Z</published>
-    <updated>2019-08-19T10:42:17.816Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><h2 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h2><p>etcd 虽然也是kv存储，但是更多的是用来做服务发现。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;redis&quot;&gt;&lt;a href=&quot;#redis&quot; class=&quot;headerlink&quot; title=&quot;redis&quot;&gt;&lt;/a&gt;redis&lt;/h2&gt;&lt;h2 id=&quot;etcd&quot;&gt;&lt;a href=&quot;#etcd&quot; class=&quot;headerlink&quot; title=&quot;etcd&quot;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>alpine</title>
     <link href="http://yoursite.com/2019/07/25/alpine/"/>
     <id>http://yoursite.com/2019/07/25/alpine/</id>
@@ -136,21 +113,17 @@
   </entry>
   
   <entry>
-    <title>mysql 笔记</title>
+    <title>mysql 常用命令</title>
     <link href="http://yoursite.com/2019/07/25/mysql/"/>
     <id>http://yoursite.com/2019/07/25/mysql/</id>
     <published>2019-07-25T02:33:59.000Z</published>
-    <updated>2019-07-25T02:48:52.022Z</updated>
+    <updated>2019-09-18T09:52:50.518Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="host-授权"><a href="#host-授权" class="headerlink" title="host 授权"></a>host 授权</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 通配符设置网段</span></span><br><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> &lt;db_name&gt;.* <span class="keyword">to</span> root@<span class="string">'10.249.149.%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'&lt;pwd&gt;'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>；</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>记录下mysql 常用命令，方便查阅。</p><a id="more"></a><h2 id="host-授权"><a href="#host-授权" class="headerlink" title="host 授权"></a>host 授权</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 通配符设置网段</span></span><br><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> &lt;db_name&gt;.* <span class="keyword">to</span> root@<span class="string">'10.249.149.%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'&lt;pwd&gt;'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>；</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;host-授权&quot;&gt;&lt;a href=&quot;#host-授权&quot; class=&quot;headerlink&quot; title=&quot;host 授权&quot;&gt;&lt;/a&gt;host 授权&lt;/h2&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;tabl
-      
+      &lt;p&gt;记录下mysql 常用命令，方便查阅。&lt;/p&gt;
     
     </summary>
     
@@ -362,7 +335,7 @@
     <link href="http://yoursite.com/2019/03/07/docker-common/"/>
     <id>http://yoursite.com/2019/03/07/docker-common/</id>
     <published>2019-03-07T07:35:43.000Z</published>
-    <updated>2019-09-16T10:41:20.239Z</updated>
+    <updated>2019-09-18T09:51:14.516Z</updated>
     
     <content type="html"><![CDATA[<p>在开发过程中，常常会使用到 mariadb, redis, rabbitmq 等通用组件，这里使用 docker-compose 管理，方便本地调试。</p><a id="more"></a><p>这里使用 docker-compose 管理，通过域名来访问公共组件。这种方式的好处是跟外界网络无关，不用关心IP变化。需要注意的是服务和公共组件需要使用相同的docker 网络。</p><h2 id="创建通用网络"><a href="#创建通用网络" class="headerlink" title="创建通用网络"></a>创建通用网络</h2><p>由于<code>docker-compose</code> 默认网络是 <code>projectname]_default</code> 这种形式，即使指定了名字，<code>docker-compose</code>也会自动加上 <code>projectname_</code>不适合跨项目。因此这里先在定义一个网络。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create dev</span><br></pre></td></tr></table></figure><h3 id="创建通用容器"><a href="#创建通用容器" class="headerlink" title="创建通用容器"></a>创建通用容器</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  mariadb:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mariadb:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">mariadb</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">3306</span><span class="string">:3306</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">      MYSQL_ROOT_PASSWORD:</span> <span class="string">"your_pwd"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  rabbitmq:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">rabbitmq:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">rabbitmq</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">15672</span><span class="string">:15672</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">5672</span><span class="string">:5672</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">redis:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">6379</span><span class="string">:6379</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    external:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">my-pre-existing-network</span></span><br></pre></td></tr></table></figure><p>附 <code>docker-compose</code> 命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 后台启动容器</span></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止容器</span></span><br><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] <a href="https://docs.docker.com/compose/networking/" target="_blank" rel="noopener">https://docs.docker.com/compose/networking/</a></p>]]></content>
     
@@ -418,6 +391,30 @@
     
       <category term="python" scheme="http://yoursite.com/categories/python/"/>
     
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>celery任务超时控制</title>
+    <link href="http://yoursite.com/2019/01/10/celery-time-limit/"/>
+    <id>http://yoursite.com/2019/01/10/celery-time-limit/</id>
+    <published>2019-01-10T08:43:09.000Z</published>
+    <updated>2019-01-10T08:58:42.260Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。</p><a id="more"></a><h1 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h1><p>celery 提供了两个参数来控制task超时时间：</p><ul><li>task_time_limit: 在指定时间内没有完成，task会被kill，然后开始下一个task。</li><li>task_soft_time_limit: </li></ul><h2 id="在celery配置文件中使用"><a href="#在celery配置文件中使用" class="headerlink" title="在celery配置文件中使用"></a>在celery配置文件中使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_limit = <span class="number">30</span></span><br><span class="line">soft_time_limit = <span class="number">10</span></span><br></pre></td></tr></table></figure><h2 id="在装饰器中使用"><a href="#在装饰器中使用" class="headerlink" title="在装饰器中使用"></a>在装饰器中使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mytask</span><span class="params">(time_limit=<span class="number">30</span>, soft_time_limit=<span class="number">10</span>)</span>:</span></span><br><span class="line">   do_your_job()</span><br></pre></td></tr></table></figure><h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from celery.exceptions import SoftTimeLimitExceeded</span><br><span class="line"></span><br><span class="line">@app.task</span><br><span class="line">def mytask(soft_time_limit=10):</span><br><span class="line">    try:</span><br><span class="line">        return do_work()</span><br><span class="line">    except SoftTimeLimitExceeded:</span><br><span class="line">        cleanup_in_a_hurry()</span><br></pre></td></tr></table></figure><p>这里实际测试有些情况下仍然捕获不到异常，会直接抛出，出现类似打印：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[2019-01-10 15:42:13,716: ERROR/ForkPoolWorker-11] Pool process &lt;celery.concurrency.asynpool.Worker object at 0x107fddb90&gt; error: SoftTimeLimitExceeded()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 289, in __call__</span><br><span class="line">    sys.exit(self.workloop(pid=pid))</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 347, in workloop</span><br><span class="line">    req = wait_for_job()</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 447, in receive</span><br><span class="line">    ready, req = _receive(1.0)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 419, in _recv</span><br><span class="line">    return True, loads(get_payload())</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/queues.py&quot;, line 355, in get_payload</span><br><span class="line">    return self._reader.recv_bytes()</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 245, in recv_bytes</span><br><span class="line">    buf = self._recv_bytes(maxlength)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 458, in _recv_bytes</span><br><span class="line">    buf = self._recv(4)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/connection.py&quot;, line 424, in _recv</span><br><span class="line">    chunk = read(handle, remaining)</span><br><span class="line">  File &quot;/Library/Python/2.7/site-packages/billiard/pool.py&quot;, line 227, in soft_timeout_sighandler</span><br><span class="line">    raise SoftTimeLimitExceeded()</span><br><span class="line">SoftTimeLimitExceeded: SoftTimeLimitExceeded()</span><br></pre></td></tr></table></figure><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] <a href="http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit" target="_blank" rel="noopener">http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_time_limit</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="mq" scheme="http://yoursite.com/categories/mq/"/>
+    
+    
+      <category term="celery" scheme="http://yoursite.com/tags/celery/"/>
     
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
     

@@ -562,16 +562,46 @@
                 
               
 
-              <time title="Created: 2019-08-22 09:50:52 / Modified: 09:51:43" itemprop="dateCreated datePublished" datetime="2019-08-22T09:50:52+08:00">2019-08-22</time>
+              <time title="Created: 2019-08-22 09:50:52" itemprop="dateCreated datePublished" datetime="2019-08-22T09:50:52+08:00">2019-08-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-18 17:42:34" itemprop="dateModified" datetime="2019-09-18T17:42:34+08:00">2019-09-18</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -601,11 +631,14 @@
 
       
         
-          
-            <a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> as_completed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(i)</span>:</span></span><br><span class="line">  <span class="comment"># do something</span></span><br><span class="line">  time.sleep(random.randint(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">	<span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line"><span class="comment"># max_workers 指定线程池大小，如果不指定默认是 cpu *5</span></span><br><span class="line">p = ThreadPoolExecutor(max_workers=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交任务</span></span><br><span class="line">tasks = [p.submit(foo, i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取返回结果, 这里的返回并不是按照提交顺序来的，而是谁先完成，谁先返回</span></span><br><span class="line"><span class="keyword">for</span> future <span class="keyword">in</span> as_completed(tasks):</span><br><span class="line">  print(future.result())</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 如果希望有序返回，使用 map</span></span><br><span class="line"><span class="comment"># 这里 result 是生成器，可以使用 list(result) 转换为 list 类型</span></span><br><span class="line">result = p.map(foo, range(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
-
-          
+          <p>future 是 python 的的并发库，py2 需要单独安装，py3已经集成到标准库中了。future用的比较多的是线程池和进程池。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/22/python-future/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1101,158 +1134,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/kv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leesea">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/15/kv/" itemprop="url">
-                  谈谈几款 kv 数据库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-15 11:44:53" itemprop="dateCreated datePublished" datetime="2019-08-15T11:44:53+08:00">2019-08-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-19 18:42:17" itemprop="dateModified" datetime="2019-08-19T18:42:17+08:00">2019-08-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><h2 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h2><p>etcd 虽然也是kv存储，但是更多的是用来做服务发现。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/alpine/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1429,7 +1310,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2019/07/25/mysql/" itemprop="url">
-                  mysql 笔记
+                  mysql 常用命令
                 </a>
               
             
@@ -1455,12 +1336,24 @@
                 
               
 
-              <time title="Created: 2019-07-25 10:33:59 / Modified: 10:48:52" itemprop="dateCreated datePublished" datetime="2019-07-25T10:33:59+08:00">2019-07-25</time>
+              <time title="Created: 2019-07-25 10:33:59" itemprop="dateCreated datePublished" datetime="2019-07-25T10:33:59+08:00">2019-07-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-18 17:52:50" itemprop="dateModified" datetime="2019-09-18T17:52:50+08:00">2019-09-18</time>
               
             
           </span>
@@ -1512,11 +1405,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h2 id="host-授权"><a href="#host-授权" class="headerlink" title="host 授权"></a>host 授权</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 通配符设置网段</span></span><br><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> &lt;db_name&gt;.* <span class="keyword">to</span> root@<span class="string">'10.249.149.%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'&lt;pwd&gt;'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>；</span><br></pre></td></tr></table></figure>
-
-          
+          <p>记录下mysql 常用命令，方便查阅。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/25/mysql/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1853,11 +1749,167 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/elasticsearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/elasticsearch/" itemprop="url">
+                  elasticsearch 笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-16 10:17:28" itemprop="dateCreated datePublished" datetime="2019-07-16T10:17:28+08:00">2019-07-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-16 15:17:28" itemprop="dateModified" datetime="2019-09-16T15:17:28+08:00">2019-09-16</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>记录下ES的常用操作，方便查看。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/elasticsearch/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1900,7 +1952,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
