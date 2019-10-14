@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="记录下ES的常用操作，方便查看。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-16T07:17:28.070Z">
+<meta property="og:updated_time" content="2019-10-14T07:12:16.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch 笔记">
 <meta name="twitter:description" content="记录下ES的常用操作，方便查看。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-16 15:17:28" itemprop="dateModified" datetime="2019-09-16T15:17:28+08:00">2019-09-16</time>
+                <time title="Modified: 2019-10-14 15:12:16" itemprop="dateModified" datetime="2019-10-14T15:12:16+08:00">2019-10-14</time>
               
             
           </span>
@@ -461,8 +461,11 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 这里 hosts 是一个数组类型</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"bool"</span>: &#123;</span><br><span class="line">            <span class="attr">"should"</span>: &#123;</span><br><span class="line">                <span class="attr">"term"</span>: &#123;</span><br><span class="line">                    <span class="attr">"hosts"</span>: &#123;</span><br><span class="line">                      <span class="attr">"value"</span>: <span class="string">"www.test.gov.cn"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="bool-查询"><a href="#bool-查询" class="headerlink" title="bool 查询"></a>bool 查询</h2><p>Bool 查询结构如下:</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"bool"</span>: &#123;</span><br><span class="line">            <span class="attr">"must"</span>: [],</span><br><span class="line">            <span class="attr">"should"</span>: []</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中 must 对应 <code>AND</code> 操作， should 对应 <code>should</code>操作。需要注意的是，在有 <code>filter</code> 和 <code>must</code>时，<code>should</code>的值不会影响的搜索结构。</p>
-<h2 id="查询聚合"><a href="#查询聚合" class="headerlink" title="查询聚合"></a>查询聚合</h2>
+<p>其中 must 对应 <code>AND</code> 操作， should 对应 <code>should</code>操作。需要注意的是，在有 <code>filter</code> 和 <code>must</code>时，<code>should</code>的值不会影响的搜索结构。如果需要 <code>must</code> 和 <code>should</code> 同时满足，可以使用 <code>minimum_should_match</code>字段:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"bool"</span>: &#123;</span><br><span class="line">        		<span class="attr">"minimum_should_match"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"must"</span>: [],</span><br><span class="line">            <span class="attr">"should"</span>: []</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查询聚合"><a href="#查询聚合" class="headerlink" title="查询聚合"></a>查询聚合</h2><p><code>text</code> 类型的字段默认不支持聚合，可以使用如下方式(在 field 名字后面加上 <code>.keyword</code>):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"size"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"aggs"</span> : &#123;</span><br><span class="line">        <span class="attr">"patterns"</span> : &#123;</span><br><span class="line">            <span class="attr">"terms"</span> : &#123; <span class="attr">"field"</span> : <span class="string">"pattern.keyword"</span> &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
