@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="这里先记录下常用的操作，后续整理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-26T08:21:52.637Z">
+<meta property="og:updated_time" content="2020-02-10T11:15:31.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django ORM">
 <meta name="twitter:description" content="这里先记录下常用的操作，后续整理。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-26 16:21:52" itemprop="dateModified" datetime="2019-09-26T16:21:52+08:00">2019-09-26</time>
+                <time title="Modified: 2020-02-10 19:15:31" itemprop="dateModified" datetime="2020-02-10T19:15:31+08:00">2020-02-10</time>
               
             
           </span>
@@ -500,6 +500,10 @@
 <h3 id="统计数量"><a href="#统计数量" class="headerlink" title="统计数量"></a>统计数量</h3><p>如果只是为了获取数量，使用 <code>count</code> 就行，不要使用 <code>len(QuerySet)</code>, 这会获取所有的数据，消耗大量内存。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QuerySet.count()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于 SELECT COUNT(*) some_table</span></span><br></pre></td></tr></table></figure>
 <h2 id="逻辑操作"><a href="#逻辑操作" class="headerlink" title="逻辑操作"></a>逻辑操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Q</span><br><span class="line"></span><br><span class="line">MyModel.objects.filter(Q(username__contains=<span class="string">'lina'</span>) | Q(age=<span class="number">12</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="Model-参数说明"><a href="#Model-参数说明" class="headerlink" title="Model 参数说明"></a>Model 参数说明</h2><ul>
+<li>null: 默认为False，对应的字段如果没有设置则为空字符串（””）, 如果设置了，对应 None;</li>
+<li></li>
+</ul>
 
       
     </div>
@@ -615,7 +619,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -654,7 +658,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -711,7 +721,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -754,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库更新"><span class="nav-number">1.</span> <span class="nav-text">数据库更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据获取"><span class="nav-number">2.</span> <span class="nav-text">数据获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊操作"><span class="nav-number">2.1.</span> <span class="nav-text">特殊操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#raw"><span class="nav-number">4.</span> <span class="nav-text">raw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用"><span class="nav-number">5.</span> <span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-by-使用"><span class="nav-number">5.1.</span> <span class="nav-text">Group by 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计数量"><span class="nav-number">5.2.</span> <span class="nav-text">统计数量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑操作"><span class="nav-number">6.</span> <span class="nav-text">逻辑操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库更新"><span class="nav-number">1.</span> <span class="nav-text">数据库更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据获取"><span class="nav-number">2.</span> <span class="nav-text">数据获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊操作"><span class="nav-number">2.1.</span> <span class="nav-text">特殊操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#raw"><span class="nav-number">4.</span> <span class="nav-text">raw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用"><span class="nav-number">5.</span> <span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-by-使用"><span class="nav-number">5.1.</span> <span class="nav-text">Group by 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计数量"><span class="nav-number">5.2.</span> <span class="nav-text">统计数量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑操作"><span class="nav-number">6.</span> <span class="nav-text">逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-参数说明"><span class="nav-number">7.</span> <span class="nav-text">Model 参数说明</span></a></li></ol></div>
             
 
           </div>
@@ -774,7 +790,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

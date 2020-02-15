@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="记录下ES的常用操作，方便查看。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-14T07:12:16.885Z">
+<meta property="og:updated_time" content="2019-11-28T03:48:54.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch 笔记">
 <meta name="twitter:description" content="记录下ES的常用操作，方便查看。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-14 15:12:16" itemprop="dateModified" datetime="2019-10-14T15:12:16+08:00">2019-10-14</time>
+                <time title="Modified: 2019-11-28 11:48:54" itemprop="dateModified" datetime="2019-11-28T11:48:54+08:00">2019-11-28</time>
               
             
           </span>
@@ -465,6 +465,14 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"bool"</span>: &#123;</span><br><span class="line">        		<span class="attr">"minimum_should_match"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"must"</span>: [],</span><br><span class="line">            <span class="attr">"should"</span>: []</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="查询聚合"><a href="#查询聚合" class="headerlink" title="查询聚合"></a>查询聚合</h2><p><code>text</code> 类型的字段默认不支持聚合，可以使用如下方式(在 field 名字后面加上 <code>.keyword</code>):</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"size"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"aggs"</span> : &#123;</span><br><span class="line">        <span class="attr">"patterns"</span> : &#123;</span><br><span class="line">            <span class="attr">"terms"</span> : &#123; <span class="attr">"field"</span> : <span class="string">"pattern.keyword"</span> &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="聚合排序"><a href="#聚合排序" class="headerlink" title="聚合排序"></a>聚合排序</h3><p>使用自己的 key 排序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"aggregations"</span>: &#123;</span><br><span class="line">      <span class="string">"startcount"</span>: &#123;</span><br><span class="line">         <span class="string">"terms"</span>: &#123;</span><br><span class="line">            <span class="string">"field"</span>: <span class="string">"startat"</span>,</span><br><span class="line">            <span class="string">"script"</span>: <span class="string">"round(_value/1000)"</span>,</span><br><span class="line">            <span class="string">"size"</span>: 1000,</span><br><span class="line">            <span class="string">"order"</span>: &#123;</span><br><span class="line">               <span class="string">"_term"</span>: <span class="string">"asc"</span></span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常用统计"><a href="#常用统计" class="headerlink" title="常用统计"></a>常用统计</h2><ul>
+<li><p>去重统计</p>
+<p><code>cardinality</code> 是基于<a href="https://link.jianshu.com/?t=http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf" target="_blank" rel="noopener">HyperLogLog++</a>（HLL）一个近似算法，可以通过 <code>precision_threshold</code>来控制精度，<code>precision_threshold</code>接受 0–40,000 之间的数字。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"aggs"</span>: &#123;</span><br><span class="line">        <span class="attr">"attacker_sum"</span>: &#123;</span><br><span class="line">            <span class="attr">"cardinality"</span>: &#123;</span><br><span class="line">                <span class="attr">"field"</span>: <span class="string">"attacker_id"</span>,</span><br><span class="line">                <span class="attr">"precision_threshold"</span>: <span class="number">1000000</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -580,7 +588,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -619,7 +627,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -676,7 +690,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -719,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bool-查询"><span class="nav-number">7.</span> <span class="nav-text">bool 查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询聚合"><span class="nav-number">8.</span> <span class="nav-text">查询聚合</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#painless"><span class="nav-number">1.</span> <span class="nav-text">painless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数组"><span class="nav-number">2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引操作"><span class="nav-number">3.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">4.</span> <span class="nav-text">文档操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示版本信息"><span class="nav-number">5.</span> <span class="nav-text">显示版本信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">6.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bool-查询"><span class="nav-number">7.</span> <span class="nav-text">bool 查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询聚合"><span class="nav-number">8.</span> <span class="nav-text">查询聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合排序"><span class="nav-number">8.1.</span> <span class="nav-text">聚合排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用统计"><span class="nav-number">9.</span> <span class="nav-text">常用统计</span></a></li></ol></div>
             
 
           </div>
@@ -739,7 +759,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

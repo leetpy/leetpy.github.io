@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-19T09:57:39.290Z">
+<meta property="og:updated_time" content="2020-01-14T02:46:29.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubeadm 安装 k8s">
 <meta name="twitter:description" content="本文介绍使用 kubeadm 安装 k8s 集群。建议不要用在生产环境。使用 kubeadm 安装，如果 master 节点挂了，是没有办法操作的。 安装版本：  k8s: 1.12.2 docker: 17.3.2">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 17:57:39" itemprop="dateModified" datetime="2019-09-19T17:57:39+08:00">2019-09-19</time>
+                <time title="Modified: 2020-01-14 10:46:29" itemprop="dateModified" datetime="2020-01-14T10:46:29+08:00">2020-01-14</time>
               
             
           </span>
@@ -505,12 +505,13 @@
 <h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 驱赶节点上所有 pod</span></span><br><span class="line">kubectl drain 192.168.100.102 --delete-local-data --ignore-daemonsets</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除节点</span></span><br><span class="line">kubectl delete node</span><br></pre></td></tr></table></figure>
 <p>驱赶pod后的节点是 <code>SchedulingDisabled</code> 状态。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get node</span><br><span class="line">NAME                       STATUS                     ROLES    AGE    VERSION</span><br><span class="line">192.168.100.102            Ready,SchedulingDisabled   &lt;none&gt;   292d   v1.12.2</span><br><span class="line">192.168.100.103            Ready                      master   292d   v1.12.2</span><br></pre></td></tr></table></figure>
-<h3 id="新增节点"><a href="#新增节点" class="headerlink" title="新增节点"></a>新增节点</h3><ol>
+<h3 id="新增节点"><a href="#新增节点" class="headerlink" title="新增节点"></a>新增节点</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># k8s 使用的是 iptables, 关闭 firewalld 防火墙</span></span><br><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 selinux</span></span><br><span class="line"><span class="built_in">set</span> enforce 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 swap</span></span><br><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改内核参数</span></span><br><span class="line">yum install -y bridge-utils.x86_64</span><br><span class="line">modprobe bridge</span><br><span class="line">modprobe br_netfilter</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.bridge.bridge-nf-call-iptables=1"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.bridge.bridge-nf-call-ip6tables=1"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<ol>
 <li><p>创建 token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create</span><br><span class="line"></span><br><span class="line"># token 默认有效期是一天，可以用如下命令查看</span><br><span class="line">kubeadm token list</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>计算 SHA256</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2&gt;/dev/null | openssl dgst -sha256 -hex | sed &apos;s/^.* //&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2&gt;/dev/null | openssl dgst -sha256 -hex | sed &apos;s/^.* //&apos;</span><br><span class="line"></span><br><span class="line"># 也可以把这两步合成一部</span><br><span class="line">kubeadm token create --print-join-command</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>加入集群</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.100.103:6443 --token zkeshq.asg3o4as2ndg5jch --discovery-token-ca-cert-hash sha256:1fa544d0d7efaf40b4c6a51fa265d856d8a49a7d15fa4fccf195279fd6854f85</span><br></pre></td></tr></table></figure>
@@ -631,7 +632,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -670,7 +671,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -727,7 +734,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -770,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙配置"><span class="nav-number">1.</span> <span class="nav-text">防火墙配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核参数配置"><span class="nav-number">2.</span> <span class="nav-text">内核参数配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hosts-配置"><span class="nav-number">3.</span> <span class="nav-text">hosts 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum-源配置"><span class="nav-number">4.</span> <span class="nav-text">yum 源配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-docker-源"><span class="nav-number">4.1.</span> <span class="nav-text">添加 docker 源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-k8s-源"><span class="nav-number">4.2.</span> <span class="nav-text">添加 k8s 源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-docker"><span class="nav-number">5.</span> <span class="nav-text">安装 docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kubeadm-和-kubectl"><span class="nav-number">6.</span> <span class="nav-text">安装 kubeadm 和 kubectl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-k8s-镜像"><span class="nav-number">7.</span> <span class="nav-text">下载 k8s 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所需-docker-镜像"><span class="nav-number">7.1.</span> <span class="nav-text">查看所需 docker 镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化集群"><span class="nav-number">8.</span> <span class="nav-text">初始化集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#master-参与调度"><span class="nav-number">9.</span> <span class="nav-text">master 参与调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令补全"><span class="nav-number">10.</span> <span class="nav-text">命令补全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servcie-端口范围修改"><span class="nav-number">11.</span> <span class="nav-text">servcie 端口范围修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">12.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dns-loop-detected"><span class="nav-number">12.1.</span> <span class="nav-text">Dns loop detected</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token-过期"><span class="nav-number">12.2.</span> <span class="nav-text">token 过期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它节点-pod-cidr-问题"><span class="nav-number">12.3.</span> <span class="nav-text">其它节点 pod cidr 问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点管理"><span class="nav-number">13.</span> <span class="nav-text">节点管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点查看"><span class="nav-number">13.1.</span> <span class="nav-text">节点查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除节点"><span class="nav-number">13.2.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增节点"><span class="nav-number">13.3.</span> <span class="nav-text">新增节点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙配置"><span class="nav-number">1.</span> <span class="nav-text">防火墙配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核参数配置"><span class="nav-number">2.</span> <span class="nav-text">内核参数配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hosts-配置"><span class="nav-number">3.</span> <span class="nav-text">hosts 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum-源配置"><span class="nav-number">4.</span> <span class="nav-text">yum 源配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-docker-源"><span class="nav-number">4.1.</span> <span class="nav-text">添加 docker 源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-k8s-源"><span class="nav-number">4.2.</span> <span class="nav-text">添加 k8s 源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-docker"><span class="nav-number">5.</span> <span class="nav-text">安装 docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-kubeadm-和-kubectl"><span class="nav-number">6.</span> <span class="nav-text">安装 kubeadm 和 kubectl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-k8s-镜像"><span class="nav-number">7.</span> <span class="nav-text">下载 k8s 镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所需-docker-镜像"><span class="nav-number">7.1.</span> <span class="nav-text">查看所需 docker 镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化集群"><span class="nav-number">8.</span> <span class="nav-text">初始化集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#master-参与调度"><span class="nav-number">9.</span> <span class="nav-text">master 参与调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令补全"><span class="nav-number">10.</span> <span class="nav-text">命令补全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servcie-端口范围修改"><span class="nav-number">11.</span> <span class="nav-text">servcie 端口范围修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">12.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dns-loop-detected"><span class="nav-number">12.1.</span> <span class="nav-text">Dns loop detected</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token-过期"><span class="nav-number">12.2.</span> <span class="nav-text">token 过期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它节点-pod-cidr-问题"><span class="nav-number">12.3.</span> <span class="nav-text">其它节点 pod cidr 问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点管理"><span class="nav-number">13.</span> <span class="nav-text">节点管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点查看"><span class="nav-number">13.1.</span> <span class="nav-text">节点查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除节点"><span class="nav-number">13.2.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增节点"><span class="nav-number">13.3.</span> <span class="nav-text">新增节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">13.3.1.</span> <span class="nav-text">准备工作</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -790,7 +803,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

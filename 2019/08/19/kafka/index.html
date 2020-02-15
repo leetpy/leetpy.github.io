@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="kafka 常用命令。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-20T08:10:37.563Z">
+<meta property="og:updated_time" content="2020-02-01T03:41:45.730Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka 常用命令">
 <meta name="twitter:description" content="kafka 常用命令。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-20 16:10:37" itemprop="dateModified" datetime="2019-08-20T16:10:37+08:00">2019-08-20</time>
+                <time title="Modified: 2020-02-01 11:41:45" itemprop="dateModified" datetime="2020-02-01T11:41:45+08:00">2020-02-01</time>
               
             
           </span>
@@ -440,7 +440,13 @@
       
         <p>kafka 常用命令。</p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出所有 consumer group</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list</span><br><span class="line"></span><br><span class="line"><span class="comment">#某个 consumer group 信息</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group_id_qa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将某个 group 的 topic 重置到 earliest</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group group_id_qa --topic t_frame_set_qa --execute --reset-offsets --to-earliest</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出所有 topic</span></span><br><span class="line">./kafka-topics.sh --zookeeper 192.168.1.100:2181/kafka --list</span><br><span class="line"></span><br><span class="line"><span class="comment">#某个 topic 信息</span></span><br><span class="line">./kafka-topics.sh --zookeeper 192.168.1.100:2181/kafka --describe --topic t_my_topic</span><br><span class="line"></span><br><span class="line"><span class="comment">#console 消费</span></span><br><span class="line">./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic t_my_topic --max-messages 1</span><br></pre></td></tr></table></figure>
+<h2 id="topic-相关"><a href="#topic-相关" class="headerlink" title="topic 相关"></a>topic 相关</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 topic</span></span><br><span class="line">./kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出所有 topic</span></span><br><span class="line">./kafka-topics.sh --zookeeper zookeeper:2181/kafka --list</span><br></pre></td></tr></table></figure>
+<p>查看 topic</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./kafka-topics.sh --zookeeper zookeeper:2181 --describe --topic test</span></span><br><span class="line"></span><br><span class="line">Topic:<span class="built_in">test</span>	PartitionCount:1	ReplicationFactor:1	Configs:</span><br><span class="line">	Topic: <span class="built_in">test</span>	Partition: 0	Leader: 0	Replicas: 0	Isr: 0</span><br></pre></td></tr></table></figure>
+<p>增加分区数量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./kafka-topics.sh --zookeeper zookeeper:2181 --alter --topic test --partitions 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ./kafka-topics.sh --zookeeper zookeeper:2181 --describe --topic test</span></span><br><span class="line">Topic:<span class="built_in">test</span>	PartitionCount:4	ReplicationFactor:1	Configs:</span><br><span class="line">	Topic: <span class="built_in">test</span>	Partition: 0	Leader: 0	Replicas: 0	Isr: 0</span><br><span class="line">	Topic: <span class="built_in">test</span>	Partition: 1	Leader: 0	Replicas: 0	Isr: 0</span><br><span class="line">	Topic: <span class="built_in">test</span>	Partition: 2	Leader: 0	Replicas: 0	Isr: 0</span><br><span class="line">	Topic: <span class="built_in">test</span>	Partition: 3	Leader: 0	Replicas: 0	Isr: 0</span><br></pre></td></tr></table></figure>
+<h2 id="消息相关"><a href="#消息相关" class="headerlink" title="消息相关"></a>消息相关</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送消息</span></span><br><span class="line">./kafka-console-producer.sh --broker-list localhost:9092 --topic <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 消费消息</span></span><br><span class="line">./kafka-console-consumer.sh  --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning</span><br><span class="line"></span><br><span class="line"><span class="comment"># 消费一条消息</span></span><br><span class="line">./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic t_my_topic --max-messages 1</span><br></pre></td></tr></table></figure>
+<h2 id="group-相关"><a href="#group-相关" class="headerlink" title="group 相关"></a>group 相关</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出所有 consumer group</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list</span><br><span class="line"></span><br><span class="line"><span class="comment">#某个 consumer group 信息</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group group_id_qa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将某个 group 的 topic 重置到 earliest</span></span><br><span class="line">./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group example --topic aether_hosts --execute --reset-offsets --to-earliest</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -531,8 +537,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -547,7 +562,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -586,7 +601,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -643,7 +664,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -677,6 +704,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#topic-相关"><span class="nav-number">1.</span> <span class="nav-text">topic 相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息相关"><span class="nav-number">2.</span> <span class="nav-text">消息相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group-相关"><span class="nav-number">3.</span> <span class="nav-text">group 相关</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -690,7 +733,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

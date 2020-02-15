@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="时间和日期常常会在编程中使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-12T03:09:59.677Z">
+<meta property="og:updated_time" content="2019-12-23T03:51:16.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python 时间日期">
 <meta name="twitter:description" content="时间和日期常常会在编程中使用。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-12 11:09:59" itemprop="dateModified" datetime="2019-08-12T11:09:59+08:00">2019-08-12</time>
+                <time title="Modified: 2019-12-23 11:51:16" itemprop="dateModified" datetime="2019-12-23T11:51:16+08:00">2019-12-23</time>
               
             
           </span>
@@ -447,7 +447,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># str 转 datetime</span></span><br><span class="line">datetime_obj = datetime.strptime(<span class="string">'Jun 1 2005  1:33PM'</span>, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 转 str</span></span><br><span class="line">date_str = datetime.strftime(datetime_obj, <span class="string">'%b %d %Y %I:%M%p'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># date 转 str</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line">today_str = today.strftime(<span class="string">'%Y-%m-%d'</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="datetime-转-date"><a href="#datetime-转-date" class="headerlink" title="datetime 转 date"></a>datetime 转 date</h2><p>使用 <code>date</code> 函数转换</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">date_str = <span class="string">'2019.01.22'</span></span><br><span class="line">index_date = datetime.strptime(date_str, <span class="string">"%Y.%m.%d"</span>).date()</span><br></pre></td></tr></table></figure>
-<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨天</span></span><br><span class="line">yesterday = today + datetime.timedelta(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明天</span></span><br><span class="line">tomorrow = today + datetime.timedelta(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前日期</span></span><br><span class="line">today = datetime.date.today()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨天</span></span><br><span class="line">yesterday = today + datetime.timedelta(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明天</span></span><br><span class="line">tomorrow = today + datetime.timedelta(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去年今天</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> dateutil.relativedelta <span class="keyword">import</span> relativedelta</span><br><span class="line">one_yrs_ago = datetime.now() - relativedelta(years=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="日期比较"><a href="#日期比较" class="headerlink" title="日期比较"></a>日期比较</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># date 类型比较</span></span><br><span class="line">days = (today - tomorrow).days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># datetime 类型比较</span></span><br><span class="line">datetime1 &gt; datetime2</span><br></pre></td></tr></table></figure>
       
     </div>
@@ -563,7 +563,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -602,7 +602,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -659,7 +665,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -722,7 +734,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

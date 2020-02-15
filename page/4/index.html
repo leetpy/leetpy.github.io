@@ -342,7 +342,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/tornado-requesthandler/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/celery-time-limit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -361,8 +361,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/07/tornado-requesthandler/" itemprop="url">
-                  tornado学习之 常用
+                <a class="post-title-link" href="/2019/01/10/celery-time-limit/" itemprop="url">
+                  celery任务超时控制
                 </a>
               
             
@@ -388,159 +388,7 @@
                 
               
 
-              <time title="Created: 2018-12-07 10:13:37" itemprop="dateCreated datePublished" datetime="2018-12-07T10:13:37+08:00">2018-12-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-28 15:52:34" itemprop="dateModified" datetime="2019-09-28T15:52:34+08:00">2019-09-28</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">    file_name = <span class="string">'file.ext'</span></span><br><span class="line">    buf_size = <span class="number">4096</span></span><br><span class="line">    self.set_header(<span class="string">'Content-Type'</span>, <span class="string">'application/octet-stream'</span>)</span><br><span class="line">    self.set_header(<span class="string">'Content-Disposition'</span>, <span class="string">'attachment; filename='</span> + file_name)</span><br><span class="line">    <span class="keyword">with</span> open(file_name, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            data = f.read(buf_size)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.write(data)</span><br><span class="line">    self.finish()</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/k8s-iptables/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leesea">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/29/k8s-iptables/" itemprop="url">
-                  k8s iptables 规则查看
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-29 11:24:30 / Modified: 14:36:28" itemprop="dateCreated datePublished" datetime="2018-11-29T11:24:30+08:00">2018-11-29</time>
+              <time title="Created: 2019-01-10 16:43:09 / Modified: 16:58:42" itemprop="dateCreated datePublished" datetime="2019-01-10T16:43:09+08:00">2019-01-10</time>
             
 
             
@@ -562,7 +410,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mq/" itemprop="url" rel="index"><span itemprop="name">mq</span></a></span>
 
                 
                 
@@ -597,10 +445,10 @@
 
       
         
-          <p>在访问 k8s 服务时，有时会出现一直连不上的问题，我们可以通过分析 iptables 和抓包的方式观察报文是否正确到达。关于 iptable 的介绍可以参考：<a href="../../../../2018/06/29/iptables/">iptables</a></p>
+          <p>有时候celery任务的执行时间过长，如果没有有效控制可能导致mq消息大量堆积。celery 3.1以后的版本提供了超时机制。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/29/k8s-iptables/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/celery-time-limit/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -656,7 +504,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-job/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/pyenv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -675,8 +523,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/k8s-job/" itemprop="url">
-                  k8s学习之job
+                <a class="post-title-link" href="/2019/01/10/pyenv/" itemprop="url">
+                  pyenv使用
                 </a>
               
             
@@ -702,7 +550,7 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:45" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:45+08:00">2018-11-21</time>
+              <time title="Created: 2019-01-10 16:09:30" itemprop="dateCreated datePublished" datetime="2019-01-10T16:09:30+08:00">2019-01-10</time>
             
 
             
@@ -719,7 +567,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-25 14:48:43" itemprop="dateModified" datetime="2018-11-25T14:48:43+08:00">2018-11-25</time>
+                <time title="Modified: 2019-07-24 18:37:54" itemprop="dateModified" datetime="2019-07-24T18:37:54+08:00">2019-07-24</time>
               
             
           </span>
@@ -736,7 +584,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -771,14 +619,10 @@
 
       
         
-          <p>Kubernetes 有两种类型的 job, 分别是 <code>Job</code> 和 <code>CronJonb</code>。</p>
-<ul>
-<li>Job: 负责批量处理短暂的一次性任务，仅执行一次，并保证处理的一个或者多个Pod成功结束。</li>
-<li>CronJob: 负责定时任务，在指定的时间周期运行指定的任务。</li>
-</ul>
+          <p>pyenv可以帮助你在一台开发机上建立多个版本的python环境， 并提供方便的切换方法。<br>virtualenv可以搭建虚拟且独立的python环境，可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/k8s-job/#more" rel="contents">
+            <a class="btn" href="/2019/01/10/pyenv/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -834,7 +678,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-configmap/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/celery-intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -853,8 +697,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/k8s-configmap/" itemprop="url">
-                  k8s学习之configmap
+                <a class="post-title-link" href="/2019/01/08/celery-intro/" itemprop="url">
+                  celery 介绍
                 </a>
               
             
@@ -880,7 +724,7 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:37" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:37+08:00">2018-11-21</time>
+              <time title="Created: 2019-01-08 15:54:48" itemprop="dateCreated datePublished" datetime="2019-01-08T15:54:48+08:00">2019-01-08</time>
             
 
             
@@ -897,7 +741,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-30 22:58:32" itemprop="dateModified" datetime="2018-11-30T22:58:32+08:00">2018-11-30</time>
+                <time title="Modified: 2019-09-18 17:45:23" itemprop="dateModified" datetime="2019-09-18T17:45:23+08:00">2019-09-18</time>
               
             
           </span>
@@ -914,7 +758,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mq/" itemprop="url" rel="index"><span itemprop="name">mq</span></a></span>
 
                 
                 
@@ -949,11 +793,10 @@
 
       
         
-          <p>很多生产环境中的应用程序较为复杂，可能需要多个 config 文件，命令行参数和环境变量的组合。并且这些配置信息应该从镜像中解耦出来，以保证镜像的可移植性以及配置信息不被泄漏。社区使用 ConfigMap 满足这一需求。</p>
-<p>ConfigMap 包含了一系列键值对，用于存储被 pod 或者系统组件（如 controller 等）访问的信息。</p>
+          <p>按照<a href="http://docs.celeryproject.org/en/latest/index.html" target="_blank" rel="noopener">官方说法</a> Celery 是一个简单，灵活可靠的分布式消息处理组件。至于这货性能如何，实际测试才知道。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/k8s-configmap/#more" rel="contents">
+            <a class="btn" href="/2019/01/08/celery-intro/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1009,7 +852,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-daemonset/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/nginx-log/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -1028,8 +871,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/k8s-daemonset/" itemprop="url">
-                  k8s学习之daemonset
+                <a class="post-title-link" href="/2019/01/08/nginx-log/" itemprop="url">
+                  nginx_log
                 </a>
               
             
@@ -1055,7 +898,7 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:27 / Modified: 10:51:47" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:27+08:00">2018-11-21</time>
+              <time title="Created: 2019-01-08 14:51:31 / Modified: 14:56:35" itemprop="dateCreated datePublished" datetime="2019-01-08T14:51:31+08:00">2019-01-08</time>
             
 
             
@@ -1065,24 +908,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1112,167 +937,10 @@
 
       
         
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-deployment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leesea">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/21/k8s-deployment/" itemprop="url">
-                  k8s学习之deployment
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-21 09:56:12 / Modified: 16:57:55" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:12+08:00">2018-11-21</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Deployment 多用于为 pod 和 replia set 提供更新，并且可以方便地跟踪观察其所属的 replica set 或者 pod 数量以及状态的变化。</p>
+          <p>nginx 日志需要自己进程转储。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/k8s-deployment/#more" rel="contents">
+            <a class="btn" href="/2019/01/08/nginx-log/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1328,7 +996,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-rs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/testtools/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -1347,8 +1015,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/k8s-rs/" itemprop="url">
-                  k8s学习之Replica Sets
+                <a class="post-title-link" href="/2018/12/21/testtools/" itemprop="url">
+                  testtools
                 </a>
               
             
@@ -1374,46 +1042,16 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:56:06" itemprop="dateCreated datePublished" datetime="2018-11-21T09:56:06+08:00">2018-11-21</time>
+              <time title="Created: 2018-12-21 15:27:25 / Modified: 15:39:11" itemprop="dateCreated datePublished" datetime="2018-12-21T15:27:25+08:00">2018-12-21</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-05 10:15:24" itemprop="dateModified" datetime="2018-12-05T10:15:24+08:00">2018-12-05</time>
               
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1443,10 +1081,10 @@
 
       
         
-          <p>ReplicaSet 是下一代的Replication Controller.一个 ReplicaSet 和一个 Replication Controller 之间唯一的不同目前是对选择器的支持. ReplicaSet 支持最新的基于集合的选择器需求,这描述在标签用户指南然而一个Replication Controller 仅仅支持基于等号的选择器需求.</p>
+          <p>testools是属于python中诸多自动化框架中的一个, 是python标准库中unittest的扩展。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/21/k8s-rs/#more" rel="contents">
+            <a class="btn" href="/2018/12/21/testtools/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1502,7 +1140,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/k8s-rc/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/mock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -1521,8 +1159,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/21/k8s-rc/" itemprop="url">
-                  k8s学习之rc
+                <a class="post-title-link" href="/2018/12/20/mock/" itemprop="url">
+                  python mock使用
                 </a>
               
             
@@ -1548,164 +1186,7 @@
                 
               
 
-              <time title="Created: 2018-11-21 09:55:57 / Modified: 10:51:38" itemprop="dateCreated datePublished" datetime="2018-11-21T09:55:57+08:00">2018-11-21</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/k8s-service/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leesea">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="leesea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/20/k8s-service/" itemprop="url">
-                  k8s学习之service
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-20 20:52:38" itemprop="dateCreated datePublished" datetime="2018-11-20T20:52:38+08:00">2018-11-20</time>
+              <time title="Created: 2018-12-20 22:02:28" itemprop="dateCreated datePublished" datetime="2018-12-20T22:02:28+08:00">2018-12-20</time>
             
 
             
@@ -1722,29 +1203,11 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-11-30 11:06:06" itemprop="dateModified" datetime="2018-11-30T11:06:06+08:00">2018-11-30</time>
+                <time title="Modified: 2019-01-10 16:39:10" itemprop="dateModified" datetime="2019-01-10T16:39:10+08:00">2019-01-10</time>
               
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1774,11 +1237,10 @@
 
       
         
-          <p>由于重新调度等原因，pod 在 kubernetes 中的 IP 地址不是固定的，因此需要一个代理来确保使用 pod 的应用不需要知晓 pod 的真实 IP 地址。另一个原因是当使用 replication controller 创建了多个 pod 副本时，需要一个代理来为这些 pod 做负载均衡。</p>
-<p>service 主要由一个 IP 地址和 label selector 构成。在创建之初，每个 service 便被分配了一个独一无二的 IP 地址，该 IP 地址与 service 的生命周期相同，且不再更改。</p>
+          <p>在测试中可以使用mock来模拟很多场景，而不需要去真正的执行代码。例如数据库查询，网络请求等。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/k8s-service/#more" rel="contents">
+            <a class="btn" href="/2018/12/20/mock/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1834,7 +1296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/k8s-pod/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/es-migration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leesea">
@@ -1853,8 +1315,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/20/k8s-pod/" itemprop="url">
-                  k8s学习之pod
+                <a class="post-title-link" href="/2018/12/20/es-migration/" itemprop="url">
+                  记一次elasticsearch 索引迁移
                 </a>
               
             
@@ -1880,24 +1342,156 @@
                 
               
 
-              <time title="Created: 2018-11-20 20:52:00" itemprop="dateCreated datePublished" datetime="2018-11-20T20:52:00+08:00">2018-11-20</time>
+              <time title="Created: 2018-12-20 13:57:32 / Modified: 14:36:47" itemprop="dateCreated datePublished" datetime="2018-12-20T13:57:32+08:00">2018-12-20</time>
             
 
             
               
 
               
-                
-                <span class="post-meta-divider">|</span>
-                
+            
+          </span>
 
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>由于公司机房调整，需要将ES数据从一个集群迁移到另一集群。两个集群ES都是5.x版本，小版本存在差异，目标集群版本更低。数据由多个索引构成，每个索引大概1TB左右。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/20/es-migration/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/django-db-separation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                <a class="post-title-link" href="/2018/12/14/django-db-separation/" itemprop="url">
+                  django 数据库读写分离
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
                 
-                <time title="Modified: 2018-11-21 10:49:48" itemprop="dateModified" datetime="2018-11-21T10:49:48+08:00">2018-11-21</time>
+              
+
+              <time title="Created: 2018-12-14 14:48:19 / Modified: 15:01:20" itemprop="dateCreated datePublished" datetime="2018-12-14T14:48:19+08:00">2018-12-14</time>
+            
+
+            
+              
+
               
             
           </span>
@@ -1914,7 +1508,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PaaS/" itemprop="url" rel="index"><span itemprop="name">PaaS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -1949,10 +1543,358 @@
 
       
         
-          <p>在 Kubernetes 中，能够被创建，调度和管理的最小单元是 pod, 而非单个容器。一个 pod 是由若干个 Docker 容器构成的容器组（pod意为豆荚）。</p>
+          <p>使用数据库读写分离可以提高网站的性能，吞吐率。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/20/k8s-pod/#more" rel="contents">
+            <a class="btn" href="/2018/12/14/django-db-separation/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/arp-spoofing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/11/arp-spoofing/" itemprop="url">
+                  arp 欺骗
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-11 22:59:50" itemprop="dateCreated datePublished" datetime="2018-12-11T22:59:50+08:00">2018-12-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-14 15:03:17" itemprop="dateModified" datetime="2018-12-14T15:03:17+08:00">2018-12-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hack/" itemprop="url" rel="index"><span itemprop="name">hack</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ARP欺骗（英语：ARP spoofing），又称ARP毒化（ARP poisoning，网上上多译为ARP病毒）或ARP攻击，是针对以太网地址解析协议（ARP）的一种攻击技术，通过欺骗局域网内访问者PC的网关MAC地址，使访问者PC错以为攻击者更改后的MAC地址是网关的MAC，导致网络不通。此种攻击可让攻击者获取局域网上的数据包甚至可篡改数据包，且可让网上上特定计算机或所有计算机无法正常连线。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/11/arp-spoofing/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/tornado-post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leesea">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leesea">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/08/tornado-post/" itemprop="url">
+                  tornado 获取提交数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-08 13:43:36" itemprop="dateCreated datePublished" datetime="2018-12-08T13:43:36+08:00">2018-12-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-18 17:38:23" itemprop="dateModified" datetime="2019-09-18T17:38:23+08:00">2019-09-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在进行前后台开发时，我们往往需要关注发送/接收数据的类型，不同类型的数据有不同的处理方式。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/08/tornado-post/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1997,7 +1939,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2040,7 +1982,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2079,7 +2021,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2136,7 +2084,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2183,7 +2137,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
