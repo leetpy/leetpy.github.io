@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="Etcd 是一个 key-value 数据库，主要用于：  服务发现   查看版本信息123$ etcdctl versionetcdctl version: 3.3.13API version: 3.3 key 操作添加 key123# 添加 key$ etcdctl put foo barOK 获取 keyetcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出">
+  <meta name="description" content="Etcd 是一个 key-value 数据库，从官方的定义可以看出etcd主要用于：  服务发现 配置共享">
 <meta property="og:type" content="article">
 <meta property="og:title" content="etcd 速查手册">
 <meta property="og:url" content="http://yoursite.com/2019/12/20/etcd/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="Etcd 是一个 key-value 数据库，主要用于：  服务发现   查看版本信息123$ etcdctl versionetcdctl version: 3.3.13API version: 3.3 key 操作添加 key123# 添加 key$ etcdctl put foo barOK 获取 keyetcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出">
+<meta property="og:description" content="Etcd 是一个 key-value 数据库，从官方的定义可以看出etcd主要用于：  服务发现 配置共享">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-20T04:11:46.380Z">
+<meta property="og:updated_time" content="2020-02-15T03:14:34.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="etcd 速查手册">
-<meta name="twitter:description" content="Etcd 是一个 key-value 数据库，主要用于：  服务发现   查看版本信息123$ etcdctl versionetcdctl version: 3.3.13API version: 3.3 key 操作添加 key123# 添加 key$ etcdctl put foo barOK 获取 keyetcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出">
+<meta name="twitter:description" content="Etcd 是一个 key-value 数据库，从官方的定义可以看出etcd主要用于：  服务发现 配置共享">
 
 
 
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="Created: 2019-12-20 10:49:52 / Modified: 12:11:46" itemprop="dateCreated datePublished" datetime="2019-12-20T10:49:52+08:00">2019-12-20</time>
+              <time title="Created: 2019-12-20 10:49:52" itemprop="dateCreated datePublished" datetime="2019-12-20T10:49:52+08:00">2019-12-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-15 11:14:34" itemprop="dateModified" datetime="2020-02-15T11:14:34+08:00">2020-02-15</time>
               
             
           </span>
@@ -425,11 +437,16 @@
       
 
       
-        <p>Etcd 是一个 key-value 数据库，主要用于：</p>
+        <p>Etcd 是一个 key-value 数据库，从官方的定义可以看出<code>etcd</code>主要用于：</p>
 <ul>
 <li>服务发现</li>
-<li></li>
+<li>配置共享</li>
 </ul>
+<a id="more"></a>
+<p>定义：</p>
+<blockquote>
+<p>A highly-available key value store for shared configuration and service discovery.</p>
+</blockquote>
 <h2 id="查看版本信息"><a href="#查看版本信息" class="headerlink" title="查看版本信息"></a>查看版本信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ etcdctl version</span><br><span class="line">etcdctl version: 3.3.13</span><br><span class="line">API version: 3.3</span><br></pre></td></tr></table></figure>
 <h2 id="key-操作"><a href="#key-操作" class="headerlink" title="key 操作"></a>key 操作</h2><h3 id="添加-key"><a href="#添加-key" class="headerlink" title="添加 key"></a>添加 key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加 key</span></span><br><span class="line">$ etcdctl put foo bar</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
 <h3 id="获取-key"><a href="#获取-key" class="headerlink" title="获取 key"></a>获取 key</h3><p>etcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出，中间没有空行，有点蛋疼</p>
@@ -544,7 +561,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

@@ -12,6 +12,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Jenkinsfile 介绍]]></title>
+    <url>%2F2020%2F02%2F15%2Fjenkins-jenkinsfile%2F</url>
+    <content type="text"><![CDATA[Jenkinsfile 是用来定义 jenkins pipeline的构建流程。 Jenkinsfile 主要有以下几个部分组成: tools: 需要使用的工具; agent: 构建的节点； stages: 构建流程，可以由多个 stage 组成； post: 构建后处理 12345678910111213141516171819202122232425262728293031323334353637pipeline &#123; tools &#123; maven "Maven 3.3.9" jdk "Oracle JDK 8u40" &#125; agent &#123; label "any-executor" &#125; stages &#123; stage("build") &#123; steps &#123; sh 'echo "path: $&#123;PATH&#125;"' sh 'echo "M2_HOME: $&#123;M2_HOME&#125;"' sh 'mvn clean install -Dmaven.test.failure.ignore=true' &#125; &#125; &#125; post &#123; always &#123; archive "target/**/*" junit 'target/surefire-reports/*.xml' &#125; success &#123; mail to:"me@example.com", subject:"SUCCESS: $&#123;currentBuild.fullDisplayName&#125;", body: "Yay, we passed." &#125; failure &#123; mail to:"me@example.com", subject:"FAILURE: $&#123;currentBuild.fullDisplayName&#125;", body: "Boo, we failed." &#125; unstable &#123; mail to:"me@example.com", subject:"UNSTABLE: $&#123;currentBuild.fullDisplayName&#125;", body: "Huh, we're unstable." &#125; changed &#123; mail to:"me@example.com", subject:"CHANGED: $&#123;currentBuild.fullDisplayName&#125;", body: "Wow, our status changed!" &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>CI</category>
+      </categories>
+      <tags>
+        <tag>jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Vue 常见问题汇总]]></title>
     <url>%2F2020%2F02%2F10%2Fvue-faq%2F</url>
     <content type="text"><![CDATA[先记录下自己写前端遇到过的问题。 父页面设置子组件的显示和隐藏]]></content>
@@ -47,7 +58,7 @@
   <entry>
     <title><![CDATA[etcd 速查手册]]></title>
     <url>%2F2019%2F12%2F20%2Fetcd%2F</url>
-    <content type="text"><![CDATA[Etcd 是一个 key-value 数据库，主要用于： 服务发现 查看版本信息123$ etcdctl versionetcdctl version: 3.3.13API version: 3.3 key 操作添加 key123# 添加 key$ etcdctl put foo barOK 获取 keyetcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出，中间没有空行，有点蛋疼 1234567891011121314151617# 获取 key$ etcdctl get foofoobar# 获取 key --prefix$ etcdctl get --prefix ffoobar# 只显示 key$ etcdctl get foo --keys-onlyfoo# 只显示 value$ etcdctl get foo --print-value-onlybar 删除key12$ etcdctl del cc1]]></content>
+    <content type="text"><![CDATA[Etcd 是一个 key-value 数据库，从官方的定义可以看出etcd主要用于： 服务发现 配置共享 定义： A highly-available key value store for shared configuration and service discovery. 查看版本信息123$ etcdctl versionetcdctl version: 3.3.13API version: 3.3 key 操作添加 key123# 添加 key$ etcdctl put foo barOK 获取 keyetcdctl 读取 key 值的时候会把key 也输出，如果有多个 key，会连着输出，中间没有空行，有点蛋疼 1234567891011121314151617# 获取 key$ etcdctl get foofoobar# 获取 key --prefix$ etcdctl get --prefix ffoobar# 只显示 key$ etcdctl get foo --keys-onlyfoo# 只显示 value$ etcdctl get foo --print-value-onlybar 删除key12$ etcdctl del cc1]]></content>
   </entry>
   <entry>
     <title><![CDATA[k8s-cert]]></title>
@@ -65,7 +76,7 @@
   <entry>
     <title><![CDATA[mysql 分区, 分库，分表]]></title>
     <url>%2F2019%2F11%2F06%2Fmysql-part%2F</url>
-    <content type="text"><![CDATA[分区什么是分区 将一个表拆解成多个区块 分区的好处 进行逻辑数据分割，分割数据能有多个不同的物理文件路径； 可以存储更多的数据，突破系统单个文件最大限制； 提升性能，提高每个分区的读写速度，提高分区范围内的查询速度； 可以通过删除分区来快速删除数据，例如分区是按年份划分； 通过跨磁盘来分散数据，从而提高磁盘I/O性能； 涉及到SUM， COUNT等聚合函数，可以并行计算； 可以备份恢复独立分区，对大数据量有好处； 分区能支持的引擎 同一个表中的所有分区必须是同一个引擎； 查看是否支持分区12345&gt; show plugins;+-------------------------------+----------+--------------------+---------+---------+| partition | ACTIVE | STORAGE ENGINE | NULL | GPL |+-------------------------------+----------+--------------------+---------+---------+ 分区类型 RANGE 分区； LIST 分区； HASH分区； KEY分区，类似HASH分区，由MySQL服务器提供其自身的哈希函数； 分表好处 分库]]></content>
+    <content type="text"><![CDATA[分区什么是分区 将一个表拆解成多个区块。 分区的好处 进行逻辑数据分割，分割数据能有多个不同的物理文件路径； 可以存储更多的数据，突破系统单个文件最大限制； 提升性能，提高每个分区的读写速度，提高分区范围内的查询速度； 可以通过删除分区来快速删除数据，例如分区是按年份划分； 通过跨磁盘来分散数据，从而提高磁盘I/O性能； 涉及到SUM， COUNT等聚合函数，可以并行计算； 可以备份恢复独立分区，对大数据量有好处； 分区能支持的引擎 同一个表中的所有分区必须是同一个引擎； 查看是否支持分区12345&gt; show plugins;+-------------------------------+----------+--------------------+---------+---------+| partition | ACTIVE | STORAGE ENGINE | NULL | GPL |+-------------------------------+----------+--------------------+---------+---------+ 分区类型 RANGE 分区； LIST 分区； HASH分区； KEY分区，类似HASH分区，由MySQL服务器提供其自身的哈希函数； 分表好处 分库]]></content>
       <tags>
         <tag>mysql</tag>
       </tags>
