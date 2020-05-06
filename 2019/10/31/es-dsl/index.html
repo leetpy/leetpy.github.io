@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="elasticsearch_dsl 库可以方便的生成一些复杂的 dsl 语句，而不用自己去写 json.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-31T03:18:32.933Z">
+<meta property="og:updated_time" content="2020-04-09T03:23:41.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch dsl使用">
 <meta name="twitter:description" content="elasticsearch_dsl 库可以方便的生成一些复杂的 dsl 语句，而不用自己去写 json.">
@@ -388,12 +388,24 @@
                 
               
 
-              <time title="Created: 2019-10-31 11:04:15 / Modified: 11:18:32" itemprop="dateCreated datePublished" datetime="2019-10-31T11:04:15+08:00">2019-10-31</time>
+              <time title="Created: 2019-10-31 11:04:15" itemprop="dateCreated datePublished" datetime="2019-10-31T11:04:15+08:00">2019-10-31</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-09 11:23:41" itemprop="dateModified" datetime="2020-04-09T11:23:41+08:00">2020-04-09</time>
               
             
           </span>
@@ -432,6 +444,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> Search</span><br><span class="line"></span><br><span class="line">s = Source()</span><br><span class="line">s = s.source([<span class="string">'attacker_ip'</span>, <span class="string">'attacker_id'</span>])</span><br><span class="line">print(s.to_dict())</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#123;'query': &#123;'match_all': &#123;&#125;&#125;, '_source': ['attacker_ip', 'attacker_id']</span></span><br></pre></td></tr></table></figure>
 <p>使用 <code>include</code>和 <code>exclude</code> ，需要注意的是两种方式不能同时使用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> Search</span><br><span class="line"></span><br><span class="line">s = Source()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要注意的是 source 并不是在原有对象上修改，需要重新赋值</span></span><br><span class="line">s = s.source(include=[<span class="string">'attacker_id'</span>], exclude=[<span class="string">"time*"</span>])</span><br><span class="line">print(s.to_dict())</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#123;'query': &#123;'match_all': &#123;&#125;&#125;, '_source': &#123;'include': ['attacker_id'], 'exclude': ['time*']&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="逻辑操作"><a href="#逻辑操作" class="headerlink" title="逻辑操作"></a>逻辑操作</h2> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q() &amp; Q() | ~Q()</span><br></pre></td></tr></table></figure>
+<h2 id="取子属性"><a href="#取子属性" class="headerlink" title="取子属性"></a>取子属性</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># eg 要获取 attacker.city， 使用 __ 代替 .</span></span><br><span class="line">Q(<span class="string">"term"</span>, attacker__city=<span class="string">"杭州"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">city_q = Q(<span class="string">'nested'</span>, path=<span class="string">'victims'</span>, query=~Q(<span class="string">'term'</span>, victims__location__city=<span class="string">""</span>))</span><br></pre></td></tr></table></figure>
+<p>对应下面的 json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"bool"</span>: &#123;</span><br><span class="line">            <span class="attr">"must"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"nested"</span>: &#123;</span><br><span class="line">                        <span class="attr">"path"</span>: <span class="string">"victims"</span>,</span><br><span class="line">                        <span class="attr">"query"</span>: &#123;</span><br><span class="line">                            <span class="attr">"bool"</span>: &#123;</span><br><span class="line">                                <span class="attr">"must_not"</span>: [</span><br><span class="line">                                    &#123;</span><br><span class="line">                                        <span class="attr">"term"</span>: &#123;</span><br><span class="line">                                            <span class="attr">"victims.location.city"</span>: <span class="string">""</span></span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                ]</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -547,7 +564,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -655,7 +672,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -698,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定-source"><span class="nav-number">1.</span> <span class="nav-text">指定 _source</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定-source"><span class="nav-number">1.</span> <span class="nav-text">指定 _source</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑操作"><span class="nav-number"></span> <span class="nav-text">逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取子属性"><span class="nav-number"></span> <span class="nav-text">取子属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套"><span class="nav-number"></span> <span class="nav-text">嵌套</span></a></div>
             
 
           </div>

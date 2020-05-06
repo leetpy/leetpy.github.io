@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="这里先记录下常用的操作，后续整理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-10T11:15:31.141Z">
+<meta property="og:updated_time" content="2020-04-13T09:20:22.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django ORM">
 <meta name="twitter:description" content="这里先记录下常用的操作，后续整理。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-10 19:15:31" itemprop="dateModified" datetime="2020-02-10T19:15:31+08:00">2020-02-10</time>
+                <time title="Modified: 2020-04-13 17:20:22" itemprop="dateModified" datetime="2020-04-13T17:20:22+08:00">2020-04-13</time>
               
             
           </span>
@@ -493,6 +493,8 @@
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in</span></span><br><span class="line">Model.object.filter(name__in=[<span class="string">"line"</span>, <span class="string">"Alice"</span>])</span><br></pre></td></tr></table></figure>
+<p>如果需要 <code>&lt;&gt;</code>, 则使用 <code>Q</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Q</span><br><span class="line"></span><br><span class="line">Entry.objects.filter(~Q(date=<span class="number">2020</span>))</span><br></pre></td></tr></table></figure>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新或者创建</span></span><br><span class="line"><span class="comment"># 前面的是 filter, defaults 是更新</span></span><br><span class="line">Industry.objects.update_or_create(</span><br><span class="line">            industry_id=industry_id,</span><br><span class="line">            name=industry_name[INDUSTRY_NAME_CHN],</span><br><span class="line">            defaults=&#123;<span class="string">'name_en'</span>: industry_name[INDUSTRY_NAME_EN]&#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <h2 id="raw"><a href="#raw" class="headerlink" title="raw"></a>raw</h2><p>Django 可以直接执行 sql 脚本，需要注意的是 django 的 raw 查询必须要有<code>primary key</code>字段，因为返回的是Model 的 QuerySet列表。新增的属性不要也是放到 Model的属性中的，所以名字不要包含特殊字符，这点确实有点蛋疼。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.objects.raw(<span class="string">'SELECT id, first_name, last_name, birth_date FROM myapp_person'</span>)</span><br></pre></td></tr></table></figure>
@@ -504,6 +506,8 @@
 <li>null: 默认为False，对应的字段如果没有设置则为空字符串（””）, 如果设置了，对应 None;</li>
 <li></li>
 </ul>
+<p>自动插入/更新时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># auto_now 创建、更新的时候自动获取当前时间</span></span><br><span class="line"><span class="comment"># 调用 update() 方法时，不生效，需要手动指定</span></span><br><span class="line"><span class="comment"># 调用 save() 方法时生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auto_now_add 创建的时候自动获取当前时间</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -619,7 +623,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -727,7 +731,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

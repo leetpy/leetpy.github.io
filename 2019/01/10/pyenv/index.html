@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="leesea">
 <meta property="og:description" content="pyenv可以帮助你在一台开发机上建立多个版本的python环境， 并提供方便的切换方法。virtualenv可以搭建虚拟且独立的python环境，可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T10:37:54.703Z">
+<meta property="og:updated_time" content="2020-03-10T08:59:50.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pyenv使用">
 <meta name="twitter:description" content="pyenv可以帮助你在一台开发机上建立多个版本的python环境， 并提供方便的切换方法。virtualenv可以搭建虚拟且独立的python环境，可以使每个项目环境与其他项目独立开来，保持环境的干净，解决包冲突问题。">
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-24 18:37:54" itemprop="dateModified" datetime="2019-07-24T18:37:54+08:00">2019-07-24</time>
+                <time title="Modified: 2020-03-10 16:59:50" itemprop="dateModified" datetime="2020-03-10T16:59:50+08:00">2020-03-10</time>
               
             
           </span>
@@ -468,7 +468,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install patch -y</span><br></pre></td></tr></table></figure>
 <h1 id="pyenv-virtualenv"><a href="#pyenv-virtualenv" class="headerlink" title="pyenv-virtualenv"></a>pyenv-virtualenv</h1><p>光有pyenv还不够，我们需要结合virtualenv来使用, pyenv-virtualenv就是干这个活的。</p>
 <h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv</span><br><span class="line">echo 'eval "$(pyenv virtualenv-init -)"' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> restart shell</span></span><br><span class="line">exec "$SHELL"</span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建项目</span></span><br><span class="line">pyenv virtualenv 2.7.10 project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Activate virtualenv</span></span><br><span class="line">pyenv activate project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Deactive virtualenv</span></span><br><span class="line">pyenv deactivate</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete existing virtualenv</span></span><br><span class="line">pyenv uninstall project</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看支持哪些版本</span></span><br><span class="line">pyenv install -l</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建项目</span></span><br><span class="line">pyenv virtualenv 2.7.10 project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Activate virtualenv</span></span><br><span class="line">pyenv activate project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Deactive virtualenv</span></span><br><span class="line">pyenv deactivate</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete existing virtualenv</span></span><br><span class="line">pyenv uninstall project</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已经安装了哪些 virtualenv</span></span><br><span class="line">pyenv versions</span><br></pre></td></tr></table></figure>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ul>
 <li><p>mac os zlib 问题</p>
 <p>现象如下：</p>
@@ -593,7 +593,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -701,7 +701,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
