@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="filebeat12345678910111213141516171819202122filebeat.prospectors:- input_type: log  paths:    - /opt/logs/aether/aether_log_*.log  fields:    log_source: &apos;aether_log&apos;  multiline:    pattern: &apos;^\[&apos;    n">
+  <meta name="description" content="elk 这一套用来收集，存储，分析服务日志非常方便。">
 <meta name="keywords" content="elk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="elk">
 <meta property="og:url" content="http://yoursite.com/2020/03/04/elk/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="filebeat12345678910111213141516171819202122filebeat.prospectors:- input_type: log  paths:    - /opt/logs/aether/aether_log_*.log  fields:    log_source: &apos;aether_log&apos;  multiline:    pattern: &apos;^\[&apos;    n">
+<meta property="og:description" content="elk 这一套用来收集，存储，分析服务日志非常方便。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-04T03:54:36.993Z">
+<meta property="og:updated_time" content="2020-05-06T01:29:43.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elk">
-<meta name="twitter:description" content="filebeat12345678910111213141516171819202122filebeat.prospectors:- input_type: log  paths:    - /opt/logs/aether/aether_log_*.log  fields:    log_source: &apos;aether_log&apos;  multiline:    pattern: &apos;^\[&apos;    n">
+<meta name="twitter:description" content="elk 这一套用来收集，存储，分析服务日志非常方便。">
 
 
 
@@ -388,12 +388,24 @@
                 
               
 
-              <time title="Created: 2020-03-04 11:53:04 / Modified: 11:54:36" itemprop="dateCreated datePublished" datetime="2020-03-04T11:53:04+08:00">2020-03-04</time>
+              <time title="Created: 2020-03-04 11:53:04" itemprop="dateCreated datePublished" datetime="2020-03-04T11:53:04+08:00">2020-03-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-05-06 09:29:43" itemprop="dateModified" datetime="2020-05-06T09:29:43+08:00">2020-05-06</time>
               
             
           </span>
@@ -426,7 +438,9 @@
       
 
       
-        <h2 id="filebeat"><a href="#filebeat" class="headerlink" title="filebeat"></a>filebeat</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">filebeat.prospectors:</span></span><br><span class="line"><span class="attr">- input_type:</span> <span class="string">log</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">/opt/logs/aether/aether_log_*.log</span></span><br><span class="line"><span class="attr">  fields:</span></span><br><span class="line"><span class="attr">    log_source:</span> <span class="string">'aether_log'</span></span><br><span class="line"><span class="attr">  multiline:</span></span><br><span class="line"><span class="attr">    pattern:</span> <span class="string">'^\['</span></span><br><span class="line"><span class="attr">    negate:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    match:</span> <span class="string">after</span></span><br><span class="line"><span class="attr">  scan_frequency:</span> <span class="number">2</span><span class="string">s</span></span><br><span class="line"><span class="attr">  max_bytes:</span> <span class="number">104857600</span></span><br><span class="line"><span class="attr">  tail_files:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_renamed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_removed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_inactive:</span> <span class="number">45</span><span class="string">m</span></span><br><span class="line"><span class="attr">  force_close_file:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="string">output.logstash:</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">["10.95.54.96:5044",</span> <span class="string">"10.95.54.148:5044"</span><span class="string">]</span></span><br><span class="line"><span class="attr">  worker:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  loadbalance:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+        <p>elk 这一套用来收集，存储，分析服务日志非常方便。</p>
+<a id="more"></a>
+<h2 id="filebeat"><a href="#filebeat" class="headerlink" title="filebeat"></a>filebeat</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">filebeat.prospectors:</span></span><br><span class="line"><span class="attr">- input_type:</span> <span class="string">log</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">/opt/logs/aether/aether_log_*.log</span></span><br><span class="line"><span class="attr">  fields:</span></span><br><span class="line"><span class="attr">    log_source:</span> <span class="string">'aether_log'</span></span><br><span class="line"><span class="attr">  multiline:</span></span><br><span class="line"><span class="attr">    pattern:</span> <span class="string">'^\['</span></span><br><span class="line"><span class="attr">    negate:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    match:</span> <span class="string">after</span></span><br><span class="line"><span class="attr">  scan_frequency:</span> <span class="number">2</span><span class="string">s</span></span><br><span class="line"><span class="attr">  max_bytes:</span> <span class="number">104857600</span></span><br><span class="line"><span class="attr">  tail_files:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_renamed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_removed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_inactive:</span> <span class="number">45</span><span class="string">m</span></span><br><span class="line"><span class="attr">  force_close_file:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="string">output.logstash:</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">["10.95.54.96:5044",</span> <span class="string">"10.95.54.148:5044"</span><span class="string">]</span></span><br><span class="line"><span class="attr">  worker:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  loadbalance:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
       
     </div>

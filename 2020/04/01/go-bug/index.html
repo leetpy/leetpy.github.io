@@ -108,17 +108,18 @@
 
 
 
-  <meta name="description" content="数组里使用指针 12345678910111213141516171819202122232425type Student struct &amp;#123;  Name *string&amp;#125;names = []string&amp;#123;&quot;tom&quot;, &quot;lina&quot;&amp;#125;students := []Student&amp;#123;&amp;#125;for _, name := range names &amp;#1">
+  <meta name="description" content="go 语言看起来简单，但是有很多细节需要注意。">
+<meta name="keywords" content="go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go 踩坑">
 <meta property="og:url" content="http://yoursite.com/2020/04/01/go-bug/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="数组里使用指针 12345678910111213141516171819202122232425type Student struct &amp;#123;  Name *string&amp;#125;names = []string&amp;#123;&quot;tom&quot;, &quot;lina&quot;&amp;#125;students := []Student&amp;#123;&amp;#125;for _, name := range names &amp;#1">
+<meta property="og:description" content="go 语言看起来简单，但是有很多细节需要注意。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-02T06:27:30.508Z">
+<meta property="og:updated_time" content="2020-05-06T01:27:46.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go 踩坑">
-<meta name="twitter:description" content="数组里使用指针 12345678910111213141516171819202122232425type Student struct &amp;#123;  Name *string&amp;#125;names = []string&amp;#123;&quot;tom&quot;, &quot;lina&quot;&amp;#125;students := []Student&amp;#123;&amp;#125;for _, name := range names &amp;#1">
+<meta name="twitter:description" content="go 语言看起来简单，但是有很多细节需要注意。">
 
 
 
@@ -404,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-04-02 14:27:30" itemprop="dateModified" datetime="2020-04-02T14:27:30+08:00">2020-04-02</time>
+                <time title="Modified: 2020-05-06 09:27:46" itemprop="dateModified" datetime="2020-05-06T09:27:46+08:00">2020-05-06</time>
               
             
           </span>
@@ -437,13 +438,12 @@
       
 
       
-        <ol>
+        <p>go 语言看起来简单，但是有很多细节需要注意。</p>
+<a id="more"></a>
+<ol>
 <li><p>数组里使用指针</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">  Name *<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">names = []<span class="keyword">string</span>&#123;<span class="string">"tom"</span>, <span class="string">"lina"</span>&#125;</span><br><span class="line">students := []Student&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, name := <span class="keyword">range</span> names &#123;</span><br><span class="line">  <span class="comment">// 这里如果使用 name 的地址，一定要重新赋值, eg:</span></span><br><span class="line">  <span class="comment">// n := name</span></span><br><span class="line">  <span class="comment">// student := Student&#123;</span></span><br><span class="line">  <span class="comment">//    Name: &amp;n</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  student := Student&#123;</span><br><span class="line">    Name: &amp;name,</span><br><span class="line">  &#125;</span><br><span class="line">  students = <span class="built_in">append</span>(students, student)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, s := <span class="keyword">range</span> students &#123;</span><br><span class="line">  fmt.Println(*s.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里输出的全部是： lina</span></span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<ol start="2">
-<li>a </li>
 </ol>
 
       
@@ -462,6 +462,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go/" rel="tag"># go</a>
+          
+        </div>
       
 
       

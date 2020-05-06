@@ -579,7 +579,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-04-02 14:27:30" itemprop="dateModified" datetime="2020-04-02T14:27:30+08:00">2020-04-02</time>
+                <time title="Modified: 2020-05-06 09:27:46" itemprop="dateModified" datetime="2020-05-06T09:27:46+08:00">2020-05-06</time>
               
             
           </span>
@@ -613,17 +613,14 @@
 
       
         
-          
-            <ol>
-<li><p>数组里使用指针</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">  Name *<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">names = []<span class="keyword">string</span>&#123;<span class="string">"tom"</span>, <span class="string">"lina"</span>&#125;</span><br><span class="line">students := []Student&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, name := <span class="keyword">range</span> names &#123;</span><br><span class="line">  <span class="comment">// 这里如果使用 name 的地址，一定要重新赋值, eg:</span></span><br><span class="line">  <span class="comment">// n := name</span></span><br><span class="line">  <span class="comment">// student := Student&#123;</span></span><br><span class="line">  <span class="comment">//    Name: &amp;n</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  student := Student&#123;</span><br><span class="line">    Name: &amp;name,</span><br><span class="line">  &#125;</span><br><span class="line">  students = <span class="built_in">append</span>(students, student)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, s := <span class="keyword">range</span> students &#123;</span><br><span class="line">  fmt.Println(*s.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里输出的全部是： lina</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="2">
-<li>a </li>
-</ol>
-
-          
+          <p>go 语言看起来简单，但是有很多细节需要注意。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/01/go-bug/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -738,7 +735,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-05-06 09:25:31" itemprop="dateModified" datetime="2020-05-06T09:25:31+08:00">2020-05-06</time>
+                <time title="Modified: 2020-05-06 09:28:45" itemprop="dateModified" datetime="2020-05-06T09:28:45+08:00">2020-05-06</time>
               
             
           </span>
@@ -790,13 +787,14 @@
 
       
         
-          
-            <h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo 192.168.1.200:27017/<span class="built_in">test</span> -u user -p password</span><br></pre></td></tr></table></figure>
-<h2 id="db"><a href="#db" class="headerlink" title="db"></a>db</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 db</span></span><br><span class="line">show dbs;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 db</span></span><br><span class="line">use &lt;db_name&gt;;</span><br></pre></td></tr></table></figure>
-<h2 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 collections</span></span><br><span class="line">show collections;</span><br></pre></td></tr></table></figure>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建唯一索引</span></span><br><span class="line">db.collection_name.ensureIndex(&#123;<span class="string">"key_name"</span>:1&#125;,&#123;<span class="string">"unique"</span>:<span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复合唯一索引</span></span><br><span class="line">db.collection_name.ensureIndex(&#123;<span class="string">'key1'</span>:1, <span class="string">'key1'</span>:1&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除文档</span></span><br><span class="line">db.getCollection(<span class="string">'domain'</span>).remove(&#123;<span class="string">"provison_state"</span>: <span class="string">"success"</span>, <span class="string">"industry"</span>: null&#125;)</span><br></pre></td></tr></table></figure>
-
-          
+          <p>mongodb 手册。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/19/mongo/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -894,12 +892,24 @@
                 
               
 
-              <time title="Created: 2020-03-04 11:53:04 / Modified: 11:54:36" itemprop="dateCreated datePublished" datetime="2020-03-04T11:53:04+08:00">2020-03-04</time>
+              <time title="Created: 2020-03-04 11:53:04" itemprop="dateCreated datePublished" datetime="2020-03-04T11:53:04+08:00">2020-03-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-05-06 09:29:43" itemprop="dateModified" datetime="2020-05-06T09:29:43+08:00">2020-05-06</time>
               
             
           </span>
@@ -933,10 +943,14 @@
 
       
         
-          
-            <h2 id="filebeat"><a href="#filebeat" class="headerlink" title="filebeat"></a>filebeat</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">filebeat.prospectors:</span></span><br><span class="line"><span class="attr">- input_type:</span> <span class="string">log</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">/opt/logs/aether/aether_log_*.log</span></span><br><span class="line"><span class="attr">  fields:</span></span><br><span class="line"><span class="attr">    log_source:</span> <span class="string">'aether_log'</span></span><br><span class="line"><span class="attr">  multiline:</span></span><br><span class="line"><span class="attr">    pattern:</span> <span class="string">'^\['</span></span><br><span class="line"><span class="attr">    negate:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    match:</span> <span class="string">after</span></span><br><span class="line"><span class="attr">  scan_frequency:</span> <span class="number">2</span><span class="string">s</span></span><br><span class="line"><span class="attr">  max_bytes:</span> <span class="number">104857600</span></span><br><span class="line"><span class="attr">  tail_files:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_renamed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_removed:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  close_inactive:</span> <span class="number">45</span><span class="string">m</span></span><br><span class="line"><span class="attr">  force_close_file:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="string">output.logstash:</span></span><br><span class="line"><span class="attr">  hosts:</span> <span class="string">["10.95.54.96:5044",</span> <span class="string">"10.95.54.148:5044"</span><span class="string">]</span></span><br><span class="line"><span class="attr">  worker:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  loadbalance:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-          
+          <p>elk 这一套用来收集，存储，分析服务日志非常方便。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/04/elk/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

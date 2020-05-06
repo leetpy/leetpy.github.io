@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="连接1mongo 192.168.1.200:27017/test -u user -p password db12345# 查看 dbshow dbs;# 使用 dbuse &amp;lt;db_name&amp;gt;; collection12# 查看 collectionsshow collections; 常用命令12345678# 创建唯一索引db.collection_name.ensureInde">
+  <meta name="description" content="mongodb 手册。">
 <meta name="keywords" content="mongodb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb 命令速查">
 <meta property="og:url" content="http://yoursite.com/2020/03/19/mongo/index.html">
 <meta property="og:site_name" content="leesea">
-<meta property="og:description" content="连接1mongo 192.168.1.200:27017/test -u user -p password db12345# 查看 dbshow dbs;# 使用 dbuse &amp;lt;db_name&amp;gt;; collection12# 查看 collectionsshow collections; 常用命令12345678# 创建唯一索引db.collection_name.ensureInde">
+<meta property="og:description" content="mongodb 手册。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-06T01:25:31.028Z">
+<meta property="og:updated_time" content="2020-05-06T01:28:45.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb 命令速查">
-<meta name="twitter:description" content="连接1mongo 192.168.1.200:27017/test -u user -p password db12345# 查看 dbshow dbs;# 使用 dbuse &amp;lt;db_name&amp;gt;; collection12# 查看 collectionsshow collections; 常用命令12345678# 创建唯一索引db.collection_name.ensureInde">
+<meta name="twitter:description" content="mongodb 手册。">
 
 
 
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-05-06 09:25:31" itemprop="dateModified" datetime="2020-05-06T09:25:31+08:00">2020-05-06</time>
+                <time title="Modified: 2020-05-06 09:28:45" itemprop="dateModified" datetime="2020-05-06T09:28:45+08:00">2020-05-06</time>
               
             
           </span>
@@ -456,7 +456,9 @@
       
 
       
-        <h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo 192.168.1.200:27017/<span class="built_in">test</span> -u user -p password</span><br></pre></td></tr></table></figure>
+        <p>mongodb 手册。</p>
+<a id="more"></a>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo 192.168.1.200:27017/<span class="built_in">test</span> -u user -p password</span><br></pre></td></tr></table></figure>
 <h2 id="db"><a href="#db" class="headerlink" title="db"></a>db</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 db</span></span><br><span class="line">show dbs;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 db</span></span><br><span class="line">use &lt;db_name&gt;;</span><br></pre></td></tr></table></figure>
 <h2 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 collections</span></span><br><span class="line">show collections;</span><br></pre></td></tr></table></figure>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建唯一索引</span></span><br><span class="line">db.collection_name.ensureIndex(&#123;<span class="string">"key_name"</span>:1&#125;,&#123;<span class="string">"unique"</span>:<span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复合唯一索引</span></span><br><span class="line">db.collection_name.ensureIndex(&#123;<span class="string">'key1'</span>:1, <span class="string">'key1'</span>:1&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除文档</span></span><br><span class="line">db.getCollection(<span class="string">'domain'</span>).remove(&#123;<span class="string">"provison_state"</span>: <span class="string">"success"</span>, <span class="string">"industry"</span>: null&#125;)</span><br></pre></td></tr></table></figure>

@@ -3,12 +3,15 @@
   <entry>
     <title><![CDATA[go 踩坑]]></title>
     <url>%2F2020%2F04%2F01%2Fgo-bug%2F</url>
-    <content type="text"><![CDATA[数组里使用指针 12345678910111213141516171819202122232425type Student struct &#123; Name *string&#125;names = []string&#123;"tom", "lina"&#125;students := []Student&#123;&#125;for _, name := range names &#123; // 这里如果使用 name 的地址，一定要重新赋值, eg: // n := name // student := Student&#123; // Name: &amp;n // &#125; student := Student&#123; Name: &amp;name, &#125; students = append(students, student)&#125;for _, s := range students &#123; fmt.Println(*s.Name)&#125;// 这里输出的全部是： lina a]]></content>
+    <content type="text"><![CDATA[go 语言看起来简单，但是有很多细节需要注意。 数组里使用指针 12345678910111213141516171819202122232425type Student struct &#123; Name *string&#125;names = []string&#123;"tom", "lina"&#125;students := []Student&#123;&#125;for _, name := range names &#123; // 这里如果使用 name 的地址，一定要重新赋值, eg: // n := name // student := Student&#123; // Name: &amp;n // &#125; student := Student&#123; Name: &amp;name, &#125; students = append(students, student)&#125;for _, s := range students &#123; fmt.Println(*s.Name)&#125;// 这里输出的全部是： lina]]></content>
+      <tags>
+        <tag>go</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[mongodb 命令速查]]></title>
     <url>%2F2020%2F03%2F19%2Fmongo%2F</url>
-    <content type="text"><![CDATA[连接1mongo 192.168.1.200:27017/test -u user -p password db12345# 查看 dbshow dbs;# 使用 dbuse &lt;db_name&gt;; collection12# 查看 collectionsshow collections; 常用命令12345678# 创建唯一索引db.collection_name.ensureIndex(&#123;"key_name":1&#125;,&#123;"unique":true&#125;)# 复合唯一索引db.collection_name.ensureIndex(&#123;'key1':1, 'key1':1&#125;)# 删除文档db.getCollection('domain').remove(&#123;"provison_state": "success", "industry": null&#125;)]]></content>
+    <content type="text"><![CDATA[mongodb 手册。 连接1mongo 192.168.1.200:27017/test -u user -p password db12345# 查看 dbshow dbs;# 使用 dbuse &lt;db_name&gt;; collection12# 查看 collectionsshow collections; 常用命令12345678# 创建唯一索引db.collection_name.ensureIndex(&#123;"key_name":1&#125;,&#123;"unique":true&#125;)# 复合唯一索引db.collection_name.ensureIndex(&#123;'key1':1, 'key1':1&#125;)# 删除文档db.getCollection('domain').remove(&#123;"provison_state": "success", "industry": null&#125;)]]></content>
       <categories>
         <category>database</category>
       </categories>
@@ -19,7 +22,7 @@
   <entry>
     <title><![CDATA[elk]]></title>
     <url>%2F2020%2F03%2F04%2Felk%2F</url>
-    <content type="text"><![CDATA[filebeat12345678910111213141516171819202122filebeat.prospectors:- input_type: log paths: - /opt/logs/aether/aether_log_*.log fields: log_source: 'aether_log' multiline: pattern: '^\[' negate: true match: after scan_frequency: 2s max_bytes: 104857600 tail_files: true close_renamed: true close_removed: true close_inactive: 45m force_close_file: trueoutput.logstash: hosts: ["10.95.54.96:5044", "10.95.54.148:5044"] worker: 2 loadbalance: true]]></content>
+    <content type="text"><![CDATA[elk 这一套用来收集，存储，分析服务日志非常方便。 filebeat12345678910111213141516171819202122filebeat.prospectors:- input_type: log paths: - /opt/logs/aether/aether_log_*.log fields: log_source: 'aether_log' multiline: pattern: '^\[' negate: true match: after scan_frequency: 2s max_bytes: 104857600 tail_files: true close_renamed: true close_removed: true close_inactive: 45m force_close_file: trueoutput.logstash: hosts: ["10.95.54.96:5044", "10.95.54.148:5044"] worker: 2 loadbalance: true]]></content>
       <tags>
         <tag>elk</tag>
       </tags>
@@ -376,9 +379,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[tornado学习之 常用]]></title>
+    <title><![CDATA[tornado学习之常用]]></title>
     <url>%2F2018%2F12%2F07%2Ftornado-requesthandler%2F</url>
-    <content type="text"><![CDATA[文件下载123456789101112def get(self): file_name = 'file.ext' buf_size = 4096 self.set_header('Content-Type', 'application/octet-stream') self.set_header('Content-Disposition', 'attachment; filename=' + file_name) with open(file_name, 'r') as f: while True: data = f.read(buf_size) if not data: break self.write(data) self.finish()]]></content>
+    <content type="text"><![CDATA[tornado 笔记。 文件下载123456789101112def get(self): file_name = 'file.ext' buf_size = 4096 self.set_header('Content-Type', 'application/octet-stream') self.set_header('Content-Disposition', 'attachment; filename=' + file_name) with open(file_name, 'r') as f: while True: data = f.read(buf_size) if not data: break self.write(data) self.finish()]]></content>
       <tags>
         <tag>python</tag>
       </tags>

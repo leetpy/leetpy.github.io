@@ -1016,7 +1016,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2018/12/07/tornado-requesthandler/" itemprop="url">
-                  tornado学习之 常用
+                  tornado学习之常用
                 </a>
               
             
@@ -1059,7 +1059,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-28 15:52:34" itemprop="dateModified" datetime="2019-09-28T15:52:34+08:00">2019-09-28</time>
+                <time title="Modified: 2020-05-06 09:31:00" itemprop="dateModified" datetime="2020-05-06T09:31:00+08:00">2020-05-06</time>
               
             
           </span>
@@ -1093,10 +1093,14 @@
 
       
         
-          
-            <h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">    file_name = <span class="string">'file.ext'</span></span><br><span class="line">    buf_size = <span class="number">4096</span></span><br><span class="line">    self.set_header(<span class="string">'Content-Type'</span>, <span class="string">'application/octet-stream'</span>)</span><br><span class="line">    self.set_header(<span class="string">'Content-Disposition'</span>, <span class="string">'attachment; filename='</span> + file_name)</span><br><span class="line">    <span class="keyword">with</span> open(file_name, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            data = f.read(buf_size)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.write(data)</span><br><span class="line">    self.finish()</span><br></pre></td></tr></table></figure>
-
-          
+          <p>tornado 笔记。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/07/tornado-requesthandler/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
